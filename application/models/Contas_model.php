@@ -22,9 +22,12 @@ class Contas_model extends CI_Model {
         }
     }
     
-    function insertUser($info) {
-        return $this->db->insert('usuario', $info);
-    }
-    
+    function cadastrar($info) {
+        $this->db->insert('usuario', $info);
+        if($this->db->affected_rows() > 0){
+            return true;
+        }
+        return false;
+    }  
     
 }

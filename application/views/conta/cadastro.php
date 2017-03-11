@@ -17,7 +17,7 @@
         <h1 class="center blue-text text-darken-4"><b>Plataforma</b></h1><br>       
         
         <div class="row">
-            <form class="col s12 m6 offset-m3">
+            <?php echo form_open("cadastro", array('class' => 'col s12 m6 offset-m3'));?>
               <div class="row">
                 <div class="input-field col s12">
                   <input name="nome" id="nome" type="text" class="validate">
@@ -36,13 +36,8 @@
                   <label for="senha">Senha</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input name="csenha" id="confirmar_senha" type="password" class="validate">
-                  <label for="confirmar_senha">Confirmar senha</label>
-                </div>
-              </div><br>
-              <div class="center row">
+              <span class="col s12 m8 offset-m2"><?php echo validation_errors(); ?></span>
+              <div class="center row"><br><br>
                 <button class="btn blue darken-4 waves-effect waves-light" type="submit" name="btncadastrar">Cadastrar</button>
                 <span class="col s12 m8 offset-m2" style="margin-top: 5vh">Já possui uma conta? <a href="login">Entrar</a></span>
               </div>
