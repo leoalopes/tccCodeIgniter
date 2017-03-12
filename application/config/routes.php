@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['about'] = 'Pages';
 $route['home'] = 'Userpages';
 $route['conta'] = 'Contas';
+$route['conta/logout'] = 'Contas/logout';
 $route['conta/(:any)'] = 'Contas/view/$1';
 $route['(:any)'] = 'Userpages/view/$1';
 $route['default_controller'] = 'Pages';

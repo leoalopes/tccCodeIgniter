@@ -19,7 +19,11 @@ class Userpages extends CI_Controller {
     public function view($user) {
         if($this->user_model->isUser($user)){
             $data['session'] = $this->session->userdata('logged_in');
-            $this->load->view('user/index', $data);
+            $email = explode('@', $data['session']['email'], 2);
+            if($user === $email[0])
+                $this->load->view('user/index', $data);
+            else
+                redirect('home', 'refresh');
         } else {
             redirect('home', 'refresh');
         }
