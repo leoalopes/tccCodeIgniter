@@ -17,7 +17,7 @@
         <h1 class="center blue-text text-darken-4"><b>Plataforma</b></h1><br>       
         
         <div class="row">
-            <?php echo form_open("cadastro", array('class' => 'col s12 m6 offset-m3'));?>
+            <?php echo form_open("contas/cadastro", array('class' => 'col s12 m6 offset-m3'));?>
               <div class="row">
                 <div class="input-field col s12">
                   <input name="nome" id="nome" type="text" class="validate">

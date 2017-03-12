@@ -22,7 +22,6 @@
       </div>
     </div>
   </nav>
-    <?php if(isset($nome)){echo $nome;}  ?>
   <div class="section no-pad-bot white" style="margin-top:3%">
     <div class="container">
       <h2 class="header center black-text"><b>Alguma coisa</b></h2>
