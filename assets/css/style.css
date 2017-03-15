@@ -16,8 +16,8 @@ h2{
   font-size: 48px;
 }
 
-#waves{
-  margin-top: 5%;
+.drop-item:hover{
+    background-color: rgb(13,71,161);
 }
 
 .container > p{
