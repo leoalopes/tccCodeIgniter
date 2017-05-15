@@ -8,8 +8,8 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="<?php echo base_url(); ?>/assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="<?php echo base_url(); ?>/assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="<?php echo base_url(); ?>assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
     
@@ -45,12 +45,66 @@
       </nav>
     </div>
 
-    <h2 class="center">Bem vindo <?php echo $session['nome'] ?></h2><br>
+    <br><br><div class="container">
+    <ul>
+        <li><h3><b>Projetos</b></h3></li>
+        <li class="divider"></li><br>
+        <li class="itens"><a href="#proj-modal">Criar novo projeto</a></li>
+    </ul>
+    </div>
+    
+    <br><br><div class="container">
+    <ul>
+        <li><h3><b>Grupos</b></h3></li>
+        <li class="divider"></li><br>
+        <li class="itens"><a href="#group-modal">Criar novo grupo</a></li>
+    </ul>
+    </div>
 
     <!--  Scripts-->
-      <script src="<?php echo base_url(); ?>/assets/js/jquery-3.1.1.js"></script>
-      <script src="<?php echo base_url(); ?>/assets/js/materialize.js"></script>
-      <script src="<?php echo base_url(); ?>/assets/js/init.js"></script>
+      <script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.js"></script>
+      <script src="<?php echo base_url(); ?>assets/js/materialize.js"></script>
+      <script src="<?php echo base_url(); ?>assets/js/init.js"></script>
 
+    
+    <div id="proj-modal" class="modal">
+        <div class="modal-content">
+            <form>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input name="nome" id="nome" type="text" class="validate">
+                  <label for="nome">Nome do projeto</label>
+                </div>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close blue-text text-darken-4 btn-flat">Cancelar</a>
+          <a href="#!" class="modal-action modal-close blue darken-4 white-text btn-flat">Criar</a>
+        </div>
+    </div>
+     
+    <div id="group-modal" class="modal">
+        <div class="modal-content">
+            <form>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input name="nomegrupo" id="nomegrupo" type="text" class="validate">
+                  <label for="nomegrupo">Nome do grupo</label>
+                </div>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close blue-text text-darken-4 btn-flat">Cancelar</a>
+          <a href="#!" class="modal-action modal-close blue darken-4 white-text btn-flat">Criar</a>
+        </div>
+    </div>
+    
+    <script>
+    $(document).ready(function(){
+        $('.modal').modal();
+    });
+    </script>
     </body>
 </html>

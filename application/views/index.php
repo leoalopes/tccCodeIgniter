@@ -1,170 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Standard Meta -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Sobre</title>
 
-  <!-- Site Properties -->
-  <title>Homepage - Semantic</title>
-  
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>semantic/dist/semantic.min.css">
-
-  <script src="<?php echo base_url(); ?>semantic/dist/semantic.min.js"></script>
-  <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.0.min.js"></script>
-  <script src="<?php echo base_url(); ?>semantic/dist/components/visibility.js"></script>
-  <script src="<?php echo base_url(); ?>semantic/dist/components/sidebar.js"></script>
-  <script src="<?php echo base_url(); ?>semantic/dist/components/transition.js"></script>
-    
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
-    
-  <script>
-  $(document)
-    .ready(function() {
-
-      // fix menu when passed
-      $('.masthead')
-        .visibility({
-          once: false,
-          onBottomPassed: function() {
-            $('.fixed.menu').transition('fade in');
-          },
-          onBottomPassedReverse: function() {
-            $('.fixed.menu').transition('fade out');
-          }
-        })
-      ;
-
-    })
-  ;
-  </script>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>/assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="<?php echo base_url(); ?>/assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-
-<!-- Following Menu -->
-<div class="ui inverted large top fixed hidden menu">
-  <div class="ui container">
-    <a class="active item">Home</a>
-    <div class="right menu">
-      <div class="item">
-        <a href="conta/login" class="ui inverted button">Entrar</a>
+  <nav class="blue darken-4">
+    <div class="row">
+      <div class="nav-wrapper col s10 offset-s1">
+        <a class="brand-logo white-text"><b>Plataforma</b></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="conta" class="white-text">Entrar</a></li>
+        </ul>
       </div>
-      <div class="item">
-        <a href="conta/cadastro" class="ui inverted button">Cadastrar</a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot white" style="margin-top:3%">
+    <div class="container">
+      <h2 class="header center black-text"><b>Alguma coisa</b></h2>
+      <p class="light center">
+        Aqui vai ter mais alguma coisa dizendo algo também
+      </p>
+      <div class="center-btn">
+        <br><a href="conta" class="waves-effect waves-light btn blue darken-3 white-text">Entrar</a><br><br>
       </div>
     </div>
   </div>
-</div>
 
-
-<!-- Page Contents -->
-<div class="pusher">
-  <div class="ui inverted vertical masthead center aligned segment">
-
-    <div class="ui container">
-      <div class="ui large secondary inverted pointing menu">
-        <a class="active item">Home</a>
-        <div class="right item">
-          <a href="conta/login" class="ui inverted button">Entrar</a>
-          <a href="conta/cadastro" class="ui inverted button">Cadastrar</a>
-        </div>
-      </div>
+  <br><br><div class="container row">
+    <h3 class="header center black-text"><b>Aqui é alguma coisa que vai falar sobre o que o meu site faz, só preciso descobrir isso também</b></h3><br>
+    <div class="col s4">
+      <div class="center-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons large grey-text text-darken-3">assignment</i></div>
+      <h5 class="header center black-text">Algo aqui</h5>
+      <p style="text-align: justify">Um texto explicando o que o algo que eu coloquei ali em cima quer dizer e como isso vai funcionar dentro desse bagulho aqui.</p>
     </div>
-
-    <div class="ui text container">
-      <h1 class="ui inverted header">
-        Começar agora
-      </h1><br><br>
-      <a href="conta/login" class="ui huge primary button">Entrar</a>
+    <div class="col s4">
+      <div class="center-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons large yellow-text text-darken-3">mode_edit</i></div>
+      <h5 class="header center black-text">Outro algo</h5>
+      <p style="text-align: justify">Um texto explicando o que o outro algo que eu coloquei ali em cima quer dizer e como isso vai funcionar dentro desse bagulho aqui.</p>
     </div>
+    <div class="col s4">
+      <div class="center-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons large blue-text text-darken-3">settings</i></div>
+      <h5 class="header center black-text">Mais um algo</h5>
+      <p style="text-align: justify">Um texto explicando o que o mais um algo que eu coloquei ali em cima quer dizer e como isso vai funcionar dentro desse bagulho aqui.</p>
+    </div>
+    <br><br>
+  </div><br><br>
 
-  </div>
-
-  <div class="ui vertical stripe segment">
-    <div class="ui middle aligned stackable grid container">
+  <footer class="page-footer grey lighten-3">
+    <div class="container">
       <div class="row">
-        <div class="eight wide column">
-          <h3 class="ui header">We Help Companies and Companions</h3>
-          <p>We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
-          <h3 class="ui header">We Make Bananas That Can Dance</h3>
-          <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
-        </div>
-        <div class="six wide right floated column">
-          <img src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
-        </div>
-      </div>
-      <div class="row">
-        <div class="center aligned column">
-          <a class="ui huge button">Check Them Out</a>
+        <div class="col l6 s12">
+          <h5>Alguma coisa</h5>
+          <p class="black-text">Aqui eu acho que é alguma coisa também, não sei.</p>
         </div>
       </div>
     </div>
-  </div>
-
-
-  <div class="ui vertical stripe quote segment">
-    <div class="ui equal width stackable internally celled grid">
-      <div class="center aligned row">
-        <div class="column">
-          <h3>"What a Company"</h3>
-          <p>That is what they all say about us</p>
-        </div>
-        <div class="column">
-          <h3>"I shouldn't have gone with their competitor."</h3>
-          <p>
-            <b>Nan</b> Chief Fun Officer Acme Toys
-          </p>
-        </div>
-      </div>
+    <div class="footer-copyright grey lighten-2 black-text">
+    <div class="container">
+      Leonardo de Araujo Lopes
     </div>
-  </div>
-
-  <div class="ui vertical stripe segment">
-    <div class="ui text container">
-      <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
-      <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
-      <a class="ui large button">Read More</a>
-      <h4 class="ui horizontal header divider">
-        <a href="#">Case Studies</a>
-      </h4>
-      <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
-      <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
-      <a class="ui large button">I'm Still Quite Interested</a>
     </div>
-  </div>
+  </footer>
 
+  <!--  Scripts-->
+  <script src="<?php echo base_url(); ?>/assets/js/jquery-3.1.1.js"></script>
+  <script src="<?php echo base_url(); ?>/assets/js/materialize.js"></script>
+  <script src="<?php echo base_url(); ?>/assets/js/init.js"></script>
 
-  <div class="ui inverted vertical footer segment">
-    <div class="ui container">
-      <div class="ui stackable inverted divided equal height stackable grid">
-        <div class="three wide column">
-          <h4 class="ui inverted header">About</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Sitemap</a>
-            <a href="#" class="item">Contact Us</a>
-            <a href="#" class="item">Religious Ceremonies</a>
-            <a href="#" class="item">Gazebo Plans</a>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Services</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Banana Pre-Order</a>
-            <a href="#" class="item">DNA FAQ</a>
-            <a href="#" class="item">How To Access</a>
-            <a href="#" class="item">Favorite X-Men</a>
-          </div>
-        </div>
-        <div class="seven wide column">
-          <h4 class="ui inverted header">Footer Header</h4>
-          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</body>
-
+  </body>
 </html>

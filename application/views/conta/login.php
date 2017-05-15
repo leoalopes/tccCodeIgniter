@@ -6,48 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title><?php echo $title ?></title>
 
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>semantic/dist/semantic.min.css">
-  <script
-  src="<?php echo base_url(); ?>assets/js/jquery-3.2.0.min.js"></script>
-  <script src="semantic/dist/semantic.min.js"></script>
-  <link href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>/assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="<?php echo base_url(); ?>/assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-
-    
-    <div class="ui middle aligned center aligned grid" style="height: 100%">
-        <div class="six wide column">
-            <div class="ui blue header" style="font-size: 5rem"><b>Plataforma</b></div><br><br>
-            
-            <?php echo form_open('contas/login', 'class="ui form"'); ?>
-              <div class="field">
-                <label>Nome</label>
-                <input type="text" name="nome" id="nome" placeholder="">
-              </div>
-              <div class="field">
-                <label>Senha</label>
-                <input type="password" name="senha" id="senha" placeholder="">
-              </div><br>
-              <button class="ui button" type="submit">Submit</button>
-            </form>
-            
-        </div>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-<!--
   <div class="container row">
     <div class="section">
         <h1 class="center blue-text text-darken-4"><b>Plataforma</b></h1><br>       
@@ -77,8 +41,12 @@
         
         
     </div>
-  </div>
--->
+  </div>    
+  
+  <!--  Scripts-->
+  <script src="<?php echo base_url(); ?>/assets/js/jquery-3.1.1.js"></script>
+  <script src="<?php echo base_url(); ?>/assets/js/materialize.js"></script>
+  <script src="<?php echo base_url(); ?>/assets/js/init.js"></script>
     
 </body>
 </html>
