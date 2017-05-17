@@ -51,7 +51,7 @@
         <li class="divider"></li><br>
         <?php
           foreach($projetos as $projeto){
-            echo '<li class="itens projetos"><b><a href="'.$projeto['nome'].'">'.$projeto['nome'].'</a></b></li><br>';
+            echo '<li class="itens projetos"><b><a href="'.$id.'/projeto/'.$projeto['nome'].'">'.$projeto['nome'].'</a></b></li>';
           }
         ?>
         <li class="itens"><a href="#proj-modal">Criar novo projeto</a></li>

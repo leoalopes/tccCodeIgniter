@@ -35,6 +35,7 @@ class Userpages extends CI_Controller {
         if($this->user($user)){
           $data['session'] = $this->session->userdata('logged_in');
           $data['projetos'] = $this->projetos_model->listProjects();
+          $data['id'] = $user;
           $this->load->view('user/index', $data);
         }
     }
