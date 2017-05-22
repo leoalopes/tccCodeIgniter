@@ -8,7 +8,7 @@ class Contas extends CI_Controller {
         $this->load->database();
         $this->load->model('contas_model');
     }
-    
+
     public function index(){
         redirect('/conta/login', 'refresh');
     }
@@ -17,13 +17,13 @@ class Contas extends CI_Controller {
         if ( ! file_exists(APPPATH.'views/conta/'.$page.'.php')) {
             show_404();
         }
-        
+
         $data['title'] = ucfirst($page);
-        
+
         $this->load->helper(array('form'));
         $this->load->view('conta/'.$page, $data);
     }
-    
+
     public function logout(){
         $user_data = $this->session->all_userdata();
         foreach ($user_data as $key => $value) {
@@ -34,15 +34,15 @@ class Contas extends CI_Controller {
         $this->session->sess_destroy();
         redirect('about');
     }
-    
+
     function cadastro() {
         //set validation rules
         $this->form_validation->set_rules('nome', 'nome', 'trim|required|alpha|min_length[3]|max_length[30]|xss_clean');
         $this->form_validation->set_rules('email', 'email', 'trim|required|valid_email|is_unique[usuario.email]');
         $this->form_validation->set_rules('senha', 'senha', 'trim|required|md5');
-        
+
         //validate form input
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() === FALSE) {
             $data["title"] = 'Cadastro';
             $this->load->view('conta/cadastro', $data);
         } else {
@@ -51,18 +51,20 @@ class Contas extends CI_Controller {
                 'email' => $this->input->post('email'),
                 'senha' => $this->input->post('senha')
             );
-            
-            if (!$this->contas_model->cadastrar($sess_array)) {
+
+            $id = $this->contas_model->cadastrar($sess_array);
+            if (!$id) {
                 $this->form_validation->set_message('erro_banco', 'Serviço ocupado, tente novamente mais tarde');
                 $data["title"] = 'Cadastro';
                 $this->load->view('conta/cadastro', $data);
             } else {
+                $sess_array['id_usuario'] = $id;
                 $this->session->set_userdata('logged_in', $sess_array);
                 redirect('home', 'refresh');
             }
         }
     }
-    
+
     function login() {
        //This method will have the credentials validation
        $this->load->library('form_validation');

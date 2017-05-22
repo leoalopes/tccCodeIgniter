@@ -50,8 +50,10 @@
         <li><h3><b>Projetos</b></h3></li>
         <li class="divider"></li><br>
         <?php
-          foreach($projetos as $projeto){
-            echo '<li class="itens projetos"><b><a href="'.$id.'/projeto/'.$projeto['nome'].'">'.$projeto['nome'].'</a></b></li>';
+          if(isset($projetos) && $projetos){
+            foreach($projetos as $projeto){
+              echo '<li class="itens projetos"><b><a href="'.$id.'/projeto/'.$projeto['nome'].'">'.$projeto['nome'].'</a></b></li>';
+            }
           }
         ?>
         <li class="itens"><a href="#proj-modal">Criar novo projeto</a></li>
@@ -74,18 +76,18 @@
 
     <div id="proj-modal" class="modal">
         <div class="modal-content">
-            <form>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input name="nome" id="nome" type="text" class="validate">
-                  <label for="nome">Nome do projeto</label>
-                </div>
+          <div class="row">
+            <?php echo form_open('criar/projeto', array('id' => 'projeto')) ?>
+              <div class="input-field col s12">
+                <input name="nome" id="nome" type="text">
+                <label for="nome">Nome do projeto</label>
               </div>
             </form>
+          </div>
         </div>
         <div class="modal-footer">
           <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Cancelar</a>
-          <a class="modal-action modal-close blue darken-4 white-text btn-flat">Criar</a>
+          <button type="submit" form="projeto" class="blue darken-4 white-text btn-flat">Criar</button>
         </div>
     </div>
 
