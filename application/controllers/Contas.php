@@ -67,7 +67,6 @@ class Contas extends CI_Controller {
 
     function login() {
        //This method will have the credentials validation
-       $this->load->library('form_validation');
 
        $this->form_validation->set_rules('email', 'email', 'trim|required|xss_clean|valid_email');
        $this->form_validation->set_rules('senha', 'senha', 'trim|required|xss_clean|callback_check_database');

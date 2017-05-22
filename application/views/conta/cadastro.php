@@ -14,25 +14,25 @@
 <body>
   <div class="container row">
     <div class="section">
-        <h1 class="center blue-text text-darken-4"><b>Plataforma</b></h1><br>       
-        
+        <h1 class="center blue-text text-darken-4"><b>Cadastro</b></h1><br>
+
         <div class="row">
             <?php echo form_open("contas/cadastro", array('class' => 'col s12 m6 offset-m3'));?>
               <div class="row">
                 <div class="input-field col s12">
-                  <input name="nome" id="nome" type="text" class="validate">
+                  <input name="nome" id="nome" type="text">
                   <label for="nome">Nome</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input name="email" id="email" type="email" class="validate">
+                  <input name="email" id="email" type="email">
                   <label for="email">E-mail</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <input name="senha" id="senha" type="password" class="validate">
+                  <input name="senha" id="senha" type="password">
                   <label for="senha">Senha</label>
                 </div>
               </div>
@@ -43,15 +43,15 @@
               </div>
             </form>
         </div>
-        
-        
+
+
     </div>
   </div>
-  
+
   <!--  Scripts-->
   <script src="<?php echo base_url(); ?>/assets/js/jquery-3.1.1.js"></script>
   <script src="<?php echo base_url(); ?>/assets/js/materialize.js"></script>
   <script src="<?php echo base_url(); ?>/assets/js/init.js"></script>
-    
+
 </body>
 </html>

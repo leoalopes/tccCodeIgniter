@@ -96,7 +96,7 @@
             <form>
               <div class="row">
                 <div class="input-field col s12">
-                  <input name="nomegrupo" id="nomegrupo" type="text" class="validate">
+                  <input name="nomegrupo" id="nomegrupo" type="text">
                   <label for="nomegrupo">Nome do grupo</label>
                 </div>
               </div>

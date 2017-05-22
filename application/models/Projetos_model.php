@@ -17,6 +17,10 @@ Class Projetos_model extends CI_Model{
        }
     }
 
+    function projeto(){
+        $query = $this->db->query("select nome from projeto where id_usuario = " . $id);
+    }
+
     function group($nome){
         $id = $this->session->userdata('logged_in')['id_usuario'];
         $this -> db -> select('nome');

@@ -17,22 +17,8 @@ class Userpages extends CI_Controller {
         }
     }
 
-    public function user($user) {
-        if($this->user_model->isUser($user)){
-            $data['session'] = $this->session->userdata('logged_in');
-            $email = explode('@', $data['session']['email'], 2);
-            if($user === $email[0]){
-                return true;
-            } else {
-                redirect('home', 'refresh');
-            }
-        } else {
-            redirect('home', 'refresh');
-        }
-    }
-
     public function home($user){
-        if($this->user($user)){
+        if($this->user_model->user($user)){
           $data['session'] = $this->session->userdata('logged_in');
           $data['projetos'] = $this->projetos_model->listProjects();
           $data['id'] = $user;
@@ -41,7 +27,7 @@ class Userpages extends CI_Controller {
     }
 
     public function projects($user, $project){
-        if($this->user($user)){
+        if($this->user_model->user($user)){
           if($this->projetos_model->project($project)){
             $data['session'] = $this->session->userdata('logged_in');
             $data['projeto'] = $project;

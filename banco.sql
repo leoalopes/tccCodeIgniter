@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS usuario;
 
 CREATE TABLE grupo
 (
-	id_grupo int NOT NULL,
+	id_grupo int NOT NULL AUTO_INCREMENT,
 	nome varchar(60) NOT NULL,
 	id_usuario int NOT NULL,
 	PRIMARY KEY (id_grupo),
@@ -24,7 +24,7 @@ CREATE TABLE grupo
 
 CREATE TABLE projeto
 (
-	id_projeto int NOT NULL,
+	id_projeto int NOT NULL AUTO_INCREMENT,
 	nome varchar(60) NOT NULL,
 	id_usuario int NOT NULL,
 	PRIMARY KEY (id_projeto),
@@ -34,7 +34,7 @@ CREATE TABLE projeto
 
 CREATE TABLE usuario
 (
-	id_usuario int NOT NULL,
+	id_usuario int NOT NULL AUTO_INCREMENT,
 	nome varchar(40) NOT NULL,
 	email varchar(60) NOT NULL,
 	senha varchar(40) NOT NULL,
@@ -61,6 +61,3 @@ ALTER TABLE projeto
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
-
-
-
