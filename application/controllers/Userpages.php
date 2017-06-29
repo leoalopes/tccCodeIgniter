@@ -41,5 +41,12 @@ class Userpages extends CI_Controller {
     public function groups($user, $group){
 
     }
+
+    public function cadastro($user){
+        if($this->user_model->user($user)){
+          $data['session'] = $this->session->userdata('logged_in');
+          $this->load->view('grupo/cadastro', $data);
+        }
+    }
 }
 ?>

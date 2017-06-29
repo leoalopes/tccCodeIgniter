@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title><?php echo $title ?></title>
+  <title>Cadastro</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -52,6 +52,12 @@
   <script src="<?php echo base_url(); ?>/assets/js/jquery-3.1.1.js"></script>
   <script src="<?php echo base_url(); ?>/assets/js/materialize.js"></script>
   <script src="<?php echo base_url(); ?>/assets/js/init.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      Materialize.updateTextFields();
+    });
+  </script>
 
 </body>
 </html>

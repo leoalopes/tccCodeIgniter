@@ -10,9 +10,9 @@
 		<right_margin>30</right_margin>
 	</page_setting>
 	<category_index>0</category_index>
-	<zoom>1.0</zoom>
-	<x>69</x>
-	<y>0</y>
+	<zoom>0.75</zoom>
+	<x>0</x>
+	<y>92</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -41,11 +41,11 @@
 		<suspend_validator>false</suspend_validator>
 		<export_setting>
 			<export_ddl_setting>
-				<output_path></output_path>
-				<encoding></encoding>
-				<line_feed></line_feed>
-				<is_open_after_saved>true</is_open_after_saved>
-				<environment_id>null</environment_id>
+				<output_path>banco.sql</output_path>
+				<encoding>windows-1252</encoding>
+				<line_feed>CR+LF</line_feed>
+				<is_open_after_saved>false</is_open_after_saved>
+				<environment_id>0</environment_id>
 				<category_id>null</category_id>
 				<ddl_target>
 					<create_comment>true</create_comment>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-06-06 16:50:47</creation_date>
-			<updated_date>2017-06-09 23:01:07</updated_date>
+			<updated_date>2017-06-25 00:46:42</updated_date>
 			<model_property>
 				<name>Project Name</name>
 				<value></value>
@@ -773,7 +773,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>18</word_id>
+					<word_id>17</word_id>
 					<id>5</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -859,7 +859,7 @@
 				<font_name>Segoe UI</font_name>
 				<font_size>9</font_size>
 			<x>328</x>
-			<y>456</y>
+			<y>657</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -890,7 +890,7 @@
 				</relation>
 				<relation>
 					<id>2</id>
-					<source>10</source>
+					<source>9</source>
 					<target>2</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -899,7 +899,7 @@
 						<bendpoint>
 							<relative>false</relative>
 							<x>632</x>
-							<y>498</y>
+							<y>699</y>
 						</bendpoint>
 						<color>
 							<r>0</r>
@@ -925,9 +925,15 @@
 			<columns>
 				<normal_column>
 					<id>7</id>
-					<referenced_column>34</referenced_column>
-					<referenced_column>34</referenced_column>
-					<referenced_column>34</referenced_column>
+					<referenced_column>30</referenced_column>
+					<referenced_column>30</referenced_column>
+					<referenced_column>30</referenced_column>
+					<referenced_column>30</referenced_column>
+					<referenced_column>30</referenced_column>
+					<referenced_column>30</referenced_column>
+					<relation>2</relation>
+					<relation>2</relation>
+					<relation>2</relation>
 					<relation>2</relation>
 					<relation>2</relation>
 					<relation>2</relation>
@@ -1024,7 +1030,7 @@
 			<connections>
 				<relation>
 					<id>3</id>
-					<source>10</source>
+					<source>9</source>
 					<target>3</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1186,7 +1192,7 @@
 				</normal_column>
 				<normal_column>
 					<id>12</id>
-					<referenced_column>34</referenced_column>
+					<referenced_column>30</referenced_column>
 					<relation>3</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1247,7 +1253,7 @@
 			<connections>
 				<relation>
 					<id>5</id>
-					<source>10</source>
+					<source>9</source>
 					<target>4</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1343,7 +1349,7 @@
 				</normal_column>
 				<normal_column>
 					<id>15</id>
-					<referenced_column>34</referenced_column>
+					<referenced_column>30</referenced_column>
 					<relation>5</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1955,7 +1961,7 @@
 				<font_name>Segoe UI</font_name>
 				<font_size>9</font_size>
 			<x>46</x>
-			<y>435</y>
+			<y>636</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -2000,7 +2006,7 @@
 						<bendpoint>
 							<relative>false</relative>
 							<x>-30</x>
-							<y>499</y>
+							<y>700</y>
 						</bendpoint>
 						<color>
 							<r>0</r>
@@ -2173,12 +2179,12 @@
 		</table>
 		<table>
 			<id>9</id>
-			<height>128</height>
-			<width>196</width>
+			<height>107</height>
+			<width>183</width>
 				<font_name>Segoe UI</font_name>
 				<font_size>9</font_size>
-			<x>314</x>
-			<y>636</y>
+			<x>540</x>
+			<y>46</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -2187,7 +2193,7 @@
 			<connections>
 				<relation>
 					<id>13</id>
-					<source>2</source>
+					<source>0</source>
 					<target>9</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2199,7 +2205,7 @@
 							<b>0</b>
 						</color>
 					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
+					<parent_cardinality>0..1</parent_cardinality>
 					<reference_for_pk>true</reference_for_pk>
 					<name></name>
 					<on_delete_action>RESTRICT</on_delete_action>
@@ -2208,15 +2214,15 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
-			<physical_name>reuniao</physical_name>
-			<logical_name>reuniao</logical_name>
+			<physical_name>projeto</physical_name>
+			<logical_name>projeto</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
-					<word_id>12</word_id>
+					<word_id>10</word_id>
 					<id>30</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2249,7 +2255,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>15</word_id>
+					<word_id>18</word_id>
 					<id>31</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2282,41 +2288,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>2</word_id>
 					<id>32</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>datetime</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<id>33</id>
-					<referenced_column>7</referenced_column>
+					<referenced_column>0</referenced_column>
 					<relation>13</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2327,7 +2300,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>true</foreign_key>
-					<not_null>true</not_null>
+					<not_null>false</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -2363,12 +2336,12 @@
 		</table>
 		<table>
 			<id>10</id>
-			<height>107</height>
-			<width>183</width>
+			<height>128</height>
+			<width>196</width>
 				<font_name>Segoe UI</font_name>
 				<font_size>9</font_size>
-			<x>540</x>
-			<y>46</y>
+			<x>33</x>
+			<y>435</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -2377,7 +2350,7 @@
 			<connections>
 				<relation>
 					<id>14</id>
-					<source>0</source>
+					<source>1</source>
 					<target>10</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2389,7 +2362,7 @@
 							<b>0</b>
 						</color>
 					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>0..1</parent_cardinality>
+					<parent_cardinality>1</parent_cardinality>
 					<reference_for_pk>true</reference_for_pk>
 					<name></name>
 					<on_delete_action>RESTRICT</on_delete_action>
@@ -2398,16 +2371,16 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
-			<physical_name>projeto</physical_name>
-			<logical_name>projeto</logical_name>
+			<physical_name>reuniao</physical_name>
+			<logical_name>reuniao</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
-					<word_id>10</word_id>
-					<id>34</id>
+					<word_id>12</word_id>
+					<id>33</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2439,8 +2412,8 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>17</word_id>
-					<id>35</id>
+					<word_id>15</word_id>
+					<id>34</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2472,8 +2445,41 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+					<word_id>2</word_id>
+					<id>35</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>datetime</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
 					<id>36</id>
-					<referenced_column>0</referenced_column>
+					<referenced_column>4</referenced_column>
 					<relation>14</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2484,7 +2490,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>true</foreign_key>
-					<not_null>false</not_null>
+					<not_null>true</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>

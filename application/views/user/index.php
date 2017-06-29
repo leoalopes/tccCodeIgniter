@@ -37,7 +37,7 @@
           <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
 
 
-          <a href="" class="brand-logo"><b>Plataforma</b></a>
+          <a href="" class="brand-logo"><b>Início</b></a>
           <ul class="right hide-on-med-and-down">
             <li><a class="dropdown-button" href="" data-activates="user_dropdown" data-belowOrigin="true"><?php echo $session['nome'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
           </ul>
@@ -64,7 +64,7 @@
     <ul>
         <li><h3><b>Grupos</b></h3></li>
         <li class="divider"></li><br>
-        <li class="itens"><a href="#group-modal">Criar novo grupo</a></li>
+        <li class="itens"><a href="<?php echo $id; ?>/grupo/cadastro">Criar novo grupo</a></li>
     </ul>
     </div>
 
