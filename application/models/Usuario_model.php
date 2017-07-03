@@ -1,12 +1,14 @@
 <?php
 
-class Contas_model extends CI_Model {
+class Usuario_model extends CI_Model {
 
     public function __construct() {
         $this->load->database();
     }
 
-    public function login($email, $senha) {
+    public function login() {
+        $email = $this->input->post('email');
+        $senha = $this->input->post('senha');
         $this->db->select('id_usuario, nome, email, senha');
         $this->db->from('usuario');
         $this->db->where('email', $email);
@@ -25,7 +27,7 @@ class Contas_model extends CI_Model {
     function cadastrar($info) {
         $this->db->insert('usuario', $info);
         if($this->db->affected_rows() > 0){
-            return $this->db->insert_id();
+          return $this->db->insert_id();
         }
         return false;
     }

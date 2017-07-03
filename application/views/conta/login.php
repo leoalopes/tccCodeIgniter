@@ -17,7 +17,7 @@
         <h1 class="center blue-text text-darken-4"><b>Login</b></h1><br>
 
         <div class="row">
-            <?php echo form_open('contas/login', array('class' => 'col s12 m6 offset-m3')); ?>
+            <?php echo form_open('usuarios/login', array('class' => 'col s12 m6 offset-m3')); ?>
               <div class="row">
                 <div class="input-field col s12">
                   <input name="email" id="email" type="email">
@@ -27,11 +27,12 @@
               <div class="row">
                 <div class="input-field col s12">
                   <input name="senha" id="senha" type="password">
-                  <label for="password">Senha</label>
+                  <label for="senha">Senha</label>
                 </div>
               </div>
-                <span class="col s12 m8 offset-m2"><?php echo validation_errors(); ?></span>
-              <br>
+              <div class="center row">
+                <h6 class="red-text center-align"><?php echo validation_errors(); ?></h6>
+              </div>
               <div class="center row">
                 <button class="btn blue darken-4 waves-effect waves-light" type="submit" name="btnlogar">Entrar</button>
                 <span class="col s12 m8 offset-m2" style="margin-top: 5vh">Ainda não possui uma conta? <a href="cadastro">Cadastrar</a></span>
@@ -50,10 +51,8 @@
 
   <script>
     $(document).ready(function() {
-      setTimeout(function() {
-        Materialize.updateTextFields();
-      }, 1000);
-    });
+      Materialize.updateTextFields();
+    }
   </script>
 
 </body>
