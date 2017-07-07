@@ -55,8 +55,7 @@
                 </div>
                 <div class="col s6 m6 input-field">
                   <i class="material-icons prefix">alarm_on</i>
-                  <input name="hora" id="hora" type="date" class="timepicker">
-                  <label for="hora">Hora</label>
+                  <input name="hora" id="hora" type="time" class="timepicker">
                 </div>
               </div>
               <div class="row">
@@ -86,21 +85,32 @@
     });
 
     $('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15 // Creates a dropdown of 15 years to control year
+    monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
+    weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    today: false,
+    clear: 'Limpar',
+    close: 'Pronto',
+    labelMonthNext: 'Próximo mês',
+    labelMonthPrev: 'Mês anterior',
+    labelMonthSelect: 'Selecione um mês',
+    labelYearSelect: 'Selecione um ano',
+    selectMonths: true,
+    selectYears: 3
     });
 
     $('.timepicker').pickatime({
     default: 'now', // Set default time
     fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: true, // Use AM/PM or 24-hour format
+    twelvehour: false, // Use AM/PM or 24-hour format
     donetext: 'OK', // text for done-button
-    cleartext: 'Clear', // text for clear-button
-    canceltext: 'Cancel', // Text for cancel-button
+    cleartext: 'Limpar', // text for clear-button
+    canceltext: 'Cancelar', // Text for cancel-button
     autoclose: false, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
-    aftershow: function(){} //Function for after opening timepicker
-  });
+    ampmclickable: false, // make AM PM clickable
+    aftershow: function(){ alert('pau no cu do materialize'); } //Function for after opening timepicker
+    });
   </script>
 
 </body>
