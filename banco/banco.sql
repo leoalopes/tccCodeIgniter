@@ -56,8 +56,8 @@ CREATE TABLE permissoes_projeto
 (
 	id_usuario int NOT NULL,
 	id_projeto int NOT NULL,
-	leitura boolean DEFAULT 'false' NOT NULL,
-	escrita boolean DEFAULT 'false' NOT NULL,
+	leitura boolean NOT NULL,
+	escrita boolean NOT NULL,
 	PRIMARY KEY (id_usuario, id_projeto)
 );
 
@@ -126,7 +126,7 @@ CREATE TABLE usuarios_grupo
 (
 	id_usuario int NOT NULL,
 	id_grupo int NOT NULL,
-	admin boolean DEFAULT 'false' NOT NULL,
+	admin boolean NOT NULL,
 	PRIMARY KEY (id_usuario, id_grupo)
 );
 

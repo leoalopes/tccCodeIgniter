@@ -10,9 +10,9 @@
 		<right_margin>30</right_margin>
 	</page_setting>
 	<category_index>0</category_index>
-	<zoom>0.75</zoom>
-	<x>0</x>
-	<y>92</y>
+	<zoom>0.8</zoom>
+	<x>-44</x>
+	<y>0</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-06-06 16:50:47</creation_date>
-			<updated_date>2017-06-25 00:46:42</updated_date>
+			<updated_date>2017-07-13 16:39:57</updated_date>
 			<model_property>
 				<name>Project Name</name>
 				<value></value>
@@ -1917,7 +1917,7 @@
 					<physical_name></physical_name>
 					<type>boolean</type>
 					<constraint></constraint>
-					<default_value>false</default_value>
+					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>true</not_null>
@@ -2107,7 +2107,7 @@
 					<physical_name></physical_name>
 					<type>boolean</type>
 					<constraint></constraint>
-					<default_value>false</default_value>
+					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>true</not_null>
@@ -2140,7 +2140,7 @@
 					<physical_name></physical_name>
 					<type>boolean</type>
 					<constraint></constraint>
-					<default_value>false</default_value>
+					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>true</not_null>

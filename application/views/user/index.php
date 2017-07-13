@@ -87,7 +87,7 @@
         </div>
         <div class="modal-footer">
           <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Cancelar</a>
-          <button type="submit" form="projeto" class="blue darken-4 white-text btn-flat">Criar</button>
+          <button type="submit" form="projeto" class="blue darken-4 white-text btn-flat" id="createproject">Criar</button>
         </div>
     </div>
 
@@ -112,6 +112,18 @@
     $(document).ready(function(){
         $('.modal').modal();
     });
+
+    $('#createproject').click(function(e) {
+      var me = $(this);
+
+      if ( me.data('requestRunning') ) {
+          e.preventDefault();
+          return;
+      }
+
+      me.data('requestRunning', true);
+    });
+
     </script>
     </body>
 </html>
