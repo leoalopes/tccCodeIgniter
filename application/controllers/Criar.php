@@ -7,19 +7,24 @@ class Criar extends CI_Controller {
   }
 
   function projeto(){
-    $this->form_validation->set_rules('nome', 'nome', 'trim|required|alpha|min_length[3]|max_length[30]|xss_clean|callback_insert');
+    $this->form_validation->set_rules('nome', 'nome', 'trim|required|alpha|min_length[3]|max_length[30]|xss_clean|callback_inserir_projeto');
 
     if($this->form_validation->run() == FALSE){
       redirect('home');
     } else {
-      $user = explode('@', $this->session->get_userdata('logged_in')['email'])[0];
+      $this->projetos_model->cadastro();
+      $user = explode('@', $this->session->userdata('logged_in')['email'])[0];
       $projeto = $this->input->post('nome');
-      redirect($user.'/'.$projeto);
+      redirect("$user/projeto/$projeto");
     }
   }
 
-  function insert(){
-    return $this->projetos_model->cadastro();
+  function inserir_projeto(){
+    if($this->projetos_model->naocadastrado()){
+      return true;
+    }
+    $this->form_validation->set_message('checar_banco', 'Você já possui um projeto com esse nome');
+    return false;
   }
 
   function grupo(){

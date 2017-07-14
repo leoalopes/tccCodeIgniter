@@ -4,17 +4,32 @@ Class Projetos_model extends CI_Model{
         $this->load->database();
     }
 
+    function naocadastrado(){
+      $nome = $this->input->post('nome');
+      $id = $this->session->userdata('logged_in')['id_usuario'];
+      $this->db->select('id_projeto');
+      $this->db->from('projeto');
+      $this->db->where('nome', $nome);
+      $this->db->where('id_usuario', $id);
+
+      $query = $this->db->get();
+
+      if($query -> num_rows() >= 1) {
+        return false;
+      }
+      return true;
+    }
+
     function cadastro(){
        $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
        $info['nome'] = $this->input->post('nome');
 
        $query = $this->db->insert('projeto', $info);
 
-       if($this->db->affected_rows() == 1){
+       if($this->db->affected_rows() >= 1){
          return true;
-       } else {
-         return false;
        }
+       return false;
     }
 
     function projeto(){

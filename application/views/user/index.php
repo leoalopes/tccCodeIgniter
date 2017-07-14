@@ -82,6 +82,7 @@
               <div class="input-field col s12">
                 <input name="nome" id="nome" type="text">
                 <label for="nome">Nome do projeto</label>
+                <?php echo validation_errors(); ?>
               </div>
             </form>
           </div>
