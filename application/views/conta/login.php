@@ -34,7 +34,7 @@
                 <h6 class="red-text center-align"><?php echo validation_errors(); ?></h6>
               </div>
               <div class="center row">
-                <button class="btn blue darken-4 waves-effect waves-light" type="submit" name="btnlogar">Entrar</button>
+                <button class="btn blue darken-4 waves-effect waves-light submit-button" type="submit" name="btnlogar">Entrar</button>
                 <span class="col s12 m8 offset-m2" style="margin-top: 5vh">Ainda não possui uma conta? <a href="cadastro">Cadastrar</a></span>
               </div>
             </form>
@@ -48,6 +48,7 @@
   <script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/materialize.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/init.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/submit.js"></script>
 
   <script>
     $(document).ready(function() {

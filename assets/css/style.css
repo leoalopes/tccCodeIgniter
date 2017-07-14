@@ -6,7 +6,7 @@ html, body{
 
 @-webkit-keyframes autofill {
     to {
-        color: #666;
+        color: #000;
         background: transparent;
     }
 }

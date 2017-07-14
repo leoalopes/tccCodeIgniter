@@ -72,6 +72,7 @@
       <script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/materialize.js"></script>
       <script src="<?php echo base_url(); ?>assets/js/init.js"></script>
+      <script src="<?php echo base_url(); ?>assets/js/submit.js"></script>
 
 
     <div id="proj-modal" class="modal">
@@ -87,24 +88,7 @@
         </div>
         <div class="modal-footer">
           <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Cancelar</a>
-          <button type="submit" form="projeto" class="blue darken-4 white-text btn-flat" id="createproject">Criar</button>
-        </div>
-    </div>
-
-    <div id="group-modal" class="modal">
-        <div class="modal-content">
-            <form>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input name="nomegrupo" id="nomegrupo" type="text">
-                  <label for="nomegrupo">Nome do grupo</label>
-                </div>
-              </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Cancelar</a>
-          <a class="modal-action modal-close blue darken-4 white-text btn-flat">Criar</a>
+          <button type="submit" form="projeto" class="blue darken-4 white-text btn-flat submit-button">Criar</button>
         </div>
     </div>
 
@@ -112,18 +96,6 @@
     $(document).ready(function(){
         $('.modal').modal();
     });
-
-    $('#createproject').click(function(e) {
-      var me = $(this);
-
-      if ( me.data('requestRunning') ) {
-          e.preventDefault();
-          return;
-      }
-
-      me.data('requestRunning', true);
-    });
-
     </script>
     </body>
 </html>
