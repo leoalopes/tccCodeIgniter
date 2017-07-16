@@ -1,6 +1,6 @@
 <?php
 
-class Userpages extends CI_Controller {
+class Homepage extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('user_model');
@@ -24,22 +24,6 @@ class Userpages extends CI_Controller {
           $data['id'] = $user;
           $this->load->view('user/index', $data);
         }
-    }
-
-    public function projects($user, $project){
-        if($this->user_model->user($user)){
-          if($this->projetos_model->project($project)){
-            $data['session'] = $this->session->userdata('logged_in');
-            $data['projeto'] = $project;
-            $this->load->view('projeto/singleproject', $data);
-          } else {
-            redirect($user, 'refresh');
-          }
-        }
-    }
-
-    public function groups($user, $group){
-
     }
 
     public function cadastro($user){

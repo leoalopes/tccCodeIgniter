@@ -34,7 +34,8 @@ CREATE TABLE atividade
 CREATE TABLE documentacao
 (
 	id_documentacao int NOT NULL AUTO_INCREMENT,
-	conteudo varchar(1000) NOT NULL,
+	titulo varchar(100) NOT NULL,
+	conteudo text NOT NULL,
 	id_usuario int NOT NULL,
 	id_projeto int NOT NULL,
 	PRIMARY KEY (id_documentacao),

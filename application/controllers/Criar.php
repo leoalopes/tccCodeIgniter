@@ -7,10 +7,14 @@ class Criar extends CI_Controller {
   }
 
   function projeto(){
-    $this->form_validation->set_rules('nome', 'nome', 'trim|required|alpha|min_length[3]|max_length[30]|xss_clean|callback_inserir_projeto');
+    $this->form_validation->set_rules('nome', 'nome', 'trim|required|alpha|min_length[3]|max_length[20]|xss_clean|callback_check_database');
 
     if($this->form_validation->run() == FALSE){
-      redirect('home');
+      $data['session'] = $this->session->userdata('logged_in');
+      $data['projetos'] = $this->projetos_model->listProjects();
+      $data['id'] = explode('@', $data['session']['email'])[0];
+      $this->form_validation->set_error_delimiters('', '');
+      $this->load->view('user/index', $data);
     } else {
       $this->projetos_model->cadastro();
       $user = explode('@', $this->session->userdata('logged_in')['email'])[0];
@@ -19,11 +23,11 @@ class Criar extends CI_Controller {
     }
   }
 
-  function inserir_projeto(){
+  function check_database(){
     if($this->projetos_model->naocadastrado()){
       return true;
     }
-    $this->form_validation->set_message('checar_banco', 'Você já possui um projeto com esse nome');
+    $this->form_validation->set_message('check_database', 'Você já possui um projeto com esse nome.');
     return false;
   }
 

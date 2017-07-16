@@ -22,9 +22,9 @@
 
   <ul id="slide-out" class="side-nav white">
     <li><div class="userView">
-      <a href="user"><img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg"></a>
-      <a href="name"><span class="name"><?php echo $session['nome'] ?></span></a>
-      <a href="email"><span class="email"><?php echo $session['email'] ?></span></a>
+      <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
+      <span class="name"><?php echo $session['nome'] ?></span>
+      <span class="email"><?php echo $session['email'] ?></span>
     </div></li>
     <li class="divider"></li>
   </ul>
@@ -37,7 +37,7 @@
           <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
 
 
-          <a href="" class="brand-logo"><b>Início</b></a>
+          <a href="" class="brand-logo"><b>Home</b></a>
           <ul class="right hide-on-med-and-down">
             <li><a class="dropdown-button" href="" data-activates="user_dropdown" data-belowOrigin="true"><?php echo $session['nome'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
           </ul>
@@ -52,7 +52,7 @@
         <?php
           if(isset($projetos) && $projetos){
             foreach($projetos as $projeto){
-              echo '<li class="itens projetos"><b><a href="'.$id.'/projeto/'.$projeto['nome'].'">'.$projeto['nome'].'</a></b></li>';
+              echo '<li class="itens projetos"><b><a href="'.$id.'/projeto/'.$projeto['nome'].'">'.ucfirst($projeto['nome']).'</a></b></li>';
             }
           }
         ?>
@@ -77,15 +77,12 @@
 
     <div id="proj-modal" class="modal">
         <div class="modal-content">
-          <div class="row">
             <?php echo form_open('criar/projeto', array('id' => 'projeto')) ?>
-              <div class="input-field col s12">
+              <div class="input-field">
                 <input name="nome" id="nome" type="text">
                 <label for="nome">Nome do projeto</label>
-                <?php echo validation_errors(); ?>
               </div>
             </form>
-          </div>
         </div>
         <div class="modal-footer">
           <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Cancelar</a>
@@ -93,9 +90,24 @@
         </div>
     </div>
 
+    <?php
+      if(validation_errors() != null){
+        echo '<div id="error" class="modal">
+            <div class="modal-content">
+                <h4 class="red-text text-lighten-2">Erro</h4>'.validation_errors().'
+            </div>
+            <div class="modal-footer">
+              <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Ok</a>
+            </div>
+        </div>';
+      }
+    ?>
+
     <script>
     $(document).ready(function(){
         $('.modal').modal();
+        $('#error').modal('open');
+        history.pushState('', 'Home', '<?php echo base_url($id); ?>');
     });
     </script>
     </body>

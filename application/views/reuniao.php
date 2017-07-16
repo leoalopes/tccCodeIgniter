@@ -54,7 +54,7 @@
                   <label for="data">Data</label>
                 </div>
                 <div class="col s6 m6 input-field">
-                  <i class="material-icons prefix">alarm_on</i>
+                  <i class="material-icons prefix">query_builder</i>
                   <input name="hora" id="hora" type="time" class="timepicker">
                 </div>
               </div>
