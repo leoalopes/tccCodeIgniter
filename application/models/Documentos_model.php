@@ -20,4 +20,26 @@ Class Documentos_model extends CI_Model{
         return $this->db->get()->result_array();
     }
 
+    public function inserir($idprojeto, $projeto, $titulo, $conteudo){
+        $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
+        $info['id_projeto'] = $idprojeto;
+        $info['titulo'] = $titulo;
+        $info['conteudo'] = str_replace('</p><p>', '</p><br><p>', $conteudo);
+        $info['conteudo'] = str_replace('<p>', '<span>', $info['conteudo']);
+        $info['conteudo'] = str_replace('</p>', '</span>', $info['conteudo']);
+        $info['conteudo'] = str_replace('<span></span>', '', $info['conteudo']);
+        $info['conteudo'] = str_replace("<b></b>", "", $info['conteudo']);
+        $info['conteudo'] = str_replace("<b>\n</b>", "", $info['conteudo']);
+        $info['conteudo'] = str_replace("<b>\t</b>", "", $info['conteudo']);
+        $info['conteudo'] = str_replace("<b>".PHP_EOL."</b>", "", $info['conteudo']);
+
+        $query = $this->db->insert('documentacao', $info);
+
+        if($this->db->affected_rows() >= 1){
+          return true;
+        }
+        return false;
+    }
+
 }
+?>

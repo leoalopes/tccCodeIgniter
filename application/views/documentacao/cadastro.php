@@ -12,6 +12,8 @@
   <script src="<?php echo base_url(); ?>assets/js/materialize.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/init.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/submit.js"></script>
+  <link href="<?php echo base_url(); ?>assets/highlight/styles/default.css" rel="stylesheet">
+  <script src="<?php echo base_url(); ?>assets/highlight/highlight.pack.js"></script>
   <script src="<?php echo base_url(); ?>assets/quill/quill.js"></script>
   <script src="<?php echo base_url(); ?>assets/quill/quill.min.js"></script>
   <link href="<?php echo base_url(); ?>assets/quill/quill.snow.css" rel="stylesheet">
@@ -53,7 +55,7 @@
 
 <div class="row" style="margin-top: 1vh">
   <div class="col s10 m10 offset-m1 offset-s1">
-    <form id="documentacao">
+    <form>
       <div class="row">
         <div class="input-field">
           <input name="titulo" id="titulo" type="text">
@@ -70,13 +72,23 @@
   </div>
 </div>
 
+<div id="error" class="modal">
+    <div class="modal-content">
+        <h4 class="red-text text-lighten-2">Erro</h4>
+        <span id="texto-erro"></span>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Ok</a>
+    </div>
+</div>
+
 <script>
 var toolbarOptions = [
   [{ 'font': [] }],
   [{ 'align': [] }],
   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['code-block'],
   ['image', 'link'],
-
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
@@ -87,23 +99,28 @@ var toolbarOptions = [
 
 var quill = new Quill('#editor', {
   modules: {
+    syntax: true,
     toolbar: toolbarOptions
   },
   theme: 'snow'
 });
 
+
+
 $("#doc-cadastro").click(function(e){
   e.preventDefault();
-
+  // alert(quill.container.firstChild.innerHTML);
   $.ajax({
     type: 'POST',
-    url: '<?php echo base_url('conta/cadastro') ?>',
-    data: {},
-    success: function(){
-      alert('sucesso');
-    },
-    error: function(){
-      alert('erro');
+    url: '<?php echo base_url('documento/form') ?>',
+    data: {'titulo': $("#titulo").val(), 'conteudo': quill.container.firstChild.innerHTML, 'projeto': '<?php echo $projeto; ?>', 'id': '<?php echo $id; ?>'},
+    success: function(response){
+      console.log(response);
+      if(response == "Sucesso."){
+        window.location.href = '<?php echo base_url("$id/projeto/$projeto"); ?>';
+      }
+      $("#texto-erro").html(response);
+      $("#error").modal('open');
     }
   });
 })
