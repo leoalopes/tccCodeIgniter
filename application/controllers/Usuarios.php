@@ -14,12 +14,17 @@ class Usuarios extends CI_Controller {
         redirect('/conta/login', 'refresh');
     }
 
-	public function view($page) {
+	  public function view($page) {
         if ( ! file_exists(APPPATH.'views/conta/'.$page.'.php')) {
             show_404();
         }
         $this->load->helper(array('form'));
         $this->load->view('conta/'.$page);
+    }
+
+    public function search(){
+      $email = $this->input->post("email");
+      echo json_encode($this->usuario_model->searchByEmail($email));
     }
 
     public function logout(){

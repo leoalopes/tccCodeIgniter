@@ -35,9 +35,39 @@ Class Documentos_model extends CI_Model{
 
         $query = $this->db->insert('documentacao', $info);
 
-        if($this->db->affected_rows() >= 1){
+        if($this->db->num_rows() == 1){
           return true;
         }
+        return false;
+    }
+
+    public function update($titulo, $conteudo, $id){
+        $info['titulo'] = $titulo;
+        $info['conteudo'] = $conteudo;
+
+        $this->db->where('id_documentacao', $id);
+        $this->db->update('documentacao', $info);
+
+        if($this->db->affected_rows() == 1){
+          return true;
+        }
+        return true;
+    }
+
+    public function findById($iddoc, $iduser, $idproj){
+        $this->db->select('*');
+        $this->db->from('documentacao');
+        $this->db->where('id_documentacao', $iddoc);
+        $this->db->where('id_usuario', $iduser);
+        $this->db->where('id_projeto', $idproj);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() == 1){
+          return $query->result_array();
+        }
+
         return false;
     }
 

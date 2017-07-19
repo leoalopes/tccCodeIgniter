@@ -21,7 +21,7 @@ class Documento extends CI_Controller{
       }
   }
 
-  public function form(){
+  public function form_cadastro(){
     $titulo = $this->input->post('titulo');
     $conteudo = $this->input->post('conteudo');
     $projeto = $this->input->post('projeto');
@@ -43,6 +43,48 @@ class Documento extends CI_Controller{
     } else {
       echo "Erro! Tente novamente mais tarde.";
     }
+  }
 
+  public function form_edicao(){
+    $titulo = $this->input->post('titulo');
+    $conteudo = $this->input->post('conteudo');
+    $id = $this->input->post('iddoc');
+
+    if(strlen($titulo) < 3){
+      echo "O título deve ter no mínimo 3 caracteres.";
+      return;
+    }
+
+    if(strlen($titulo) > 100){
+      echo "O título deve ter no máximo 100 caracteres.";
+      return;
+    }
+
+    if($this->documentos_model->update($titulo, $conteudo, $id)){
+      echo "Sucesso.";
+    } else {
+      echo "Erro! Tente novamente mais tarde.";
+    }
+  }
+
+  public function editar($user, $projeto, $iddoc){
+    if($this->user_model->user($user)){
+      $data['session'] = $this->session->userdata('logged_in');
+      $p = $this->projetos_model->projeto($projeto, $data['session']['id_usuario']);
+      if($p){
+        $p = $p[0]['id_projeto'];
+        $documento = $this->documentos_model->findById($iddoc, $data['session']['id_usuario'], $p);
+        if($documento){
+          $data['projeto'] = $projeto;
+          $data['documento'] = $documento[0];
+          $data['id'] = $user;
+          $this->load->view('documentacao/edicao', $data);
+        } else {
+          redirect("$user/projeto/$projeto", 'refresh');
+        }
+      } else {
+        redirect($user, 'refresh');
+      }
+    }
   }
 }

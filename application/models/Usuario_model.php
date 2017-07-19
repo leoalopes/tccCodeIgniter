@@ -24,7 +24,7 @@ class Usuario_model extends CI_Model {
         }
     }
 
-    function cadastrar($info) {
+    public function cadastrar($info) {
         $this->db->insert('usuario', $info);
         if($this->db->affected_rows() > 0){
           return $this->db->insert_id();
@@ -32,4 +32,13 @@ class Usuario_model extends CI_Model {
         return false;
     }
 
+    public function searchByEmail($email){
+      $useremail = $this->session->userdata("logged_in")['email'];
+      $this->db->select('id_usuario, nome, email');
+      $this->db->from('usuario');
+      $this->db->where('email !=', $useremail);
+      $this->db->like('email', $email, 'both');
+
+      return $this->db->get()->result_array();
+    }
 }

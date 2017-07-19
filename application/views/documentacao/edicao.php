@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title><?php echo ucfirst($projeto); ?> - Nova documentação</title>
+  <title><?php echo ucfirst($documento['titulo']) . ' - Editar'; ?></title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="<?php echo base_url(); ?>assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -44,7 +44,7 @@
       <div class="brand-logo">
         <a href="<?php echo base_url('home'); ?>" class="breadcrumb"><b>Home</b></a>
         <a href="<?php echo base_url("$id/projeto/$projeto"); ?>" class="breadcrumb"><b><?php echo ucfirst($projeto); ?></b></a>
-        <a href="" class="breadcrumb"><b>Nova documentação</b></a>
+        <a href="" class="breadcrumb"><b><?php echo ucfirst($documento['titulo']); ?></b></a>
       </div>
       <ul class="right hide-on-med-and-down">
         <li><a class="dropdown-button" href="" data-activates="user_dropdown" data-belowOrigin="true"><?php echo $session['nome'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
@@ -61,12 +61,25 @@
           <input name="titulo" id="titulo" type="text">
           <label for="titulo">Titulo</label>
           <div class="row" id="quill-container">
-            <div id="editor" style="height: 55vh;"></div>
+            <div id="editor" style="height: 55vh; display: none"><?php echo $documento['conteudo']; ?></div>
+            <div style="height: 55vh" id="loader">
+              <div class="preloader-wrapper big active" style="margin-left: 50%; margin-top: 27vh">
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="right row">
-        <a class="btn blue darken-4 waves-effect waves-light" id="doc-cadastro">Cadastrar</a>
+        <a class="btn blue darken-4 waves-effect waves-light" id="doc-update">Salvar</a>
       </div>
     </form>
   </div>
@@ -83,44 +96,50 @@
 </div>
 
 <script>
-var toolbarOptions = [
-  [{ 'font': [] }],
-  [{ 'align': [] }],
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['code-block'],
-  ['image', 'link'],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  ['clean']                                         // remove formatting button
-];
+var quill;
+$(document).ready(function(e){
+  var toolbarOptions = [
+    [{ 'font': [] }],
+    [{ 'align': [] }],
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['code-block'],
+    ['image', 'link'],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+    [{ 'direction': 'rtl' }],                         // text direction
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    ['clean']                                         // remove formatting button
+  ];
 
-var quill = new Quill('#editor', {
-  modules: {
-    syntax: true,
-    toolbar: toolbarOptions
-  },
-  theme: 'snow'
+  quill = new Quill('#editor', {
+    modules: {
+      syntax: true,
+      toolbar: toolbarOptions
+    },
+    theme: 'snow'
+  });
+
+  $("#titulo").val("<?php echo $documento['titulo']; ?>");
+  $("#loader").remove();
+  $("#editor").css("display", "block");
 });
 
-
-
-$("#doc-cadastro").click(function(e){
+$("#doc-update").click(function(e){
   e.preventDefault();
-  // alert(quill.container.firstChild.innerHTML);
+  //alert(quill.container.firstChild.innerHTML);
   $.ajax({
     type: 'POST',
-    url: '<?php echo base_url('documento/form_cadastro') ?>',
-    data: {'titulo': $("#titulo").val(), 'conteudo': quill.container.firstChild.innerHTML, 'projeto': '<?php echo $projeto; ?>', 'id': '<?php echo $id; ?>'},
+    url: '<?php echo base_url('documento/form_edicao') ?>',
+    data: {'titulo': $("#titulo").val(), 'conteudo': quill.container.firstChild.innerHTML, 'iddoc': '<?php echo $documento['id_documentacao']; ?>'},
     success: function(response){
       console.log(response);
       if(response == "Sucesso."){
         window.location.href = '<?php echo base_url("$id/projeto/$projeto"); ?>';
+      } else {
+        $("#texto-erro").html(response);
+        $("#error").modal('open');
       }
-      $("#texto-erro").html(response);
-      $("#error").modal('open');
     }
   });
 })
