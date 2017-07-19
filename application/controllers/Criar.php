@@ -4,6 +4,7 @@ class Criar extends CI_Controller {
     parent::__construct();
     $this->load->database();
     $this->load->model('projetos_model');
+    $this->load->model('grupos_model');
   }
 
   function projeto(){
@@ -32,8 +33,20 @@ class Criar extends CI_Controller {
   }
 
   function grupo(){
+    $nome = $this->input->post('nome');
+    $usuarios = $this->input->post('usuarios');
 
+    if(strlen($nome) < 3){
+      echo "O nome deve ter no mínimo 3 caracteres.";
+      return;
+    }
+
+    if(strlen($nome) > 60){
+      echo "O nome deve ter no máximo 60 caracteres.";
+      return;
+    }
+
+    $this->grupos_model->inserir($nome, $usuarios);
+    echo "";
   }
-
-
 }

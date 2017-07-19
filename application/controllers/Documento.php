@@ -41,7 +41,7 @@ class Documento extends CI_Controller{
     if($this->documentos_model->inserir($idprojeto, $projeto, $titulo, $conteudo)){
       echo "Sucesso.";
     } else {
-      echo "Erro! Tente novamente mais tarde.";
+      echo "Tente novamente mais tarde.";
     }
   }
 
@@ -61,7 +61,7 @@ class Documento extends CI_Controller{
     }
 
     if($this->documentos_model->update($titulo, $conteudo, $id)){
-      echo "Sucesso.";
+      echo "";
     } else {
       echo "Erro! Tente novamente mais tarde.";
     }

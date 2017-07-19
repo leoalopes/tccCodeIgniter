@@ -41,15 +41,14 @@
                 </div>
               </div>
               <div class="row">
-                  <div class="col s12 input-field">
-                    <input name="usuarios" id="usuarios" type="text" readonly>
-                    <label for="usuarios">Adicionar usuários</label>
-                  </div>
+                <div class="col s12 input-field">
+                  <input name="usuarios" id="usuarios" type="text" readonly>
+                  <label for="usuarios">Adicionar usuários</label>
                 </div>
               </div>
               <br>
               <div class="right-align row">
-                <button class="btn blue darken-4 waves-effect waves-light" type="submit" name="">Criar</button>
+                <a class="btn blue darken-4 waves-effect waves-light" id="btn-criar">Criar</a>
               </div>
             </form>
         </div>
@@ -70,9 +69,21 @@
       <div class="row">
         <div id="notfound" class="col s12 m12 center-align red-text text-lighten-1"></div>
         <div id="results" class="col s10 m10" style="margin-left: 2vh; margin-top: -5vh"></div>
-        <div id="selecteds" class="chips col s12 m12" style="display: none;"></div>
       </div>
     </div>
+    <div class="modal-footer" style="width: 95%; position: absolute !important; top:80%; left: 5%; text-align: left !important">
+      <div id="selecteds" class="chips col s12 m12" style="display: none;"></div>
+    </div>
+  </div>
+
+  <div id="error" class="modal">
+      <div class="modal-content">
+          <h4 class="red-text text-lighten-2">Erro</h4>
+          <span id="texto-erro"></span>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Ok</a>
+      </div>
   </div>
 
   <!--  Scripts-->
@@ -148,13 +159,32 @@
           data: chips,
         });
       }
-      $(this).parent().remove();
+      $(this).parent().parent().replaceWith('<br>');
     });
 
     $('.chips').on('chip.delete', function(e, chip){
       var index = chips.indexOf(chip);
       if(index != -1)
         chips.splice(index, 1);
+    });
+
+    $('#btn-criar').click(function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('criar/grupo') ?>',
+        data: {'nome': $("#nome").val(), 'usuarios': chips},
+        success: function(response){
+          console.log(response);
+          if(response == ""){
+            window.location.href = '<?php echo base_url($id); ?>';
+          } else {
+            $("#texto-erro").html(response);
+            $("#error").modal('open');
+          }
+        }
+      });
     });
   </script>
 

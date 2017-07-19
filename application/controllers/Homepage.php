@@ -29,6 +29,7 @@ class Homepage extends CI_Controller {
     public function cadastro($user){
         if($this->user_model->user($user)){
           $data['session'] = $this->session->userdata('logged_in');
+          $data['id'] = $user;
           $this->load->view('grupo/cadastro', $data);
         }
     }
