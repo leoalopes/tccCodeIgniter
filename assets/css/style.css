@@ -30,6 +30,14 @@ img{
   font-size: 15px;
 }
 
+.right{
+  min-width: 9%;
+}
+
+.right li{
+  width: 100%;
+}
+
 .ql-syntax{
   border-radius: 1vh;
   padding: 0 !important;

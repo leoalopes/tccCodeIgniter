@@ -64,6 +64,13 @@
     <ul>
         <li><h3><b>Grupos</b></h3></li>
         <li class="divider"></li><br>
+        <?php
+          if(isset($grupos) && $grupos){
+            foreach($grupos as $grupo){
+              echo '<li class="itens projetos"><b><a href="'.$id.'/grupo/'.$grupo['id_grupo'].'">'.ucfirst($grupo['nome']).'</a></b></li>';
+            }
+          }
+        ?>
         <li class="itens"><a href="<?php echo $id; ?>/grupo/cadastro">Criar novo grupo</a></li>
     </ul>
     </div>

@@ -5,6 +5,7 @@ class Homepage extends CI_Controller {
         parent::__construct();
         $this->load->model('user_model');
         $this->load->model('projetos_model');
+        $this->load->model('grupos_model');
     }
 
     public function index() {
@@ -21,6 +22,7 @@ class Homepage extends CI_Controller {
         if($this->user_model->user($user)){
           $data['session'] = $this->session->userdata('logged_in');
           $data['projetos'] = $this->projetos_model->listProjects();
+          $data['grupos'] = $this->grupos_model->listGroups();
           $data['id'] = $user;
           $this->load->view('user/index', $data);
         }

@@ -5,7 +5,7 @@ Class Projetos_model extends CI_Model{
         $this->load->database();
     }
 
-    function naocadastrado(){
+    public function naocadastrado(){
       $nome = $this->input->post('nome');
       $id = $this->session->userdata('logged_in')['id_usuario'];
       $this->db->select('id_projeto');
@@ -21,7 +21,7 @@ Class Projetos_model extends CI_Model{
       return true;
     }
 
-    function cadastro(){
+    public function cadastro(){
        $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
        $info['nome'] = $this->input->post('nome');
 
@@ -33,7 +33,7 @@ Class Projetos_model extends CI_Model{
        return false;
     }
 
-    function projeto($nome, $id){
+    public function projeto($nome, $id){
         $this->db->select('id_projeto');
         $this->db->from('projeto');
         $this->db->where('nome', $nome);
@@ -48,7 +48,7 @@ Class Projetos_model extends CI_Model{
         return false;
     }
 
-    function group($nome){
+    public function group($nome){
         $id = $this->session->userdata('logged_in')['id_usuario'];
         $this -> db -> select('nome');
         $this -> db -> from('grupo');
@@ -64,7 +64,7 @@ Class Projetos_model extends CI_Model{
           return false;
     }
 
-    function listProjects(){
+    public function listProjects(){
       $id = $this->session->userdata('logged_in')['id_usuario'];
       $query = $this->db->query("select nome from projeto where id_usuario = " . $id);
       $i = 0;
@@ -74,10 +74,6 @@ Class Projetos_model extends CI_Model{
         $i++;
       }
       return $projetos;
-    }
-
-    function listGroups(){
-
     }
 }
 ?>

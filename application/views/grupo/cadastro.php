@@ -57,21 +57,21 @@
     </div>
   </div>
 
-  <div id="adduser" class="modal" style="width: 80% !important; height: 80% !important">
+  <div id="adduser" class="modal" style="width: 80% !important; height: 85% !important">
     <div class="modal-content">
       <h5 class="blue-text text-darken-4" style="font-size: 20px !important"><b>Adicionar usuários</b></h5>
       <div class="row">
         <div class="input-field col s10 m11">
           <input id="search" value="E-mail" type="text">
         </div>
-        <a id="search-btn" class="black-text" style="cursor: pointer"><i class="material-icons" style="margin-top: 4%">search</i></a>
+        <a id="search-btn" class="black-text" style="cursor: pointer"><i class="material-icons" style="margin-top: 3%">search</i></a>
       </div>
       <div class="row">
         <div id="notfound" class="col s12 m12 center-align red-text text-lighten-1"></div>
         <div id="results" class="col s10 m10" style="margin-left: 2vh; margin-top: -5vh"></div>
       </div>
     </div>
-    <div class="modal-footer" style="width: 95%; position: absolute !important; top:80%; left: 5%; text-align: left !important">
+    <div class="modal-footer" style="width: 95%; position: absolute !important; top:85%; left: 5%; text-align: left !important">
       <div id="selecteds" class="chips col s12 m12" style="display: none;"></div>
     </div>
   </div>
@@ -126,18 +126,32 @@
         success: function(results){
           var resultado = $.parseJSON(results);
           if(resultado.length != 0){
-            $("#notfound").empty();
-            $("#results").empty();
-            $("#selecteds").css('display', 'inline');
-            $("#results").append('<br><table><tbody>');
-            resultado.forEach(function(user){
-              $("#results").append('<tr><td style="border-bottom: 1px solid #E0E0E0 !important"><a class="black-text found-user" style="cursor: pointer" data-email="'+ user.email +'" data-id="'+ user.id_usuario +'"><i class="material-icons" style="vertical-align: middle !important">add_circle</i></a> '+ user.email +'</td></tr><div class="divider">');
-            });
-            $("#results").append('</tbody></table><br><br>');
+            if(resultado.length > 3){
+              $("#results").empty();
+              $("#notfound").empty();
+              $("#notfound").append('<span>Não foi possível buscar usuários. Tente ser mais específico.</span><br><br>');
+            } else {
+              $("#notfound").empty();
+              $("#results").empty();
+              $("#selecteds").css('display', 'inline');
+              $("#results").append('<br><table><tbody>');
+              resultado.forEach(function(user){
+                var alreadyadded = false;
+                chips.forEach(function(c, index){
+                  if(c.tag == user.email)
+                    alreadyadded = true;
+                });
+                if(!alreadyadded)
+                  $("#results").append('<tr><td><a class="black-text found-user" style="cursor: pointer" data-email="'+ user.email +'" data-id="'+ user.id_usuario +'"><i class="material-icons" style="vertical-align: middle !important">add</i></a> '+ user.email +'</td></tr><div class="divider">');
+                else
+                  $("#results").append('<tr><td><a class="black-text found-user" style="cursor: pointer" data-email="'+ user.email +'" data-id="'+ user.id_usuario +'"><i class="material-icons" style="vertical-align: middle !important">done</i></a> '+ user.email +'</td></tr><div class="divider">');
+              });
+              $("#results").append('</tbody></table><br><br>');
+            }
           } else {
             $("#results").empty();
             $("#notfound").empty();
-            $("#notfound").append('<span>Nada encontrado</span><br><br>');
+            $("#notfound").append('<span>Nada encontrado.</span><br><br>');
           }
         }
       });
@@ -159,13 +173,14 @@
           data: chips,
         });
       }
-      $(this).parent().parent().replaceWith('<br>');
+      $(this).children().text('done');
     });
 
     $('.chips').on('chip.delete', function(e, chip){
       var index = chips.indexOf(chip);
       if(index != -1)
         chips.splice(index, 1);
+      $('td').filter(':contains("'+ chip.tag +'")').parent().children().children().children().text('add');
     });
 
     $('#btn-criar').click(function(e){

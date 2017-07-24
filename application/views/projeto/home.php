@@ -19,7 +19,7 @@
 
 <ul id="user_dropdown" class="dropdown-content blue darken-4">
     <li><a href="" class="white-text drop-item">Editar perfil</a></li>
-    <li><a href="conta/logout" class="white-text drop-item">Sair</a></li>
+    <li><a href="<?php echo base_url('conta/logout'); ?>" class="white-text drop-item">Sair</a></li>
 </ul>
 
 <ul id="slide-out" class="side-nav white">
@@ -57,7 +57,7 @@
       echo '<li>
       <div class="collapsible-header z-depth-0 doc-titulo" style="border: 1px solid white; border-bottom: 1px solid #E0E0E0"><b>'.ucfirst($documento['titulo']).'</b><span data-id="'.$documento['id_documentacao'].'" class="blue-text text-darken-4 edit" style="float: right !important"><i class="material-icons">mode_edit</i></span></div>
       <div class="collapsible-body z-depth-0 left-margin" style="border: 1px solid white">
-      <ul class="collapsible" data-collapsible="expandable" 1px solid white;>';
+      <ul class="collapsible z-depth-0" data-collapsible="expandable" style="margin-top: -3vh; margin-left: -3vh; border: none">';
       $array = explode('<b>', $documento['conteudo']);
       unset($array[0]);
       foreach($array as $string){
@@ -96,8 +96,8 @@
         }
 
         echo '<li>
-          <div class="collapsible-header" style="border-bottom: 1px solid white !important"><b>'.$subtitulo.'</b></div>
-          <div class="collapsible-body" style="border: 1px solid white !important"><span>'.$conteudo.'</span></div>
+          <div class="collapsible-header" style="border-bottom: 1px solid white !important">'.$subtitulo.'</b></div>
+          <div class="collapsible-body" style="border: 1px solid white !important; margin-top: -4vh"><span>'.$conteudo.'</span></div>
         </li>';
       }
       echo '</div></li>';
