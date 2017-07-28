@@ -35,10 +35,7 @@ Class Documentos_model extends CI_Model{
 
         $query = $this->db->insert('documentacao', $info);
 
-        if($this->db->num_rows() == 1){
-          return true;
-        }
-        return false;
+        return true;
     }
 
     public function update($titulo, $conteudo, $id){

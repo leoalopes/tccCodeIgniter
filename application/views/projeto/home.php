@@ -96,8 +96,8 @@
         }
 
         echo '<li>
-          <div class="collapsible-header" style="border-bottom: 1px solid white !important">'.$subtitulo.'</b></div>
-          <div class="collapsible-body" style="border: 1px solid white !important; margin-top: -4vh"><span>'.$conteudo.'</span></div>
+          <div class="collapsible-header blue-text text-darken-4" style="border-bottom: 1px solid white !important">'.$subtitulo.'</b></div>
+          <div class="collapsible-body" style="border: 1px solid white !important; margin-top: -3vh; margin-left: 2vh"><span>'.$conteudo.'</span></div>
         </li>';
       }
       echo '</div></li>';

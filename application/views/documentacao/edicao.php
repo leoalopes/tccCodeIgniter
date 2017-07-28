@@ -134,7 +134,7 @@ $("#doc-update").click(function(e){
     data: {'titulo': $("#titulo").val(), 'conteudo': quill.container.firstChild.innerHTML, 'iddoc': '<?php echo $documento['id_documentacao']; ?>'},
     success: function(response){
       console.log(response);
-      if(response == "Sucesso."){
+      if(response == ""){
         window.location.href = '<?php echo base_url("$id/projeto/$projeto"); ?>';
       } else {
         $("#texto-erro").html(response);

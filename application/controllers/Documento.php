@@ -39,7 +39,7 @@ class Documento extends CI_Controller{
 
     $idprojeto = $this->projetos_model->projeto($projeto, $this->session->userdata('logged_in')['id_usuario'])[0]['id_projeto'];
     if($this->documentos_model->inserir($idprojeto, $projeto, $titulo, $conteudo)){
-      echo "Sucesso.";
+      echo "";
     } else {
       echo "Tente novamente mais tarde.";
     }

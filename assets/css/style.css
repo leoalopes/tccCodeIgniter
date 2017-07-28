@@ -5,6 +5,15 @@ html, body{
   height: 100%;
 }
 
+.gradient{
+  height: 85% !important;
+  background: #ffffff !important; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 37%, #9e9e9e 100%) !important; /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 37%, #9e9e9e 100%) !important; /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 37%, #9e9e9e 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e0e0e0',GradientType=0 );
+}
+
 @-webkit-keyframes autofill {
     to {
         color: #000;
