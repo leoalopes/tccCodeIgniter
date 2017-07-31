@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 class Usuarios extends CI_Controller {
     function __construct(){
@@ -39,7 +39,7 @@ class Usuarios extends CI_Controller {
     }
 
     function cadastro() {
-        $this->form_validation->set_rules('nome', 'nome', 'trim|required|alpha|min_length[3]|max_length[30]|xss_clean');
+        $this->form_validation->set_rules('nome', 'nome', 'trim|required|min_length[3]|max_length[30]|xss_clean');
         $this->form_validation->set_rules('email', 'email', 'trim|required|valid_email|is_unique[usuario.email]');
         $this->form_validation->set_rules('senha', 'senha', 'trim|required|md5');
 
