@@ -25,7 +25,7 @@
 
 <ul id="user_dropdown" class="dropdown-content blue darken-4">
     <li><a href="" class="white-text drop-item">Editar perfil</a></li>
-    <li><a href="conta/logout" class="white-text drop-item">Sair</a></li>
+    <li><a href="<?php echo base_url('conta/logout'); ?>" class="white-text drop-item">Sair</a></li>
 </ul>
 
 <ul id="slide-out" class="side-nav white">
