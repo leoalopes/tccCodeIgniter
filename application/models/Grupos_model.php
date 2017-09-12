@@ -42,6 +42,25 @@ Class Grupos_model extends CI_Model{
       return $grupos;
     }
 
+    public function listProjects($idgrupo){
+      $this->db->select('*');
+      $this->db->from('projeto_grupo');
+      $this->db->where('id_grupo', $idgrupo);
+      $query = $this->db->get();
+
+      $i = 0;
+      $projetos = FALSE;
+      foreach($query->result_array() as $row){
+        $this->db->select('*');
+        $this->db->from('projeto');
+        $this->db->where('id_projeto', $row['id_projeto']);
+        $query = $this->db->get();
+        $projetos[$i] = $query->result_array()[0];
+        $i++;
+      }
+      return $projetos;
+    }
+
     public function isMember($idgrupo, $idusuario){
         $this->db->select('*');
         $this->db->from('grupo');
@@ -61,6 +80,22 @@ Class Grupos_model extends CI_Model{
           return $query->result_array();
         }
         return false;
+    }
+
+    public function naoCadastrado($projeto, $idgrupo){
+        $query = $this->db->query("select p.* from projeto p, grupo g, projeto_grupo pg where g.id_grupo = " . $idgrupo . " and p.nome = '" . $projeto . "' and  p.id_projeto = pg.id_projeto and pg.id_grupo = g.id_grupo");
+
+        if($query->num_rows() >= 1) {
+          return false;
+        }
+
+        $p['nome'] = $projeto;
+        $this->db->insert('projeto', $p);
+
+        $pg['id_projeto'] = $this->db->insert_id();
+        $pg['id_grupo'] = $idgrupo;
+        $this->db->insert('projeto_grupo', $pg);
+        return true;
     }
 }
 ?>

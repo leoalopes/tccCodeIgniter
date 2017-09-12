@@ -14,11 +14,26 @@ class Grupo extends CI_Controller{
         $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
         if($grupo){
           $data['id'] = $user;
-          $data['grupo'] = $grupo;
+          $data['grupo'] = $grupo[0];
+          $data['projetos'] = $this->grupos_model->listProjects($idgrupo);
           $this->load->view('grupo/home', $data);
         } else {
           redirect($user, 'refresh');
         }
+      }
+  }
+
+  public function criarProjeto(){
+      $projeto = $this->input->post('nome');
+      $grupo = $this->input->post('id_grupo');
+      if(strlen($projeto) > 3 && strlen($projeto) <= 60){
+        if($this->grupos_model->naoCadastrado($projeto, $grupo)){
+          echo '';
+        } else {
+          echo 'O grupo já possui um projeto com esse nome.';
+        }
+      } else {
+        echo 'O nome deve possuir entre 3 e 60 caracteres.';
       }
   }
 }
