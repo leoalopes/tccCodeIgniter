@@ -82,6 +82,16 @@ Class Grupos_model extends CI_Model{
         return false;
     }
 
+    public function isProject($idgrupo, $projeto){
+        $query = $this->db->query("select p.* from projeto_grupo pg, grupo g, projeto p where pg.id_grupo = g.id_grupo and g.id_grupo = " . $idgrupo . " and pg.id_projeto = p.id_projeto and p.nome = '" . $projeto . "'");
+
+        if($query->num_rows() == 1) {
+          return $query->result_array();
+        }
+
+        return false;
+    }
+
     public function naoCadastrado($projeto, $idgrupo){
         $query = $this->db->query("select p.* from projeto p, grupo g, projeto_grupo pg where g.id_grupo = " . $idgrupo . " and p.nome = '" . $projeto . "' and  p.id_projeto = pg.id_projeto and pg.id_grupo = g.id_grupo");
 

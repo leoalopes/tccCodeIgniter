@@ -23,6 +23,26 @@ class Grupo extends CI_Controller{
       }
   }
 
+  public function projeto($user, $idgrupo, $projeto){
+      if($this->user_model->user($user)){
+        $data['session'] = $this->session->userdata('logged_in');
+        $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
+        if($grupo){
+          $proj = $this->grupos_model->isProject($grupo[0]['id_grupo'], $projeto);
+          if($proj){
+            $data['id'] = $user;
+            $data['grupo'] = $grupo[0];
+            $data['projeto'] = $proj;
+            $this->load->view('grupo/projeto.php', $data);
+          } else {
+            redirect("$user/grupo/$idgrupo", 'refresh');
+          }
+        } else {
+          redirect($user, 'refresh');
+        }
+      }
+  }
+
   public function criarProjeto(){
       $projeto = $this->input->post('nome');
       $grupo = $this->input->post('id_grupo');

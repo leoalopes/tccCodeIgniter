@@ -52,10 +52,9 @@
   if($projetos){
     echo '<br><ul>';
     foreach($projetos as $proj){
-      $nome = $session['nome'];
       $idg = $grupo['id_grupo'];
       $projnome = $proj['nome'];
-      echo '<a href="'.base_url("$nome/grupo/$idg/projeto/$projnome").'"><li class="itens gprojetos"><b>'.ucfirst($proj['nome']).'</b></li><li class="divider" style="margin-top: 2vh"></li><br>';
+      echo '<a href="'.base_url("$id/grupo/$idg/projeto/$projnome").'"><li class="itens gprojetos"><b>'.ucfirst($proj['nome']).'</b></li><li class="divider" style="margin-top: 2vh"></li><br>';
     }
     echo '</ul>';
   }
@@ -101,7 +100,7 @@
       success: function(response){
         console.log(response);
         if(response == ''){
-
+          window.location.href = "<?php echo base_url("$id/grupo/".$grupo['id_grupo']."/projeto"); ?>/"+$("#nome").val();
         } else {
           $("#erro").text(response);
           $("#error-modal").modal('open');
