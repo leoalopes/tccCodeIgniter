@@ -32,7 +32,8 @@ class Grupo extends CI_Controller{
           if($proj){
             $data['id'] = $user;
             $data['grupo'] = $grupo[0];
-            $data['projeto'] = $proj;
+            $data['projeto'] = $proj[0];
+            $data['documentacoes'] = $this->documentos_model->listarDeGrupo($data['projeto']['id_projeto']);
             $this->load->view('grupo/projeto.php', $data);
           } else {
             redirect("$user/grupo/$idgrupo", 'refresh');
@@ -44,7 +45,7 @@ class Grupo extends CI_Controller{
   }
 
   public function criarProjeto(){
-      $projeto = $this->input->post('nome');
+      $projeto = ucfirst($this->input->post('nome'));
       $grupo = $this->input->post('id_grupo');
       if(strlen($projeto) > 3 && strlen($projeto) <= 60){
         if($this->grupos_model->naoCadastrado($projeto, $grupo)){

@@ -50,7 +50,7 @@
 <h3 class="blue-text text-darken-4"><b>Documentações</b></h3>
 <?php
   if(empty($documentacoes)){
-    echo '<div class="container" style="margin-top: 2vh; margin-bottom: 2vh; margin-left: 2vh !important"><i class="material-icons" style="vertical-align: middle">sentiment_dissatisfied</i> Você não possui nenhuma documentação cadastrada.</div>';
+    echo '<div class="container" style="margin-top: 2vh; margin-bottom: 2vh; margin-left: 4vh !important">Você não possui nenhuma documentação cadastrada.</div>';
   } else {
     echo '<ul class="collapsible z-depth-0" data-collapsible="accordion" style="border: 1px solid white">';
     foreach($documentacoes as $documento){

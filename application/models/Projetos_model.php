@@ -23,7 +23,7 @@ Class Projetos_model extends CI_Model{
 
     public function cadastro(){
        $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
-       $info['nome'] = $this->input->post('nome');
+       $info['nome'] = ucfirst($this->input->post('nome'));
 
        $query = $this->db->insert('projeto', $info);
 

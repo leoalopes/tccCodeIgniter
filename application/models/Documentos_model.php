@@ -20,6 +20,14 @@ Class Documentos_model extends CI_Model{
         return $this->db->get()->result_array();
     }
 
+    public function listarDeGrupo($idproj){
+        $this->db->select('*');
+        $this->db->from('documentacao');
+        $this->db->where('id_projeto', $idproj);
+
+        return $this->db->get()->result_array();
+    }
+
     public function inserir($idprojeto, $projeto, $titulo, $conteudo){
         $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
         $info['id_projeto'] = $idprojeto;

@@ -5,6 +5,7 @@ class Documento extends CI_Controller{
       parent::__construct();
       $this->load->model('user_model');
       $this->load->model('projetos_model');
+      $this->load->model('grupos_model');
       $this->load->model('documentos_model');
   }
 
@@ -15,6 +16,26 @@ class Documento extends CI_Controller{
           $data['projeto'] = $project;
           $data['id'] = $user;
           $this->load->view('documentacao/cadastro', $data);
+        } else {
+          redirect($user, 'refresh');
+        }
+      }
+  }
+
+  public function cadastroDeGrupo($user, $idgrupo, $projeto){
+      if($this->user_model->user($user)){
+        $data['session'] = $this->session->userdata('logged_in');
+        $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
+        if($grupo){
+          $proj = $this->grupos_model->isProject($grupo[0]['id_grupo'], $projeto);
+          $data['grupo'] = $grupo[0];
+          if($proj){
+            $data['projeto'] = $proj[0];
+            $data['id'] = $user;
+            $this->load->view('documentacao/cadastroGrupos', $data);
+          } else {
+            redirect("$user/grupo/".$grupo[0]['id_grupo'], 'refresh');
+          }
         } else {
           redirect($user, 'refresh');
         }
@@ -68,6 +89,27 @@ class Documento extends CI_Controller{
   }
 
   public function editar($user, $projeto, $iddoc){
+    if($this->user_model->user($user)){
+      $data['session'] = $this->session->userdata('logged_in');
+      $p = $this->projetos_model->projeto($projeto, $data['session']['id_usuario']);
+      if($p){
+        $p = $p[0]['id_projeto'];
+        $documento = $this->documentos_model->findById($iddoc, $data['session']['id_usuario'], $p);
+        if($documento){
+          $data['projeto'] = $projeto;
+          $data['documento'] = $documento[0];
+          $data['id'] = $user;
+          $this->load->view('documentacao/edicao', $data);
+        } else {
+          redirect("$user/projeto/$projeto", 'refresh');
+        }
+      } else {
+        redirect($user, 'refresh');
+      }
+    }
+  }
+
+  public function editarDeGrupo($user, $idgrupo, $projeto, $iddoc){
     if($this->user_model->user($user)){
       $data['session'] = $this->session->userdata('logged_in');
       $p = $this->projetos_model->projeto($projeto, $data['session']['id_usuario']);

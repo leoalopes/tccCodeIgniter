@@ -7,7 +7,7 @@ Class Grupos_model extends CI_Model{
     }
 
     public function inserir($nome, $usuarios){
-        $info['nome'] = $nome;
+        $info['nome'] = ucfirst($nome);
         $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
         $this->db->insert('grupo', $info);
 
