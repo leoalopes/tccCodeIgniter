@@ -17,7 +17,7 @@
         <h1 class="center blue-text text-darken-4"><b>Cadastro</b></h1><br>
 
         <div class="row">
-            <?php echo form_open('usuarios/cadastro', array('class' => 'col s12 m6 offset-m3'));?>
+            <?php echo form_open('usuarios/cadastro', array('class' => 'col s12 m6 offset-m3', 'id' => 'formCadastro'));?>
               <div class="row">
                 <div class="input-field col s12">
                   <input name="nome" id="nome" type="text">
@@ -36,11 +36,17 @@
                   <label for="senha">Senha</label>
                 </div>
               </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input name="csenha" id="csenha" type="password">
+                  <label for="senha">Confirmar senha</label>
+                </div>
+              </div>
               <div class="center row">
                 <h6 class="red-text center-align"><?php echo validation_errors(); ?></h6>
               </div>
               <div class="center row"><br>
-                <button class="btn blue darken-4 waves-effect waves-light submit-button" type="submit" name="btncadastrar">Cadastrar</button>
+                <a class="btn blue darken-4 waves-effect waves-light submit-button" id="btncadastrar">Cadastrar</a>
                 <span class="col s12 m8 offset-m2" style="margin-top: 5vh">Já possui uma conta? <a href="login">Entrar</a></span>
               </div>
             </form>
@@ -59,6 +65,17 @@
   <script>
     $(document).ready(function() {
       Materialize.updateTextFields();
+    });
+
+    $("#btncadastrar").click(function(e){
+      e.preventDefault();
+
+      if($("#senha").val() == $("#csenha").val()){
+        $("#formCadastro").submit();
+      } else {
+        $("#csenha").addClass('invalid');
+        setTimeout(function(){ $("#csenha").removeClass('invalid'); }, 1500);
+      }
     });
   </script>
 
