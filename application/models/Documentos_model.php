@@ -28,7 +28,7 @@ Class Documentos_model extends CI_Model{
         return $this->db->get()->result_array();
     }
 
-    public function inserir($idprojeto, $projeto, $titulo, $conteudo){
+    public function inserir($idprojeto, $titulo, $conteudo){
         $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
         $info['id_projeto'] = $idprojeto;
         $info['titulo'] = $titulo;
@@ -59,11 +59,10 @@ Class Documentos_model extends CI_Model{
         return true;
     }
 
-    public function findById($iddoc, $iduser, $idproj){
+    public function findById($iddoc, $idproj){
         $this->db->select('*');
         $this->db->from('documentacao');
         $this->db->where('id_documentacao', $iddoc);
-        $this->db->where('id_usuario', $iduser);
         $this->db->where('id_projeto', $idproj);
         $this->db->limit(1);
 

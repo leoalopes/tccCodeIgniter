@@ -55,7 +55,7 @@
     echo '<ul class="collapsible z-depth-0" data-collapsible="accordion" style="border: 1px solid white">';
     foreach($documentacoes as $documento){
       echo '<li>
-      <div class="collapsible-header z-depth-0 doc-titulo" style="border: 1px solid white; border-bottom: 1px solid #E0E0E0"><b>'.ucfirst($documento['titulo']).'</b><span data-id="'.$documento['id_documentacao'].'" class="blue-text text-darken-4 edit" style="float: right !important"><i class="material-icons">mode_edit</i></span></div>
+      <div class="collapsible-header z-depth-0 doc-titulo" style="border: 1px solid white; border-bottom: 1px solid #E0E0E0"><b>'.ucfirst($documento['titulo']).'</b><a data-id="'.$documento['id_documentacao'].'" class="blue-text text-darken-4 edit" style="float: right !important"><i class="material-icons">mode_edit</i></a></div>
       <div class="collapsible-body z-depth-0 left-margin" style="border: 1px solid white">
       <ul class="collapsible z-depth-0" data-collapsible="expandable" style="margin-top: -3vh; margin-left: -3vh; border: none">';
       $array = explode('<b>', $documento['conteudo']);
@@ -105,7 +105,7 @@
     echo '</ul>';
   }
 ?>
-<br><a href="<?php echo $projeto; ?>/documentacao">Adicionar uma documentação</a>
+<a href="<?php echo $projeto; ?>/documentacao">Adicionar uma documentação</a><br><br>
 </div>
 <script>
 $(document).ready(function(){
@@ -116,7 +116,7 @@ $(document).ready(function(){
 
 $(".edit").click(function(e){
   e.stopPropagation();
-  window.location.href = '<?php echo "$projeto/documentacao/"; ?>' + $(this).data('id') + '/edit';
+  window.location.href = '<?php echo base_url("$id/projeto/$projeto/documentacao/"); ?>' + $(this).data('id') + '/edit';
 });
 </script>
 

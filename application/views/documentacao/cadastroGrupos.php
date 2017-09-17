@@ -118,6 +118,25 @@ var quill = new Quill('#editor', {
   },
   theme: 'snow'
 });
+
+$("#doc-cadastro").click(function(e){
+  e.preventDefault();
+  // alert(quill.container.firstChild.innerHTML);
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo base_url('documento/form_cadastroGrupos'); ?>',
+    data: {'titulo': $("#titulo").val(), 'conteudo': quill.container.firstChild.innerHTML, 'idprojeto': '<?php echo $projeto['id_projeto']; ?>'},
+    success: function(response){
+      console.log(response);
+      if(response == ""){
+        window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']); ?>';
+      } else {
+        $("#texto-erro").html(response);
+        $("#error").modal('open');
+      }
+    }
+  });
+});
 </script>
 
 </body>

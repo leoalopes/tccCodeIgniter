@@ -142,7 +142,7 @@ $("#doc-update").click(function(e){
       }
     }
   });
-})
+});
 </script>
 
 </body>

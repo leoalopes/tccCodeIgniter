@@ -46,7 +46,6 @@ class Documento extends CI_Controller{
     $titulo = $this->input->post('titulo');
     $conteudo = $this->input->post('conteudo');
     $projeto = $this->input->post('projeto');
-    $id = $this->input->post('id');
 
     if(strlen($titulo) < 3){
       echo "O título deve ter no mínimo 3 caracteres.";
@@ -59,7 +58,29 @@ class Documento extends CI_Controller{
     }
 
     $idprojeto = $this->projetos_model->projeto($projeto, $this->session->userdata('logged_in')['id_usuario'])[0]['id_projeto'];
-    if($this->documentos_model->inserir($idprojeto, $projeto, $titulo, $conteudo)){
+    if($this->documentos_model->inserir($idprojeto, $titulo, $conteudo)){
+      echo "";
+    } else {
+      echo "Tente novamente mais tarde.";
+    }
+  }
+
+  public function form_cadastroGrupos(){
+    $titulo = $this->input->post('titulo');
+    $conteudo = $this->input->post('conteudo');
+    $idprojeto = $this->input->post('idprojeto');
+
+    if(strlen($titulo) < 3){
+      echo "O título deve ter no mínimo 3 caracteres.";
+      return;
+    }
+
+    if(strlen($titulo) > 100){
+      echo "O título deve ter no máximo 100 caracteres.";
+      return;
+    }
+
+    if($this->documentos_model->inserir($idprojeto, $titulo, $conteudo)){
       echo "";
     } else {
       echo "Tente novamente mais tarde.";
@@ -94,7 +115,7 @@ class Documento extends CI_Controller{
       $p = $this->projetos_model->projeto($projeto, $data['session']['id_usuario']);
       if($p){
         $p = $p[0]['id_projeto'];
-        $documento = $this->documentos_model->findById($iddoc, $data['session']['id_usuario'], $p);
+        $documento = $this->documentos_model->findById($iddoc, $p);
         if($documento){
           $data['projeto'] = $projeto;
           $data['documento'] = $documento[0];
@@ -112,21 +133,30 @@ class Documento extends CI_Controller{
   public function editarDeGrupo($user, $idgrupo, $projeto, $iddoc){
     if($this->user_model->user($user)){
       $data['session'] = $this->session->userdata('logged_in');
-      $p = $this->projetos_model->projeto($projeto, $data['session']['id_usuario']);
-      if($p){
-        $p = $p[0]['id_projeto'];
-        $documento = $this->documentos_model->findById($iddoc, $data['session']['id_usuario'], $p);
-        if($documento){
-          $data['projeto'] = $projeto;
-          $data['documento'] = $documento[0];
-          $data['id'] = $user;
-          $this->load->view('documentacao/edicao', $data);
+      $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
+      if($grupo){
+        $p = $this->grupos_model->isProject($idgrupo, $projeto);
+        if($p){
+          $p = $p[0];
+          $idproj = $p['id_projeto'];
+          $documento = $this->documentos_model->findById($iddoc, $idproj);
+          if($documento){
+            $data['grupo'] = $grupo[0];
+            $data['projeto'] = $p;
+            $data['documento'] = $documento[0];
+            $data['id'] = $user;
+            $this->load->view('documentacao/edicaoGrupos', $data);
+          } else {
+            redirect("$user/grupo/$idgrupo/projeto/$projeto", 'refresh');
+          }
         } else {
-          redirect("$user/projeto/$projeto", 'refresh');
+          redirect("$user/grupo/$idgrupo", 'refresh');
         }
       } else {
         redirect($user, 'refresh');
       }
+    } else {
+      redirect('home', 'refresh');
     }
   }
 }
