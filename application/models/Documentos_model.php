@@ -5,6 +5,12 @@ Class Documentos_model extends CI_Model{
         $this->load->database();
     }
 
+    public function deletar($id, $idproj){
+        $this->db->where('id_documentacao', $id);
+        $this->db->where('id_projeto', $idproj);
+        $this->db->delete('documentacao');
+    }
+
     public function listar($projeto, $id){
         $this->db->select('id_projeto');
         $this->db->from('projeto');

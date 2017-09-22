@@ -19,6 +19,8 @@ class Documento extends CI_Controller{
         } else {
           redirect($user, 'refresh');
         }
+      } else {
+        redirect('home', 'refresh');
       }
   }
 
@@ -39,6 +41,8 @@ class Documento extends CI_Controller{
         } else {
           redirect($user, 'refresh');
         }
+      } else {
+        redirect('home', 'refresh');
       }
   }
 
@@ -127,6 +131,8 @@ class Documento extends CI_Controller{
       } else {
         redirect($user, 'refresh');
       }
+    } else {
+      redirect('home', 'refresh');
     }
   }
 
@@ -146,6 +152,54 @@ class Documento extends CI_Controller{
             $data['documento'] = $documento[0];
             $data['id'] = $user;
             $this->load->view('documentacao/edicaoGrupos', $data);
+          } else {
+            redirect("$user/grupo/$idgrupo/projeto/$projeto", 'refresh');
+          }
+        } else {
+          redirect("$user/grupo/$idgrupo", 'refresh');
+        }
+      } else {
+        redirect($user, 'refresh');
+      }
+    } else {
+      redirect('home', 'refresh');
+    }
+  }
+
+  public function deletar($user, $projeto, $iddoc){
+    if($this->user_model->user($user)){
+      $data['session'] = $this->session->userdata('logged_in');
+      $p = $this->projetos_model->projeto($projeto, $data['session']['id_usuario']);
+      if($p){
+        $p = $p[0]['id_projeto'];
+        $documento = $this->documentos_model->findById($iddoc, $p);
+        if($documento){
+          $this->documentos_model->deletar($iddoc, $p);
+          redirect("$user/projeto/$projeto", 'refresh');
+        } else {
+          redirect("$user/projeto/$projeto", 'refresh');
+        }
+      } else {
+        redirect($user, 'refresh');
+      }
+    } else {
+      redirect('home', 'refresh');
+    }
+  }
+
+  public function deletarDeGrupo($user, $idgrupo, $projeto, $iddoc){
+    if($this->user_model->user($user)){
+      $data['session'] = $this->session->userdata('logged_in');
+      $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
+      if($grupo){
+        $p = $this->grupos_model->isProject($idgrupo, $projeto);
+        if($p){
+          $p = $p[0];
+          $idproj = $p['id_projeto'];
+          $documento = $this->documentos_model->findById($iddoc, $idproj);
+          if($documento){
+            $this->documentos_model->deletar($iddoc, $idproj);
+            redirect("$user/grupo/$idgrupo/projeto/$projeto", 'refresh');
           } else {
             redirect("$user/grupo/$idgrupo/projeto/$projeto", 'refresh');
           }

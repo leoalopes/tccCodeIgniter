@@ -55,7 +55,7 @@
     echo '<ul class="collapsible z-depth-0" data-collapsible="accordion" style="border: 1px solid white">';
     foreach($documentacoes as $documento){
       echo '<li>
-      <div class="collapsible-header z-depth-0 doc-titulo" style="border: 1px solid white; border-bottom: 1px solid #E0E0E0"><b>'.ucfirst($documento['titulo']).'</b><a data-id="'.$documento['id_documentacao'].'" class="blue-text text-darken-4 edit" style="float: right !important"><i class="material-icons">mode_edit</i></a></div>
+      <div class="collapsible-header z-depth-0 doc-titulo" style="border: 1px solid white; border-bottom: 1px solid #E0E0E0"><b>'.ucfirst($documento['titulo']).'</b><a class="grey-text text-darken-2 delete" style="float: right !important" data-modal="d'.$documento['id_documentacao'].'"><i class="material-icons">delete</i></a><a href="'.base_url("$id/projeto/$projeto/documentacao/").$documento['id_documentacao'].'/edit" class="blue-text text-darken-4 edit" style="float: right !important"><i class="material-icons">mode_edit</i></a></div>
       <div class="collapsible-body z-depth-0 left-margin" style="border: 1px solid white">
       <ul class="collapsible z-depth-0" data-collapsible="expandable" style="margin-top: -3vh; margin-left: -3vh; border: none">';
       $array = explode('<b>', $documento['conteudo']);
@@ -103,6 +103,16 @@
       echo '</div></li>';
     }
     echo '</ul>';
+    foreach ($documentacoes as $documento) {
+      echo '<div id="d'.$documento['id_documentacao'].'" class="modal">
+          <div class="modal-content">
+              <h4 class="blue-text text-darken-4">Tem certeza?</h4><br>Desejar excluir essa documentação PERMANENTEMENTE?
+          </div>
+          <div class="modal-footer">
+            <a class="modal-action modal-close blue-text text-darken-4 btn-flat" href="'.base_url("$id/projeto/$projeto/documentacao/").$documento['id_documentacao'].'/delete">SIM</a>
+          </div>
+      </div>';
+    }
   }
 ?>
 <a href="<?php echo $projeto; ?>/documentacao">Adicionar uma documentação</a><br><br>
@@ -110,14 +120,18 @@
 <script>
 $(document).ready(function(){
     $('.modal').modal();
-    $('#error').modal('open');
     history.pushState('', 'Home', '<?php echo base_url("$id/projeto/$projeto"); ?>');
 });
 
 $(".edit").click(function(e){
   e.stopPropagation();
-  window.location.href = '<?php echo base_url("$id/projeto/$projeto/documentacao/"); ?>' + $(this).data('id') + '/edit';
 });
+
+$(".delete").click(function(e){
+  e.stopPropagation();
+  $("#"+$(this).data('modal')).modal('open');
+});
+
 </script>
 
 </body>

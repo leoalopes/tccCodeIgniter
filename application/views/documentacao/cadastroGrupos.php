@@ -64,17 +64,17 @@
           <div class="row" id="quill-container">
             <div id="editor" style="height: 55vh;">
               <span>// Utilize negrito para designar os subtítulos...</span><br>
-              <span>// Modelo padrão:</span><br><br>
-              <b>Responsáveis pelo teste:</b><br>
-              <b>Aplicabilidade:</b><br>
-              <b>Lista de componentes eletrônicos:</b><br>
-              <b>Diagrama do circuito:</b><br>
-              <b>Código-fonte:</b><br>
-              <b>Especificação:</b><br>
-              <b>Área de aplicação:</b><br>
-              <b>Imagens:</b><br>
-              <b>Link para os videos:</b><br>
-              <b>Observações gerais:</b><br>
+              <span>// Modelo padrão:</span><br>
+              <b>Responsáveis pelo teste:</b><br><br>
+              <b>Aplicabilidade:</b><br><br>
+              <b>Lista de componentes eletrônicos:</b><br><br>
+              <b>Diagrama do circuito:</b><br><br>
+              <b>Código-fonte:</b><br><br>
+              <b>Especificação:</b><br><br>
+              <b>Área de aplicação:</b><br><br>
+              <b>Imagens:</b><br><br>
+              <b>Link para os videos:</b><br><br>
+              <b>Observações gerais:</b><br><br>
             </div>
           </div>
         </div>

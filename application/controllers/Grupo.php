@@ -15,11 +15,34 @@ class Grupo extends CI_Controller{
         if($grupo){
           $data['id'] = $user;
           $data['grupo'] = $grupo[0];
+          $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
           $data['projetos'] = $this->grupos_model->listProjects($idgrupo);
           $this->load->view('grupo/home', $data);
         } else {
           redirect($user, 'refresh');
         }
+      }
+  }
+
+  public function reuniao($user, $idgrupo){
+      if($this->user_model->user($user)){
+        $data['session'] = $this->session->userdata('logged_in');
+        $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
+        if($grupo){
+          if($this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo)){
+            $data['id'] = $user;
+            $data['grupo'] = $grupo[0];
+            $data['admin'] = 1;
+            $data['projetos'] = $this->grupos_model->listProjects($idgrupo);
+            $this->load->view('grupo/reuniao', $data);
+          } else {
+            redirect("$user/grupo/$idgrupo", 'refresh');
+          }
+        } else {
+          redirect($user, 'refresh');
+        }
+      } else {
+        redirect('home', 'refresh');
       }
   }
 
@@ -41,6 +64,8 @@ class Grupo extends CI_Controller{
         } else {
           redirect($user, 'refresh');
         }
+      } else {
+        redirect('home', 'refresh');
       }
   }
 

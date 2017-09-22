@@ -50,7 +50,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['reuniao'] = 'Reuniao';
 $route['about'] = 'About';
 $route['home'] = 'Homepage';
 $route['conta'] = 'Usuarios';
@@ -60,11 +59,15 @@ $route['(:any)'] = 'Homepage/home/$1';
 $route['(:any)/grupo/cadastro'] = 'Homepage/cadastro/$1';
 $route['(:any)/projeto/(:any)'] = 'Projeto/view/$1/$2';
 $route['(:any)/grupo/(:num)'] = 'Grupo/view/$1/$2';
+$route['(:any)/grupo/(:num)/reuniao'] = 'Grupo/reuniao/$1/$2';
 $route['(:any)/grupo/(:num)/projeto/(:any)'] = 'Grupo/projeto/$1/$2/$3';
 $route['(:any)/projeto/(:any)/documentacao'] = 'Documento/cadastro/$1/$2';
 $route['(:any)/projeto/(:any)/documentacao/(:num)/edit'] = 'Documento/editar/$1/$2/$3';
+$route['(:any)/projeto/(:any)/documentacao/(:num)/delete'] = 'Documento/deletar/$1/$2/$3';
 $route['(:any)/grupo/(:num)/projeto/(:any)/documentacao'] = 'Documento/cadastrodeGrupo/$1/$2/$3';
 $route['(:any)/grupo/(:num)/projeto/(:any)/documentacao/(:num)/edit'] = 'Documento/editarDeGrupo/$1/$2/$3/$4';
+$route['(:any)/grupo/(:num)/projeto/(:any)/documentacao/(:num)/delete'] = 'Documento/deletarDeGrupo/$1/$2/$3/$4';
+
 $route['default_controller'] = 'About';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;

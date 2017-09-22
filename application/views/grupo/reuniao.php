@@ -14,14 +14,27 @@
 <body>
   <ul id="user_dropdown" class="dropdown-content blue darken-4">
       <li><a href="" class="white-text drop-item">Editar perfil</a></li>
-      <li><a href="conta/logout" class="white-text drop-item">Sair</a></li>
+      <li><a href="<?php echo base_url("conta/logout"); ?>" class="white-text drop-item">Sair</a></li>
+  </ul>
+
+  <ul id="slide-out" class="side-nav white">
+    <li><div class="userView">
+      <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
+      <span class="name"><?php echo $session['nome'] ?></span>
+      <span class="email"><?php echo $session['email'] ?></span>
+    </div></li>
+    <li class="divider"></li>
   </ul>
 
   <div class="navbar-fixed">
     <nav class="row">
       <div class="nav-wrapper blue darken-4 white-text">
-
-        <a href="" class="brand-logo"><i style="margin-left: 2vh; font-size: 5vh !important; transform: rotate(45deg);" class="material-icons">call_received</i><b>Voltar</b></a>
+        <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        <div class="brand-logo">
+          <a href="<?php echo base_url("home"); ?>" class="breadcrumb"><b>Home</b></a>
+          <a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>" class="breadcrumb"><b>Grupo <?php echo ucfirst($grupo['nome']); ?></b></a>
+          <a href="" class="breadcrumb"><b>Cadastrar reunião</b></a>
+        </div>
         <ul class="right hide-on-med-and-down">
           <li><a class="dropdown-button" href="" data-activates="user_dropdown" data-belowOrigin="true"><?php echo $session['nome'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>

@@ -47,19 +47,22 @@
 </div>
 <br><br>
 <div class="container">
-<h3 class="blue-text text-darken-4"><b>Projetos</b></h3>
+<h3><b>Projetos</b></h3><li class="divider"></li><br>
 <?php
   if($projetos){
-    echo '<br><ul>';
     foreach($projetos as $proj){
       $idg = $grupo['id_grupo'];
       $projnome = $proj['nome'];
-      echo '<a href="'.base_url("$id/grupo/$idg/projeto/$projnome").'"><li class="itens gprojetos"><b>'.ucfirst($proj['nome']).'</b></li><li class="divider" style="margin-top: 2vh"></li><br>';
+      echo '<a class="itens" href="'.base_url("$id/grupo/$idg/projeto/$projnome").'"><b>'.ucfirst($proj['nome']).'</b><br>';
     }
-    echo '</ul>';
   }
+  echo '<a href="#proj-modal" style="margin-top: -2vh !important; margin-left: 5vh !important">Criar novo projeto</a><br><br>';
 ?>
-<a href="#proj-modal">Criar novo projeto</a>
+<h3><b>Reuniões</b></h3><li class="divider"></li><br>
+<?php
+  if($admin)
+    echo '<a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" style="margin-top: -2vh !important; margin-left: 5vh !important">Cadastrar nova reunião</a><br><br>';
+?>
 </div>
 
 <div id="proj-modal" class="modal">
