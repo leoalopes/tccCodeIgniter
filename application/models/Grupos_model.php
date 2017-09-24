@@ -41,6 +41,14 @@ Class Grupos_model extends CI_Model{
         return true;
     }
 
+    public function excluir($idgrupo){
+      $this->db->where('id_grupo', $idgrupo);
+      $this->db->delete('usuarios_grupo');
+
+      $this->db->where('id_grupo', $idgrupo);
+      $this->db->delete('grupo');
+    }
+
     public function listGroups(){
       $id = $this->session->userdata('logged_in')['id_usuario'];
       $query = $this->db->query("select id_grupo, nome from grupo where id_usuario = " . $id);

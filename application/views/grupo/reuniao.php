@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Cadastrar grupo</title>
+  <title>Cadastrar reunião</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -49,15 +49,14 @@
             <form>
               <div class="row">
                 <div class="input-field col s12">
-                  <input name="nome" id="nome" type="text">
-                  <label for="nome">Motivo da reunião</label>
+                  <textarea id="motivo" name="motivo" class="materialize-textarea"></textarea>
+                  <label for="motivo">Motivo da reunião</label>
                 </div>
               </div>
               <div class="row">
-                  <div class="col s12 input-field">
-                    <input name="usuarios" id="usuarios" type="text" readonly>
-                    <label for="usuarios">Usuários envolvidos</label>
-                  </div>
+                <div class="col s12 input-field">
+                  <input name="usuarios" id="usuarios" type="text" readonly>
+                  <label for="usuarios">Usuários envolvidos</label>
                 </div>
               </div>
               <div class="row">
@@ -72,11 +71,11 @@
                 </div>
               </div>
               <div class="row">
-                <div class="left-align"><br>
+                <div class="left-align" style="margin-left: 2vh"><br>
                   <input type="checkbox" class="filled-in blue" id="filled-in-box" checked="checked" />
                   <label for="filled-in-box">Notificar usuários por e-mail</label>
                 </div>
-                <div class="right-align"><button class="btn blue darken-4 waves-effect waves-light" type="submit" name="">Cadastrar</button></div>
+                <div class="right-align" style="margin-right: 2vh"><button class="btn blue darken-4 waves-effect waves-light" type="submit" name="">Cadastrar</button></div>
               </div>
             </form>
         </div>

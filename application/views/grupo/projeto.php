@@ -28,7 +28,26 @@
     <span class="email"><?php echo $session['email'] ?></span>
   </div></li>
   <li class="divider"></li>
+  <li style="text-align: center !important">
+    <span><b>Opções do projeto</b></span>
+    <div>
+      <ul style="text-align: left !important">
+        <li><a href="" class="blue-text text-darken-4">Editar projeto</a></li>
+        <li><a href="#excluirProjeto" class="blue-text text-darken-4">Excluir projeto</a></li>
+      </ul>
+    </div>
+  </li>
+  <li class="divider"></li>
 </ul>
+
+<div id="excluirProjeto" class="modal">
+    <div class="modal-content">
+        <h4 class="blue-text text-darken-4">Tem certeza?</h4><br>Desejar excluir esse projeto PERMANENTEMENTE?
+    </div>
+    <div class="modal-footer">
+      <a id="delProj" class="modal-action modal-close blue-text text-darken-4 btn-flat">SIM</a>
+    </div>
+</div>
 
 <div class="navbar-fixed">
   <nav class="row">
@@ -118,6 +137,10 @@
 <a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao"); ?>">Adicionar uma documentação</a>
 <br><br></div>
 <script>
+$(document).ready(function(){
+    $('.modal').modal();
+});
+
 $(".edit").click(function(e){
   e.stopPropagation();
 });
@@ -125,6 +148,20 @@ $(".edit").click(function(e){
 $(".delete").click(function(e){
   e.stopPropagation();
   $("#"+$(this).data('modal')).modal('open');
+});
+
+$("#delProj").click(function(e){
+  e.preventDefault();
+
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo base_url('projeto/delete'); ?>',
+    data: {'idprojeto': <?php echo $projeto['id_projeto']; ?>},
+    success: function(response){
+      //console.log(response);
+      window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
+    }
+  });
 });
 </script>
 

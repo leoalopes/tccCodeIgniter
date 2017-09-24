@@ -103,7 +103,7 @@ CREATE TABLE responsaveis_atividade
 CREATE TABLE reuniao
 (
 	id_reuniao int NOT NULL AUTO_INCREMENT,
-	motivo varchar(200) NOT NULL,
+	motivo text NOT NULL,
 	data datetime NOT NULL,
 	id_grupo int NOT NULL,
 	PRIMARY KEY (id_reuniao),

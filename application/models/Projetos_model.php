@@ -33,8 +33,24 @@ Class Projetos_model extends CI_Model{
        return false;
     }
 
+    public function excluir($idprojeto){
+      //DELETAR TABELAS DE ATIVIDADES
+
+      $this->db->where('id_projeto', $idprojeto);
+      $this->db->delete('documentacao');
+
+      $this->db->where('id_projeto', $idprojeto);
+      $this->db->delete('permissoes_projeto');
+
+      $this->db->where('id_projeto', $idprojeto);
+      $this->db->delete('projeto_grupo');
+
+      $this->db->where('id_projeto', $idprojeto);
+      $this->db->delete('projeto');
+    }
+
     public function projeto($nome, $id){
-        $this->db->select('id_projeto');
+        $this->db->select('*');
         $this->db->from('projeto');
         $this->db->where('nome', $nome);
         $this->db->where('id_usuario',$id);
@@ -66,7 +82,7 @@ Class Projetos_model extends CI_Model{
 
     public function listProjects(){
       $id = $this->session->userdata('logged_in')['id_usuario'];
-      $query = $this->db->query("select nome from projeto where id_usuario = " . $id);
+      $query = $this->db->query("select * from projeto where id_usuario = " . $id);
       $i = 0;
       $projetos = FALSE;
       foreach($query->result_array() as $row){

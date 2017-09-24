@@ -4,6 +4,7 @@ class Grupo extends CI_Controller{
   function __construct(){
       parent::__construct();
       $this->load->model('user_model');
+      $this->load->model('projetos_model');
       $this->load->model('grupos_model');
       $this->load->model('documentos_model');
   }
@@ -22,6 +23,17 @@ class Grupo extends CI_Controller{
           redirect($user, 'refresh');
         }
       }
+  }
+
+  public function delete(){
+    $idgrupo = $this->input->post('idgrupo');
+
+    foreach($this->grupos_model->listProjects($idgrupo) as $projeto){
+      echo $projeto['id_projeto'];
+      $this->projetos_model->excluir($projeto['id_projeto']);
+    }
+
+    $this->grupos_model->excluir($idgrupo);
   }
 
   public function reuniao($user, $idgrupo){

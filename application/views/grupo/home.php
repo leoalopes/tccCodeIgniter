@@ -29,7 +29,48 @@
     <span class="email"><?php echo $session['email'] ?></span>
   </div></li>
   <li class="divider"></li>
+  <?php if($admin){
+    echo '<li style="text-align: center !important">
+      <span><b>Opções do projeto</b></span>
+      <div>
+        <ul style="text-align: left !important">
+          <li><a href="" class="blue-text text-darken-4">Editar grupo</a></li>
+          <li><a href="#excluirGrupo" class="blue-text text-darken-4">Excluir grupo</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="divider"></li>';
+  } ?>
 </ul>
+
+<?php if($admin){
+  echo '<div id="excluirGrupo" class="modal">
+      <div class="modal-content">
+          <h4 class="blue-text text-darken-4">Tem certeza?</h4><br>Desejar excluir esse grupo PERMANENTEMENTE?
+      </div>
+      <div class="modal-footer">
+        <a id="delGrupo" class="modal-action modal-close blue-text text-darken-4 btn-flat">SIM</a>
+      </div>
+  </div>';
+} ?>
+
+<?php if($admin){
+echo '<script>
+    $("#delGrupo").click(function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type: "POST",
+        url: "'.base_url("grupo/delete").'",
+        data: {"idgrupo": '.$grupo["id_grupo"].'},
+        success: function(response){
+          console.log(response);
+          window.location.href = "'.base_url($id).'";
+        }
+      });
+    });
+  </script>';
+} ?>
 
 <div class="navbar-fixed">
   <nav class="row">
