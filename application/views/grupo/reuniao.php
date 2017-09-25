@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Cadastrar reunião</title>
+  <title>Cadastrar reuniao</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -46,17 +46,10 @@
         <h3 class="center blue-text text-darken-4"><b>Cadastrar reunião</b></h3>
 
         <div class="row">
-            <form>
               <div class="row">
                 <div class="input-field col s12">
                   <textarea id="motivo" name="motivo" class="materialize-textarea"></textarea>
                   <label for="motivo">Motivo da reunião</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col s12 input-field">
-                  <input name="usuarios" id="usuarios" type="text" readonly>
-                  <label for="usuarios">Usuários envolvidos</label>
                 </div>
               </div>
               <div class="row">
@@ -67,21 +60,30 @@
                 </div>
                 <div class="col s6 m6 input-field">
                   <i class="material-icons prefix">query_builder</i>
-                  <input name="hora" id="hora" type="time" class="timepicker">
+                  <input name="hora" id="hora" type="time" class="timepicker" value="<?php echo date('H:i'); ?>">
                 </div>
               </div>
               <div class="row">
                 <div class="left-align" style="margin-left: 2vh"><br>
-                  <input type="checkbox" class="filled-in blue" id="filled-in-box" checked="checked" />
-                  <label for="filled-in-box">Notificar usuários por e-mail</label>
+                  <input type="checkbox" class="filled-in blue" id="checkbox" checked="checked" />
+                  <label for="checkbox">Notificar usuários por e-mail</label>
                 </div>
-                <div class="right-align" style="margin-right: 2vh"><button class="btn blue darken-4 waves-effect waves-light" type="submit" name="">Cadastrar</button></div>
+                <div class="right-align" style="margin-right: 2vh"><a class="btn blue darken-4 waves-effect waves-light" id="cadastrar">Cadastrar</a></div>
               </div>
-            </form>
         </div>
 
 
     </div>
+  </div>
+
+  <div id="error" class="modal">
+      <div class="modal-content">
+          <h4 class="red-text text-lighten-2">Erro</h4>
+          <span id="texto-erro"></span>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Ok</a>
+      </div>
   </div>
 
   <!--  Scripts-->
@@ -90,7 +92,30 @@
   <script src="<?php echo base_url(); ?>assets/js/init.js"></script>
 
   <script>
+    $("#cadastrar").click(function(e){
+      e.preventDefault();
+
+      var data = $('#data').pickadate('picker').get('highlight', 'yyyy') + '-' + $('#data').pickadate('picker').get('highlight', 'mm') + '-' + $('#data').pickadate('picker').get('highlight', 'dd');
+      data += ' ' + $('#hora').val() + ':00';
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('reuniao/cadastro'); ?>',
+        data: {'idgrupo': <?php echo $grupo['id_grupo']; ?>, 'motivo': $('#motivo').val(), 'data': data, 'notificar': $("#checkbox").is(':checked')},
+        success: function(response){
+          console.log(response);
+          if(response == ''){
+            window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
+          } else {
+            $("#texto-erro").html(response);
+            $("#error").modal('open');
+          }
+        }
+      });
+    });
+
+
     $(document).ready(function() {
+      $("#data").pickadate('picker').set('select', '<?php echo date('Y-m-d'); ?>', { format: 'yyyy-mm-dd' });
       setTimeout(function() {
         Materialize.updateTextFields();
       }, 1000);
@@ -113,15 +138,14 @@
     });
 
     $('.timepicker').pickatime({
-    default: 'now', // Set default time
+    default: '<?php echo date('H:i'); ?>', // Set default time
     fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
     twelvehour: false, // Use AM/PM or 24-hour format
     donetext: 'OK', // text for done-button
     cleartext: 'Limpar', // text for clear-button
     canceltext: 'Cancelar', // Text for cancel-button
     autoclose: false, // automatic close timepicker
-    ampmclickable: false, // make AM PM clickable
-    aftershow: function(){ alert('pau no cu do materialize'); } //Function for after opening timepicker
+    ampmclickable: false // make AM PM clickable
     });
   </script>
 

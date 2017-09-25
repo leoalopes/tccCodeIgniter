@@ -6,6 +6,7 @@ class Grupo extends CI_Controller{
       $this->load->model('user_model');
       $this->load->model('projetos_model');
       $this->load->model('grupos_model');
+      $this->load->model('reuniao_model');
       $this->load->model('documentos_model');
   }
 
@@ -18,6 +19,7 @@ class Grupo extends CI_Controller{
           $data['grupo'] = $grupo[0];
           $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
           $data['projetos'] = $this->grupos_model->listProjects($idgrupo);
+          $data['reunioes'] = $this->reuniao_model->listar($idgrupo);
           $this->load->view('grupo/home', $data);
         } else {
           redirect($user, 'refresh');

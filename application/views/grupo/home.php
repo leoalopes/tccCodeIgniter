@@ -87,6 +87,7 @@ echo '<script>
   </nav>
 </div>
 <br><br>
+<?php print_r($reunioes); ?>
 <div class="container">
 <h3><b>Projetos</b></h3><li class="divider"></li><br>
 <?php
