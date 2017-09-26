@@ -71,6 +71,7 @@ class Grupo extends CI_Controller{
             $data['grupo'] = $grupo[0];
             $data['projeto'] = $proj[0];
             $data['documentacoes'] = $this->documentos_model->listarDeGrupo($data['projeto']['id_projeto']);
+            $data['permissoes'] = $this->grupos_model->permissoesProjeto($data['projeto']['id_projeto'], $data['session']['id_usuario']);
             $this->load->view('grupo/projeto.php', $data);
           } else {
             redirect("$user/grupo/$idgrupo", 'refresh');

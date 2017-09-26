@@ -28,19 +28,22 @@
     <span class="email"><?php echo $session['email'] ?></span>
   </div></li>
   <li class="divider"></li>
-  <li style="text-align: center !important">
-    <span><b>Opções do projeto</b></span>
-    <div>
-      <ul style="text-align: left !important">
-        <li><a href="" class="blue-text text-darken-4">Editar projeto</a></li>
-        <li><a href="#excluirProjeto" class="blue-text text-darken-4">Excluir projeto</a></li>
-      </ul>
-    </div>
-  </li>
-  <li class="divider"></li>
+    <?php
+    if($permissoes && $permissoes['escrita']){
+      echo '<li style="text-align: center !important"><span><b>Opções do projeto</b></span>
+      <div>
+        <ul style="text-align: left !important">
+          <li><a href="" class="blue-text text-darken-4">Editar projeto</a></li>
+          <li><a href="#excluirProjeto" class="blue-text text-darken-4">Excluir projeto</a></li>
+        </ul>
+      </div></li>
+      <li class="divider"></li>';
+    }
+    ?>
 </ul>
-
-<div id="excluirProjeto" class="modal">
+<?php
+if($permissoes && $permissoes['escrita']){
+echo '<div id="excluirProjeto" class="modal">
     <div class="modal-content">
         <h4 class="blue-text text-darken-4">Tem certeza?</h4><br>Desejar excluir esse projeto PERMANENTEMENTE?
     </div>
@@ -48,7 +51,23 @@
       <a id="delProj" class="modal-action modal-close blue-text text-darken-4 btn-flat">SIM</a>
     </div>
 </div>
+<script>
+$("#delProj").click(function(e){
+  e.preventDefault();
 
+  $.ajax({
+    type: "POST",
+    url: "'.base_url("projeto/delete").'",
+    data: {"idprojeto": '.$projeto["id_projeto"].'},
+    success: function(response){
+      //console.log(response);
+      window.location.href = "'.base_url("$id/grupo/".$grupo["id_grupo"]).'";
+    }
+  });
+});
+</script>';
+}
+?>
 <div class="navbar-fixed">
   <nav class="row">
     <div class="nav-wrapper blue darken-4 white-text">
@@ -69,7 +88,7 @@
 <h3 class="blue-text text-darken-4"><b>Documentações</b></h3>
 <?php
   if(empty($documentacoes)){
-    echo '<div class="container" style="margin-top: 2vh; margin-bottom: 2vh; margin-left: 4vh !important">Você não possui nenhuma documentação cadastrada.</div>';
+    echo '<div class="container" style="margin-top: 2vh; margin-bottom: 2vh; margin-left: 4vh !important">O projeto não possui nenhuma documentação cadastrada.</div>';
   } else {
     echo '<ul class="collapsible z-depth-0" data-collapsible="accordion" style="border: 1px solid white">';
     foreach($documentacoes as $documento){
@@ -133,8 +152,10 @@
       </div>';
     }
   }
+  if($permissoes && $permissoes['escrita']){
+    echo '<a href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao").'">Adicionar uma documentação</a>';
+  }
 ?>
-<a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao"); ?>">Adicionar uma documentação</a>
 <br><br></div>
 <script>
 $(document).ready(function(){

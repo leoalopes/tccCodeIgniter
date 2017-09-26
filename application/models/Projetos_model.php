@@ -33,6 +33,13 @@ Class Projetos_model extends CI_Model{
        return false;
     }
 
+    public function atualizar($nome, $idprojeto){
+       $info['nome'] = $nome;
+
+       $this->db->where('id_projeto', $idprojeto);
+       $this->db->update('projeto', $info);
+    }
+
     public function excluir($idprojeto){
       //DELETAR TABELAS DE ATIVIDADES
 

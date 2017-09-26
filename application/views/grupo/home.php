@@ -87,7 +87,6 @@ echo '<script>
   </nav>
 </div>
 <br><br>
-<?php print_r($reunioes); ?>
 <div class="container">
 <h3><b>Projetos</b></h3><li class="divider"></li><br>
 <?php
@@ -102,6 +101,53 @@ echo '<script>
 ?>
 <h3><b>Reuniões</b></h3><li class="divider"></li><br>
 <?php
+  if(!empty($reunioes['pendentes'])){
+    echo '<h5 class="blue-text text-darken-4" style="margin-left: 5vh !important"><b>Pendentes</b></h2><li class="divider" style="margin-left: 5vh !important; width: 30%"></li><br>';
+    foreach($reunioes['pendentes'] as $reuniao){
+      $data = substr($reuniao['data'], 8, 2) . "/" . substr($reuniao['data'], 5, 2) . "/" . substr($reuniao['data'], 0, 4);
+      $hora = substr($reuniao['data'], 11, 5);
+      echo '<span style="margin-left: 8vh !important"><b>' . $data . '</b> - ' . $hora . '</span> <a href="#r'. $reuniao['id_reuniao'] .'">&nbsp;<span>Ver mais</span></a>
+      <div id="r'. $reuniao['id_reuniao'] .'" class="modal">
+          <div class="modal-content">
+            <h3 class="blue-text text-darken-4" style="width: 100% !important">Reunião do dia '. $data .' às '. $hora;
+            if($admin){
+              echo '<div style="float: right !important"><a href="" class="blue-text text-darken-4 edit"><i class="small material-icons">mode_edit</i></a>
+              &nbsp;<a class="red-text text-darken-4 delete"><i class="small material-icons">delete</i></a></div>';
+            }
+            echo '</h3><br>
+            <h5 style="text-align: justify">'. $reuniao['motivo'] .'</h5>
+          </div>
+          <div class="modal-footer">
+            <a class="modal-action modal-close red-text text-darken-1 btn-flat cancel">Ok</a>
+          </div>
+      </div>
+      <br>';
+    }
+    echo "<br>";
+  }
+  if(!empty($reunioes['realizadas'])){
+    echo '<h5 class="blue-text text-darken-4" style="margin-left: 5vh !important"><b>Realizadas</b></h2><li class="divider" style="margin-left: 5vh !important; width: 30%"></li><br>';
+    foreach($reunioes['realizadas'] as $reuniao){
+      $data = substr($reuniao['data'], 8, 2) . "/" . substr($reuniao['data'], 5, 2) . "/" . substr($reuniao['data'], 0, 4);
+      $hora = substr($reuniao['data'], 11, 5);
+      echo '<span style="margin-left: 8vh !important"><b>' . $data . '</b> - ' . $hora . '</span><a href="#r'. $reuniao['id_reuniao'] .'">&nbsp;<span>Ver mais</span></a>
+      <div id="r'. $reuniao['id_reuniao'] .'" class="modal">
+          <div class="modal-content">
+            <h3 class="blue-text text-darken-4" style="width: 100% !important">Reunião do dia '. $data .' às '. $hora;
+            if($admin){
+              echo '<div style="float: right !important"><a class="red-text text-darken-4 delete"><i class="small material-icons">delete</i></a></div>';
+            }
+            echo '</h3><br>
+            <h5 style="text-align: justify">'. $reuniao['motivo'] .'</h5>
+          </div>
+          <div class="modal-footer">
+            <a class="modal-action modal-close red-text text-darken-1 btn-flat cancel">Ok</a>
+          </div>
+      </div>
+      <br>';
+    }
+    echo "<br>";
+  }
   if($admin)
     echo '<a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" style="margin-top: -2vh !important; margin-left: 5vh !important">Cadastrar nova reunião</a><br><br>';
 ?>

@@ -33,13 +33,26 @@
     <span><b>Opções do projeto</b></span>
     <div>
       <ul style="text-align: left !important">
-        <li><a href="" class="blue-text text-darken-4">Editar projeto</a></li>
+        <li><a href="#editarProjeto" class="blue-text text-darken-4">Editar projeto</a></li>
         <li><a href="#excluirProjeto" class="blue-text text-darken-4">Excluir projeto</a></li>
       </ul>
     </div>
   </li>
   <li class="divider"></li>
 </ul>
+
+<div id="editarProjeto" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+          <input name="nome" id="nomeProj" type="text" value="<?php echo $projeto['nome']; ?>">
+          <label for="nome">Nome do projeto</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Cancelar</a>
+      <a id="editarProj" class="blue darken-4 white-text btn-flat">Atualizar</a>
+    </div>
+</div>
 
 <div id="excluirProjeto" class="modal">
     <div class="modal-content">
@@ -136,6 +149,16 @@
 ?>
 <a href="<?php echo $projeto['nome']; ?>/documentacao">Adicionar uma documentação</a><br><br>
 </div>
+
+<div id="error-modal" class="modal">
+    <div class="modal-content">
+        <h4 class="red-text text-lighten-2">Erro</h4><div id="erro"></div>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Ok</a>
+    </div>
+</div>
+
 <script>
 $(document).ready(function(){
     $('.modal').modal();
@@ -161,6 +184,26 @@ $("#delProj").click(function(e){
     success: function(response){
       //console.log(response);
       window.location.href = '<?php echo base_url($id); ?>';
+    }
+  });
+});
+
+$("#editarProj").click(function(e){
+  e.preventDefault();
+
+  $.ajax({
+    type: 'POST',
+    url: '<?php echo base_url('projeto/edit'); ?>',
+    data: {'idprojeto': <?php echo $projeto['id_projeto']; ?>, 'nome': $("#nomeProj").val()},
+    success: function(response){
+      console.log(response);
+      if(response == ''){
+        window.location.href = "<?php echo base_url("$id/projeto/"); ?>" + $("#nomeProj").val();
+      } else {
+        $("#editarProjeto").modal('close');
+        $("#erro").text(response);
+        $("#error-modal").modal('open');
+      }
     }
   });
 });

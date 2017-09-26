@@ -19,16 +19,33 @@ Class Reuniao_model extends CI_Model{
     }
 
     public function listar($idgrupo){
+        $now = date('Y-m-d H:i:s');
         $this->db->select('*');
         $this->db->from('reuniao');
-        $this->db->where('id_grupo',$idgrupo);
+        $this->db->where('id_grupo', $idgrupo);
+        $this->db->where('DATE(data) >', $now);
+        $this->db->order_by("data", "asc");
 
         $query = $this->db->get();
 
         $i = 0;
         $reunioes = FALSE;
         foreach($query->result_array() as $row){
-          $reunioes[$i] = $row;
+          $reunioes['pendentes'][$i] = $row;
+          $i++;
+        }
+
+        $this->db->select('*');
+        $this->db->from('reuniao');
+        $this->db->where('id_grupo', $idgrupo);
+        $this->db->where('DATE(data) <=', $now);
+        $this->db->order_by("data", "desc");
+
+        $query = $this->db->get();
+
+        $i = 0;
+        foreach($query->result_array() as $row){
+          $reunioes['realizadas'][$i] = $row;
           $i++;
         }
         return $reunioes;

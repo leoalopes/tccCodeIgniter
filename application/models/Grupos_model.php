@@ -19,6 +19,19 @@ Class Grupos_model extends CI_Model{
         return $query->result_array()[0]['admin'];
     }
 
+    public function permissoesProjeto($idp, $idu){
+        $this->db->select('leitura, escrita');
+        $this->db->from('permissoes_projeto');
+        $this->db->where('id_projeto', $idp);
+        $this->db->where('id_usuario', $idu);
+
+        $query = $this->db->get();
+
+        if(empty($query->row_array()))
+          return false;
+        return $query->row_array();
+    }
+
     public function inserir($nome, $usuarios){
         $info['nome'] = ucfirst($nome);
         $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
@@ -126,9 +139,18 @@ Class Grupos_model extends CI_Model{
         $p['nome'] = $projeto;
         $this->db->insert('projeto', $p);
 
-        $pg['id_projeto'] = $this->db->insert_id();
+        $id = $this->db->insert_id();
+
+        $pg['id_projeto'] = $id;
         $pg['id_grupo'] = $idgrupo;
         $this->db->insert('projeto_grupo', $pg);
+
+        $pp['id_projeto'] = $id;
+        $pp['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
+        $pp['leitura'] = true;
+        $pp['escrita'] = true;
+        $this->db->insert('permissoes_projeto', $pp);
+
         return true;
     }
 }
