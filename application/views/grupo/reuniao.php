@@ -41,9 +41,11 @@
       </div>
     </nav>
   </div>
+
+
   <div class="container row">
     <div class="section">
-        <h3 class="center blue-text text-darken-4"><b>Cadastrar reunião</b></h3>
+        <br><br><h3 class="center blue-text text-darken-4"><b>Cadastrar reunião</b></h3>
 
         <div class="row">
               <div class="row">
@@ -62,12 +64,12 @@
                   <i class="material-icons prefix">query_builder</i>
                   <input name="hora" id="hora" type="time" class="timepicker" value="<?php echo date('H:i'); ?>">
                 </div>
-              </div>
+              </div><br>
               <div class="row">
                 <div class="left-align" style="margin-left: 2vh"><br>
                   <input type="checkbox" class="filled-in blue" id="checkbox" checked="checked" />
-                  <label for="checkbox">Notificar usuários por e-mail</label>
-                </div>
+                  <label for="checkbox" class="black-text">Notificar usuários por e-mail</label>
+                </div><br><br>
                 <div class="right-align" style="margin-right: 2vh"><a class="btn blue darken-4 waves-effect waves-light" id="cadastrar">Cadastrar</a></div>
               </div>
         </div>
