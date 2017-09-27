@@ -18,12 +18,42 @@ Class Reuniao_model extends CI_Model{
          return false;
     }
 
+    public function reuniao($idreuniao, $idgrupo){
+        $this -> db -> select('*');
+        $this -> db -> from('reuniao');
+        $this -> db -> where('id_reuniao', $idreuniao);
+        $this -> db -> where('id_grupo', $idgrupo);
+
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() >= 1)
+          return true;
+        else
+          return false;
+    }
+
+    public function reuniaoPendente($idreuniao, $idgrupo){
+        $now = date('Y-m-d H:i:s');
+        $this -> db -> select('*');
+        $this -> db -> from('reuniao');
+        $this -> db -> where('id_reuniao', $idreuniao);
+        $this -> db -> where('id_grupo', $idgrupo);
+        $this -> db -> where('data >', $now);
+
+        $query = $this -> db -> get();
+
+        if($query -> num_rows() >= 1)
+          return $query->row_array();
+        else
+          return false;
+    }
+
     public function listar($idgrupo){
         $now = date('Y-m-d H:i:s');
         $this->db->select('*');
         $this->db->from('reuniao');
         $this->db->where('id_grupo', $idgrupo);
-        $this->db->where('DATE(data) >', $now);
+        $this->db->where('data >', $now);
         $this->db->order_by("data", "asc");
 
         $query = $this->db->get();
@@ -38,7 +68,7 @@ Class Reuniao_model extends CI_Model{
         $this->db->select('*');
         $this->db->from('reuniao');
         $this->db->where('id_grupo', $idgrupo);
-        $this->db->where('DATE(data) <=', $now);
+        $this->db->where('data <=', $now);
         $this->db->order_by("data", "desc");
 
         $query = $this->db->get();
@@ -49,6 +79,11 @@ Class Reuniao_model extends CI_Model{
           $i++;
         }
         return $reunioes;
+    }
+
+    public function excluir($idreuniao){
+      $this->db->where('id_reuniao', $idreuniao);
+      $this->db->delete('reuniao');
     }
 }
 ?>

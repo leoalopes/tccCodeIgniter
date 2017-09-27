@@ -111,8 +111,8 @@ echo '<script>
           <div class="modal-content">
             <h3 class="blue-text text-darken-4" style="width: 100% !important">Reunião do dia '. $data .' às '. $hora;
             if($admin){
-              echo '<div style="float: right !important"><a href="" class="blue-text text-darken-4 edit"><i class="small material-icons">mode_edit</i></a>
-              &nbsp;<a class="red-text text-darken-4 delete"><i class="small material-icons">delete</i></a></div>';
+              echo '<div style="float: right !important"><a href="'. base_url("$id/grupo/".$grupo['id_grupo']."/reuniao"."/".$reuniao['id_reuniao']) .'/edit" class="blue-text text-darken-4 edit"><i class="small material-icons">mode_edit</i></a>
+              &nbsp;<a href="'. base_url("$id/grupo/".$grupo['id_grupo']."/reuniao"."/".$reuniao['id_reuniao']) .'/delete" class="red-text text-darken-4 delete"><i class="small material-icons">delete</i></a></div>';
             }
             echo '</h3><br>
             <h5 style="text-align: justify">'. $reuniao['motivo'] .'</h5>
@@ -135,7 +135,7 @@ echo '<script>
           <div class="modal-content">
             <h3 class="blue-text text-darken-4" style="width: 100% !important">Reunião do dia '. $data .' às '. $hora;
             if($admin){
-              echo '<div style="float: right !important"><a class="red-text text-darken-4 delete"><i class="small material-icons">delete</i></a></div>';
+              echo '<div style="float: right !important"><a href="'. base_url("$id/grupo/".$grupo['id_grupo']."/reuniao"."/".$reuniao['id_reuniao']) .'/delete" class="red-text text-darken-4 delete"><i class="small material-icons">delete</i></a></div>';
             }
             echo '</h3><br>
             <h5 style="text-align: justify">'. $reuniao['motivo'] .'</h5>
@@ -151,7 +151,7 @@ echo '<script>
   if($admin)
     echo '<a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" style="margin-top: -2vh !important; margin-left: 5vh !important">Cadastrar nova reunião</a><br><br>';
 ?>
-</div>
+</div><br><br>
 
 <div id="proj-modal" class="modal">
     <div class="modal-content">
