@@ -31,9 +31,10 @@
   <li class="divider"></li>
   <?php if($admin){
     echo '<li style="text-align: center !important">
-      <span><b>Opções do projeto</b></span>
+      <span><b>Opções do grupo</b></span>
       <div>
         <ul style="text-align: left !important">
+          <li><a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" class="blue-text text-darken-4">Cadastrar nova reunião</a></li>
           <li><a href="" class="blue-text text-darken-4">Editar grupo</a></li>
           <li><a href="#excluirGrupo" class="blue-text text-darken-4">Excluir grupo</a></li>
         </ul>
@@ -99,14 +100,13 @@ echo '<script>
   }
   echo '<a href="#proj-modal" style="margin-top: -2vh !important; margin-left: 5vh !important">Criar novo projeto</a><br><br>';
 ?>
-<h3><b>Reuniões</b></h3><li class="divider"></li><br>
 <?php
   if(!empty($reunioes['pendentes'])){
-    echo '<h5 class="blue-text text-darken-4" style="margin-left: 5vh !important"><b>Pendentes</b></h2><li class="divider" style="margin-left: 5vh !important; width: 30%"></li><br>';
+    echo '<h3><b>Reuniões futuras</b></h3><li class="divider"></li><br>';
     foreach($reunioes['pendentes'] as $reuniao){
       $data = substr($reuniao['data'], 8, 2) . "/" . substr($reuniao['data'], 5, 2) . "/" . substr($reuniao['data'], 0, 4);
       $hora = substr($reuniao['data'], 11, 5);
-      echo '<span style="margin-left: 8vh !important"><b>' . $data . '</b> - ' . $hora . '</span> <a href="#r'. $reuniao['id_reuniao'] .'">&nbsp;<span>Ver mais</span></a>
+      echo '<span style="margin-left: 5vh !important"><b>' . $data . '</b> - ' . $hora . '</span> <a href="#r'. $reuniao['id_reuniao'] .'">&nbsp;<span>Ver mais</span></a>
       <div id="r'. $reuniao['id_reuniao'] .'" class="modal">
         <div class="modal-content">
           <h3 style="width: 100% !important"><b>Reunião do dia '. $data .' às '. $hora .'</b>';
@@ -120,14 +120,14 @@ echo '<script>
       </div>
       <br>';
     }
-    echo "<br>";
+    echo "<br><br>";
   }
   if(!empty($reunioes['realizadas'])){
-    echo '<h5 class="blue-text text-darken-4" style="margin-left: 5vh !important"><b>Realizadas</b></h2><li class="divider" style="margin-left: 5vh !important; width: 30%"></li><br>';
+    echo '<h3><b>Histórico de reuniões</b></h3><li class="divider"></li><br>';
     foreach($reunioes['realizadas'] as $reuniao){
       $data = substr($reuniao['data'], 8, 2) . "/" . substr($reuniao['data'], 5, 2) . "/" . substr($reuniao['data'], 0, 4);
       $hora = substr($reuniao['data'], 11, 5);
-      echo '<span style="margin-left: 8vh !important"><b>' . $data . '</b> - ' . $hora . '</span><a href="#r'. $reuniao['id_reuniao'] .'">&nbsp;<span>Ver mais</span></a>
+      echo '<span style="margin-left: 5vh !important"><b>' . $data . '</b> - ' . $hora . '</span><a href="#r'. $reuniao['id_reuniao'] .'">&nbsp; <span>Ver mais</span></a>
       <div id="r'. $reuniao['id_reuniao'] .'" class="modal">
         <div class="modal-content">
           <h3 style="width: 100% !important"><b>Reunião do dia '. $data .' às '. $hora . '</b>';
@@ -142,8 +142,6 @@ echo '<script>
     }
     echo "<br>";
   }
-  if($admin)
-    echo '<a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" style="margin-top: -2vh !important; margin-left: 5vh !important">Cadastrar nova reunião</a><br><br>';
 ?>
 </div><br><br>
 
