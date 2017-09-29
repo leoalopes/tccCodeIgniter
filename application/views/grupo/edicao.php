@@ -128,17 +128,16 @@
 
   <script>
     var chips = [];
-    var chipsNome = [];
 
     <?php
     if($usuarios && !empty($usuarios)){
       foreach ($usuarios as $usuario) {
         echo 'var chip = {
           tag: "'. $usuario['email'] .'",
-          id: '. $usuario['id_usuario'] .'
+          id: '. $usuario['id_usuario'] .',
+          nome: "'. $usuario['nome'] .'"
         };
         chips.push(chip);
-        chipsNome.push("'. $usuario['nome'] .'");
         console.log(chips);';
       }
     }
@@ -153,7 +152,7 @@
         complete: function(){
           function addRow(chip){
             $("#userTable").append(
-              '<tr><td>'+ chipsNome[chips.indexOf(chip)] +'</td><td class="email">'+ chip.tag +'</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' +chip.id+ '" style="position: relative !important; top: 50% !important;"><label for="checkbox'+ chip.id +'"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>'
+              '<tr><td>'+ chip.nome +'</td><td class="email">'+ chip.tag +'</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' +chip.id+ '" style="position: relative !important; top: 50% !important;"><label for="checkbox'+ chip.id +'"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>'
             );
             console.log(chip);
           }
@@ -203,7 +202,7 @@
                     alreadyadded = true;
                 });
                 if(!alreadyadded)
-                  $("#results").append('<tr><td><a class="black-text found-user" style="cursor: pointer" data-nome="'+ user.nome +'" data-email="'+ user.email +'" data-id="'+ user.id_usuario +'"><i class="material-icons" style="vertical-align: middle !important">add</i></a> '+ user.email +'</td></tr><div class="divider">');
+                  $("#results").append('<tr class="tableResults"><td><a class="black-text found-user" style="cursor: pointer" data-nome="'+ user.nome +'" data-email="'+ user.email +'" data-id="'+ user.id_usuario +'"><i class="material-icons" style="vertical-align: middle !important">add</i></a> '+ user.email +'</td></tr><div class="divider">');
                 else
                   $("#results").append('<tr><td><a class="black-text found-user" style="cursor: pointer" data-nome="'+ user.nome +'" data-email="'+ user.email +'" data-id="'+ user.id_usuario +'"><i class="material-icons" style="vertical-align: middle !important">done</i></a> '+ user.email +'</td></tr><div class="divider">');
               });
@@ -222,6 +221,7 @@
       var chip = {
         tag: $(this).data("email"),
         id: $(this).data("id"),
+        nome: $(this).data("nome"),
       };
       var alreadyadded = false;
       chips.forEach(function(c, index){
@@ -230,7 +230,6 @@
       });
       if(!alreadyadded){
         chips.push(chip);
-        chipsNome.push($(this).data("nome"));
       }
       $(this).children().text('done');
     });
@@ -240,7 +239,6 @@
       var email = $(this).parent().parent().children('.email').text();
       chips.forEach(function(chip){
         if(email == chip.tag){
-          chipsNome.splice(chips.indexOf(chip), 1);
           chips.splice(chips.indexOf(chip), 1);
         }
       });
@@ -252,9 +250,11 @@
       } else {
         var html = '';
         chips.forEach(function(chip){
-          html += '<tr><td>' + chipsNome[chips.indexOf(chip)] + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
+          html += '<tr><td>' + chip.nome + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
         })
         $("#userTable > tbody").html(html);
+        $('.tableResults > td').filter(':contains("'+ chip.tag +'")').parent().children().children().children().text('add');
+        console.log($('.tableResults > td'));
       }
     });
 
