@@ -34,8 +34,8 @@
       <span><b>Opções do grupo</b></span>
       <div>
         <ul style="text-align: left !important">
-          <li><a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" class="blue-text text-darken-4">Cadastrar nova reunião</a></li>
-          <li><a href="" class="blue-text text-darken-4">Editar grupo</a></li>
+          <li><a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" class="blue-text text-darken-4">Nova reunião</a></li>
+          <li><a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/edit" class="blue-text text-darken-4">Editar grupo</a></li>
           <li><a href="#excluirGrupo" class="blue-text text-darken-4">Excluir grupo</a></li>
         </ul>
       </div>

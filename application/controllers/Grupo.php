@@ -24,6 +24,30 @@ class Grupo extends CI_Controller{
         } else {
           redirect($user, 'refresh');
         }
+      } else {
+        redirect('home', 'refresh');
+      }
+  }
+
+  public function edit($user, $idgrupo){
+      if($this->user_model->user($user)){
+        $data['session'] = $this->session->userdata('logged_in');
+        $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
+        if($grupo){
+          $data['id'] = $user;
+          $data['grupo'] = $grupo[0];
+          $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
+          if($data['admin']){
+            $data['usuarios'] = $this->grupos_model->listUsuarios($idgrupo);
+            $this->load->view('grupo/edicao', $data);
+          } else {
+            redirect("$user/grupo/$idgrupo", 'refresh');
+          }
+        } else {
+          redirect($user, 'refresh');
+        }
+      } else {
+        redirect('home', 'refresh');
       }
   }
 

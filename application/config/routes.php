@@ -59,6 +59,7 @@ $route['(:any)'] = 'Homepage/home/$1';
 $route['(:any)/grupo/cadastro'] = 'Homepage/cadastro/$1';
 $route['(:any)/projeto/(:any)'] = 'Projeto/view/$1/$2';
 $route['(:any)/grupo/(:num)'] = 'Grupo/view/$1/$2';
+$route['(:any)/grupo/(:num)/edit'] = 'Grupo/edit/$1/$2';
 $route['(:any)/grupo/(:num)/reuniao'] = 'Grupo/reuniao/$1/$2';
 $route['(:any)/grupo/(:num)/reuniao/(:num)/edit'] = 'Reuniao/edit/$1/$2/$3';
 $route['(:any)/grupo/(:num)/reuniao/(:num)/delete'] = 'Reuniao/delete/$1/$2/$3';

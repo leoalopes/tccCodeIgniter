@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Cadastrar grupo</title>
+  <title>Editar grupo</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -32,7 +32,8 @@
         <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         <div class="brand-logo">
           <a href="<?php echo base_url("home"); ?>" class="breadcrumb"><b>Home</b></a>
-          <a href="" class="breadcrumb"><b>Novo grupo</b></a>
+          <a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>" class="breadcrumb"><b>Grupo <?php echo ucfirst($grupo['nome']); ?></b></a>
+          <a href="" class="breadcrumb"><b>Edição</b></a>
         </div>
         <ul class="right hide-on-med-and-down">
           <li><a class="dropdown-button" href="" data-activates="user_dropdown" data-belowOrigin="true"><?php echo $session['nome'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
@@ -42,30 +43,46 @@
   </div><br><br>
   <div class="container row">
     <div class="section">
-        <h3 class="center blue-text text-darken-4"><b>Criar grupo</b></h3><br>
+        <h3 class="center blue-text text-darken-4"><b>Editar grupo</b></h3><br>
 
         <div class="row">
-            <form>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input name="nome" id="nome" type="text">
-                  <label for="nome">Nome do grupo</label>
-                </div>
-              </div><br>
-              <div class="row">
-                <div class="col s12 input-field">
-                  <input name="usuarios" id="usuarios" type="text" readonly>
-                  <label for="usuarios">Adicionar usuários</label>
-                </div>
-              </div>
-              <br><br>
-              <div class="right-align row">
-                <a class="btn blue darken-4 waves-effect waves-light" id="btn-criar">Criar</a>
-              </div>
-            </form>
+            <div class="input-field col s12">
+              <input name="nome" id="nome" type="text" value="<?php echo $grupo['nome']; ?>">
+              <label for="nome">Nome do grupo</label>
+            </div>
+        </div><br><br>
+
+        <?php
+        echo '<table id="userTable" class="highlight">
+        <thead>
+          <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Administrador</th>
+          </tr>
+        </thead>
+        <tbody>';
+        if($usuarios && !empty($usuarios)){
+          foreach($usuarios as $usuario){
+            echo '<tr>
+              <td>'. $usuario['nome'] .'</td>
+              <td>'. $usuario['email'] .'</td>
+              <td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox'. $usuario['id_usuario'] .'" style="position: relative !important; top: 50% !important;" ';
+              if($usuario['admin']){
+                echo 'checked="checked"';
+              }
+              echo ' /><label for="checkbox'. $usuario['id_usuario'] .'"></label></td>
+            </tr>';
+          }
+          echo '</tbody>
+          </table><br>
+          <a id="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a>';
+        } else {
+          echo '</tbody></table><br><div style="width: 100% !important" class="center row"><b>Você ainda não possui nenhum usuário adicionado ao grupo.</b> <a id="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>';
+        } ?>
+        <br><br><div class="right row">
+          <a class="btn blue darken-4 waves-effect waves-light" id="doc-update">Salvar</a>
         </div>
-
-
     </div>
   </div>
 
@@ -106,9 +123,26 @@
   <script>
     var chips = [];
 
+    <?php
+    if($usuarios && !empty($usuarios)){
+      foreach ($usuarios as $usuario) {
+        echo 'var chip = {
+          tag: "'. $usuario['email'] .'",
+          id: '. $usuario['id_usuario'] .'
+        };
+        chips.push(chip);
+        console.log(chips);';
+      }
+    }
+    ?>
+
+    if(chips.length == 0){
+      $("#userTable").css('display', 'none');
+    }
+
     $('.chips').material_chip();
 
-    $("#usuarios").focus(function(){
+    $("#addBtn").click(function(){
       $("#adduser").modal('open', {
         complete: function(){
           var string = "";
@@ -195,17 +229,17 @@
       $('td').filter(':contains("'+ chip.tag +'")').parent().children().children().children().text('add');
     });
 
-    $('#btn-criar').click(function(e){
+    $('#btn-salvar').click(function(e){
       e.preventDefault();
 
       $.ajax({
         type: 'POST',
-        url: '<?php echo base_url('criar/grupo') ?>',
+        url: '<?php echo base_url('grupo/alteracoes') ?>',
         data: {'nome': $("#nome").val(), 'usuarios': chips},
         success: function(response){
-          console.log(response);
+          console.log(typeof response);
           if(response == ""){
-            window.location.href = '<?php echo base_url($id); ?>';
+            window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
           } else {
             $("#texto-erro").html(response);
             $("#error").modal('open');

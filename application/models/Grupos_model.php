@@ -62,6 +62,19 @@ Class Grupos_model extends CI_Model{
       $this->db->delete('grupo');
     }
 
+    public function listUsuarios($idgrupo){
+      $query = $this->db->query("select u.id_usuario, u.nome, u.email, ug.admin from grupo g, usuario u, usuarios_grupo ug where u.id_usuario = ug.id_usuario and ug.id_grupo = g.id_grupo and g.id_grupo = " . $idgrupo);
+      $i = 0;
+      $usuarios = FALSE;
+
+      foreach($query->result_array() as $row){
+        $usuarios[$i] = $row;
+        $i++;
+      }
+
+      return $usuarios;
+    }
+
     public function listGroups(){
       $id = $this->session->userdata('logged_in')['id_usuario'];
       $query = $this->db->query("select id_grupo, nome from grupo where id_usuario = " . $id);
