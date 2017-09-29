@@ -74,7 +74,7 @@
       <h5 class="blue-text text-darken-4" style="font-size: 20px !important"><b>Adicionar usuários</b></h5>
       <div class="row">
         <div class="input-field col s10 m11">
-          <input id="search" value="E-mail" type="text">
+          <input id="search" placeholder="E-mail" type="text">
         </div>
         <a id="search-btn" class="black-text" style="cursor: pointer"><i class="material-icons" style="margin-top: 3%">search</i></a>
       </div>

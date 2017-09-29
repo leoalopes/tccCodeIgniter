@@ -25,6 +25,21 @@ class Reuniao extends CI_Controller{
     }
   }
 
+  public function edicao(){
+    $idreuniao = $this->input->post('idreuniao');
+    $motivo = $this->input->post('motivo');
+    $data = $this->input->post('data');
+    $notificar = $this->input->post('notificar');
+    if($this->reuniao_model->editar($idreuniao, $motivo, $data)){
+      echo '';
+      if($notificar == "true"){
+        //enviar email e talzzzzzz
+      }
+    } else {
+      echo 'Não é possível atualizar a data.';
+    }
+  }
+
   public function delete($user, $idgrupo, $idreuniao){
       if($this->user_model->user($user)){
         $data['session'] = $this->session->userdata('logged_in');

@@ -18,6 +18,18 @@ Class Reuniao_model extends CI_Model{
          return false;
     }
 
+    public function editar($idreuniao, $motivo, $data){
+         $info['motivo'] = ucfirst($motivo);
+         $info['data'] = $data;
+
+         if(new DateTime($data) > new DateTime(date('Y-m-d H:i:s'))){
+           $this->db->where('id_reuniao', $idreuniao);
+           $query = $this->db->update('reuniao', $info);
+           return true;
+         }
+         return false;
+    }
+
     public function reuniao($idreuniao, $idgrupo){
         $this -> db -> select('*');
         $this -> db -> from('reuniao');

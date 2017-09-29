@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Cadastrar reuniao</title>
+  <title>Editar reuniao</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -33,7 +33,7 @@
         <div class="brand-logo">
           <a href="<?php echo base_url("home"); ?>" class="breadcrumb"><b>Home</b></a>
           <a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>" class="breadcrumb"><b>Grupo <?php echo ucfirst($grupo['nome']); ?></b></a>
-          <a href="" class="breadcrumb"><b>Cadastrar reunião</b></a>
+          <a href="" class="breadcrumb"><b>Editar reunião</b></a>
         </div>
         <ul class="right hide-on-med-and-down">
           <li><a class="dropdown-button" href="" data-activates="user_dropdown" data-belowOrigin="true"><?php echo $session['nome'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
@@ -45,7 +45,7 @@
 
   <div class="container row">
     <div class="section">
-        <br><br><h3 class="center blue-text text-darken-4"><b>Cadastrar reunião</b></h3>
+        <br><br><h3 class="center blue-text text-darken-4"><b>Editar reunião</b></h3>
 
         <div class="row">
               <div class="row">
@@ -70,7 +70,7 @@
                   <input type="checkbox" class="filled-in blue" id="checkbox" checked="checked" />
                   <label for="checkbox" class="black-text">Notificar usuários por e-mail</label>
                 </div><br><br>
-                <div class="right-align" style="margin-right: 2vh"><a class="btn blue darken-4 waves-effect waves-light" id="cadastrar">Cadastrar</a></div>
+                <div class="right-align" style="margin-right: 2vh"><a class="btn blue darken-4 waves-effect waves-light" id="editar">Cadastrar</a></div>
               </div>
         </div>
 
@@ -92,15 +92,15 @@
   <script src="<?php echo base_url(); ?>assets/js/init.js"></script>
 
   <script>
-    $("#cadastrar").click(function(e){
+    $("#editar").click(function(e){
       e.preventDefault();
 
       var data = $('#data').pickadate('picker').get('highlight', 'yyyy') + '-' + $('#data').pickadate('picker').get('highlight', 'mm') + '-' + $('#data').pickadate('picker').get('highlight', 'dd');
       data += ' ' + $('#hora').val() + ':00';
       $.ajax({
         type: 'POST',
-        url: '<?php echo base_url('reuniao/cadastro'); ?>',
-        data: {'idgrupo': <?php echo $grupo['id_grupo']; ?>, 'motivo': $('#motivo').val(), 'data': data, 'notificar': $("#checkbox").is(':checked')},
+        url: '<?php echo base_url('reuniao/edicao'); ?>',
+        data: {'idreuniao': <?php echo $reuniao['id_reuniao']; ?>, 'motivo': $('#motivo').val(), 'data': data, 'notificar': $("#checkbox").is(':checked')},
         success: function(response){
           console.log(response);
           if(response == ''){
