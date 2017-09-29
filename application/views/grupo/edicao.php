@@ -53,7 +53,7 @@
         </div><br><br>
 
         <?php
-        echo '<table id="userTable" class="highlight">
+        echo '<table id="userTable" class="stripped">
         <thead>
           <tr>
               <th>Nome</th>
@@ -73,7 +73,7 @@
                 echo 'checked="checked"';
               }
               echo ' /><label for="checkbox'. $usuario['id_usuario'] .'"></label></td>
-              <td><i class="material-icons red-text remove"><b>clear</b></i></td>
+              <td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td>
             </tr>';
           }
           echo '</tbody>
@@ -87,7 +87,7 @@
           <div id="noUsersAdded" style="width: 100% !important" class="center row"><b>Você ainda não possui nenhum usuário adicionado ao grupo.</b> <a class="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>';
         } ?>
         <br><br><div class="right row">
-          <br><br><a class="btn blue darken-4 waves-effect waves-light" id="doc-update">Salvar</a>
+          <br><br><a class="btn blue darken-4 waves-effect waves-light" id="btn-update">Salvar</a>
         </div>
     </div>
   </div>
@@ -144,26 +144,21 @@
     }
     ?>
 
-    $(".chips").material_chip({
-      data: chips,
-    });
-
     if(chips.length == 0){
       $("#userTable").css('display', 'none');
     }
-
-    $('.chips').material_chip();
 
     $(".addBtn").click(function(){
       $("#adduser").modal('open', {
         complete: function(){
           function addRow(chip){
             $("#userTable").append(
-              '<tr><td>'+ chipsNome[chips.indexOf(chip)] +'</td><td>'+ chip.tag +'</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' +chip.id+ '" style="position: relative !important; top: 50% !important;"><label for="checkbox'+ chip.id +'"></label></td></tr>'
+              '<tr><td>'+ chipsNome[chips.indexOf(chip)] +'</td><td class="email">'+ chip.tag +'</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' +chip.id+ '" style="position: relative !important; top: 50% !important;"><label for="checkbox'+ chip.id +'"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>'
             );
             console.log(chip);
           }
 
+          $("#userTable > tbody").html('');
           chips.forEach(function(chip){
             addRow(chip);
           });
@@ -192,7 +187,7 @@
           var resultado = $.parseJSON(results);
           console.log(resultado);
           if(resultado.length != 0){
-            if(resultado.length > 3){
+            if(resultado.length > 5){
               $("#results").empty();
               $("#notfound").empty();
               $("#notfound").append('<span>Não foi possível buscar usuários. Tente ser mais específico.</span><br><br>');
@@ -236,46 +231,51 @@
       if(!alreadyadded){
         chips.push(chip);
         chipsNome.push($(this).data("nome"));
-        $('.chips').material_chip({
-          data: chips,
-        });
       }
       $(this).children().text('done');
     });
 
-    $(".remove").click(function(e){
+    $("tbody").on('click', '.remove', function(e){
       console.log($(this).parent().parent().children('.email').text());
-      var index = chips.indexOf(chip);
-      if(index != -1){
-        chipsNome.splice(index, 1);
-        chips.splice(index, 1);
-      }
-      $('td').filter(':contains("'+ chip.tag +'")').parent().children().children().children().text('add');
-      $("#userTable > tbody").html('');
-      var html = '';
+      var email = $(this).parent().parent().children('.email').text();
       chips.forEach(function(chip){
-        html += '<tr><td>' + chipsNome[chips.indexOf(chip)] + '</td><td>' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td></tr>';
-      })
-      $("#userTable > tbody").html(html);
-    });
-
-    $('#btn-salvar').click(function(e){
-      e.preventDefault();
-
-      $.ajax({
-        type: 'POST',
-        url: '<?php echo base_url('grupo/alteracoes') ?>',
-        data: {'nome': $("#nome").val(), 'usuarios': chips},
-        success: function(response){
-          console.log(typeof response);
-          if(response == ""){
-            window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
-          } else {
-            $("#texto-erro").html(response);
-            $("#error").modal('open');
-          }
+        if(email == chip.tag){
+          chipsNome.splice(chips.indexOf(chip), 1);
+          chips.splice(chips.indexOf(chip), 1);
         }
       });
+      $("#userTable > tbody").html('');
+      if(chips.length == 0){
+        $("#userTable").css('display', 'none');
+        $("#noUsersAdded").css('display', 'block');
+        $("#usersAdded").css('display', 'none');
+      } else {
+        var html = '';
+        chips.forEach(function(chip){
+          html += '<tr><td>' + chipsNome[chips.indexOf(chip)] + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
+        })
+        $("#userTable > tbody").html(html);
+      }
+    });
+
+    $('#btn-update').click(function(e){
+      console.log(chips);
+      // e.preventDefault();
+      //
+      // $.ajax({
+      //   type: 'POST',
+      //   url: '<?php echo base_url('grupo/alteracoes') ?>',
+      //   data: {'nome': $("#nome").val(), 'usuarios': chips},
+      //   success: function(response){
+      //     console.log(typeof response);
+      //     if(response == ""){
+      //       window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
+      //     } else {
+      //       $("#texto-erro").html(response);
+      //       $("#error").modal('open');
+      //     }
+      //   }
+      // });
     });
   </script>
 
