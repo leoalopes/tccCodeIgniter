@@ -45,7 +45,8 @@
       </nav>
     </div>
 
-    <br><br><div class="container">
+    <div class="container" style="display: table; height: 80%">
+    <div style="display: table-cell; vertical-align: middle;">
     <ul>
         <li><h3><b>Projetos</b></h3></li>
         <li class="divider"></li><br>
@@ -58,9 +59,8 @@
         ?>
         <li class="itens"><a href="#proj-modal">Criar novo projeto</a></li>
     </ul>
-    </div>
 
-    <br><br><div class="container">
+    <br><br>
     <ul>
         <li><h3><b>Grupos</b></h3></li>
         <li class="divider"></li><br>
@@ -73,7 +73,7 @@
         ?>
         <li class="itens"><a href="<?php echo $id; ?>/grupo/cadastro">Criar novo grupo</a></li>
     </ul>
-    </div>
+    </div></div>
 
     <!--  Scripts-->
       <script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.js"></script>

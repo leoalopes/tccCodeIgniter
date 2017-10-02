@@ -78,7 +78,8 @@
   </nav>
 </div>
 <br><br>
-<div class="container">
+<div class="container" style="display: table; height: 75%">
+<div style="display: table-cell; vertical-align: middle;">
 <h3 class="blue-text text-darken-4"><b>Documentações</b></h3>
 <?php
   if(empty($documentacoes)){
@@ -148,7 +149,7 @@
   }
 ?>
 <a href="<?php echo $projeto['nome']; ?>/documentacao">Adicionar uma documentação</a><br><br>
-</div>
+</div></div>
 
 <div id="error-modal" class="modal">
     <div class="modal-content">

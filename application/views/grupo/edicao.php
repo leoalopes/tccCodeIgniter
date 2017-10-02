@@ -260,22 +260,22 @@
 
     $('#btn-update').click(function(e){
       console.log(chips);
-      // e.preventDefault();
-      //
-      // $.ajax({
-      //   type: 'POST',
-      //   url: '<?php echo base_url('grupo/alteracoes') ?>',
-      //   data: {'nome': $("#nome").val(), 'usuarios': chips},
-      //   success: function(response){
-      //     console.log(typeof response);
-      //     if(response == ""){
-      //       window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
-      //     } else {
-      //       $("#texto-erro").html(response);
-      //       $("#error").modal('open');
-      //     }
-      //   }
-      // });
+      e.preventDefault();
+
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('grupo/update') ?>',
+        data: {'idgrupo': <?php echo $grupo['id_grupo']; ?>, 'nome': $("#nome").val(), 'usuarios': chips, 'usuariosold': $.parseJSON('<?php echo json_encode($usuarios); ?>')},
+        success: function(response){
+          console.log(response);
+          if(response == ""){
+            window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
+          } else {
+            $("#texto-erro").html(response);
+            $("#error").modal('open');
+          }
+        }
+      });
     });
   </script>
 

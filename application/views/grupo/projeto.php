@@ -84,7 +84,8 @@ $("#delProj").click(function(e){
   </nav>
 </div>
 <br><br>
-<div class="container">
+<div class="container" style="display: table; height: 75%">
+<div style="display: table-cell; vertical-align: middle;">
 <h3 class="blue-text text-darken-4"><b>Documentações</b></h3>
 <?php
   if(empty($documentacoes)){
@@ -156,7 +157,7 @@ $("#delProj").click(function(e){
     echo '<a href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao").'">Adicionar uma documentação</a>';
   }
 ?>
-<br><br></div>
+<br><br></div></div>
 <script>
 $(document).ready(function(){
     $('.modal').modal();

@@ -54,6 +54,28 @@ Class Grupos_model extends CI_Model{
         return true;
     }
 
+    public function update($nome, $usuarios, $usuariosold, $idgrupo){
+        $info['nome'] = ucfirst($nome);
+        $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
+        $idu = $info['id_usuario'];
+        $this->db->insert('grupo', $info);
+
+        $id = $this->db->insert_id();
+
+        if(isset($usuarios) && count($usuarios) > 0){
+          foreach($usuarios as $user){
+            $info2['id_grupo'] = $id;
+            $info2['admin'] = false;
+            if($user['id'] == $idu)
+              $info2['admin'] = true;
+            $info2['id_usuario'] = $user['id'];
+            $this->db->insert('usuarios_grupo', $info2);
+          }
+        }
+
+        return true;
+    }
+
     public function excluir($idgrupo){
       $this->db->where('id_grupo', $idgrupo);
       $this->db->delete('usuarios_grupo');

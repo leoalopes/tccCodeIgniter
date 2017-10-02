@@ -88,7 +88,8 @@ echo '<script>
   </nav>
 </div>
 <br><br>
-<div class="container">
+<div class="container" style="display: table; height: 75%">
+<div style="display: table-cell; vertical-align: middle;">
 <h3><b>Projetos</b></h3><li class="divider"></li><br>
 <?php
   if($projetos){
@@ -143,7 +144,7 @@ echo '<script>
     echo "<br>";
   }
 ?>
-</div><br><br>
+</div></div><br><br>
 
 <div id="proj-modal" class="modal">
     <div class="modal-content">
