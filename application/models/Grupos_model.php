@@ -56,21 +56,36 @@ Class Grupos_model extends CI_Model{
 
     public function update($nome, $usuarios, $usuariosold, $idgrupo){
         $info['nome'] = ucfirst($nome);
-        $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
-        $idu = $info['id_usuario'];
-        $this->db->insert('grupo', $info);
+        $this->db->where('id_grupo', $idgrupo);
+        $this->db->update('grupo', $info);
 
-        $id = $this->db->insert_id();
-
-        if(isset($usuarios) && count($usuarios) > 0){
-          foreach($usuarios as $user){
-            $info2['id_grupo'] = $id;
-            $info2['admin'] = false;
-            if($user['id'] == $idu)
-              $info2['admin'] = true;
-            $info2['id_usuario'] = $user['id'];
-            $this->db->insert('usuarios_grupo', $info2);
-          }
+        foreach($usuarios as $u){
+            $flag = false;
+            foreach($usuariosold as $i => $uold){
+                if($u['id_usuario'] == $uold['id_usuario']){
+                    $flag = true;
+                    if($u['admin'] != $uold['admin']){
+                        //update admin
+                        $info['admin'] = $u['admin']; 
+                        $this->db->where('id_usuario' $u['id_usuario']);
+                        $this->db->where('id_grupo' $idgrupo);
+                        $this->db->update('usuarios_grupo', $info);
+                    }
+                    unset($usuariosold[$i]);
+                }
+            }
+            if(!flag){
+                $info['admin'] = $u['admin']; 
+                $info['id_usuario'] = $u['id_usuario']);
+                $info['id_grupo'] = $idgrupo;
+                $this->db->insert('usuarios_grupo', $info);
+            }            
+        }
+        
+        foreach($usuariosold as $u){
+            $this->db->where('id_usuario' $u['id_usuario']);
+            $this->db->where('id_grupo' $idgrupo);
+            $this->db->delete('usuarios_grupo');
         }
 
         return true;
