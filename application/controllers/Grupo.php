@@ -52,7 +52,6 @@ class Grupo extends CI_Controller{
   }
 
   public function update(){
-    echo 'teste';
     $idgrupo = $this->input->post('idgrupo');
     $nome = $this->input->post('nome');
     $usuarios = $this->input->post('usuarios');
@@ -61,8 +60,6 @@ class Grupo extends CI_Controller{
     $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
     if($grupo && $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo)){
       $this->grupos_model->update($nome, $usuarios, $usuariosold, $idgrupo);
-    } else {
-
     }
   }
 

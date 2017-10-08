@@ -87,8 +87,8 @@
           <div id="noUsersAdded" style="width: 100% !important" class="center row"><b>Você ainda não possui nenhum usuário adicionado ao grupo.</b> <a class="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>';
         } ?>
         <br><br><div class="right row">
-          <br><br><a class="btn blue darken-4 waves-effect waves-light" id="btn-update">Salvar</a>
-        </div>
+          <a class="btn blue darken-4 waves-effect waves-light" id="btn-update">Salvar</a>
+        </div><br><br>
     </div>
   </div>
 
@@ -120,6 +120,7 @@
         <a class="modal-action modal-close blue-text text-darken-4 btn-flat cancel">Ok</a>
       </div>
   </div>
+
 
   <!--  Scripts-->
   <script src="<?php echo base_url(); ?>/assets/js/jquery-3.1.1.js"></script>
@@ -262,14 +263,19 @@
       console.log(chips);
       e.preventDefault();
 
+      chips.forEach(function(chip){
+        chip.admin = $("#checkbox" + chip.id).is(':checked');
+      });
+      console.log(chips);
+
       $.ajax({
         type: 'POST',
         url: '<?php echo base_url('grupo/update') ?>',
-        data: {'idgrupo': <?php echo $grupo['id_grupo']; ?>, 'nome': $("#nome").val(), 'usuarios': chips, 'usuariosold': $.parseJSON('<?php echo json_encode($usuarios); ?>')},
+        data: {'idgrupo': <?php echo $grupo['id_grupo']; ?>, 'nome': $("#nome").val(), 'usuarios': chips, 'usuariosold': $.parseJSON('<?php echo ($usuarios ? json_encode($usuarios) : json_encode(array())); ?>')},
         success: function(response){
           console.log(response);
           if(response == ""){
-            window.location.href = '<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>';
+            window.location.reload();
           } else {
             $("#texto-erro").html(response);
             $("#error").modal('open');

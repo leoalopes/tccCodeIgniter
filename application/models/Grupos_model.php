@@ -55,37 +55,43 @@ Class Grupos_model extends CI_Model{
     }
 
     public function update($nome, $usuarios, $usuariosold, $idgrupo){
-        $info['nome'] = ucfirst($nome);
+        $ginfo['nome'] = ucfirst($nome);
         $this->db->where('id_grupo', $idgrupo);
-        $this->db->update('grupo', $info);
-
-        foreach($usuarios as $u){
-            $flag = false;
-            foreach($usuariosold as $i => $uold){
-                if($u['id_usuario'] == $uold['id_usuario']){
-                    $flag = true;
-                    if($u['admin'] != $uold['admin']){
-                        //update admin
-                        $info['admin'] = $u['admin']; 
-                        $this->db->where('id_usuario' $u['id_usuario']);
-                        $this->db->where('id_grupo' $idgrupo);
-                        $this->db->update('usuarios_grupo', $info);
+        $this->db->update('grupo', $ginfo);
+        if(!empty($usuarios)){
+          foreach($usuarios as $u){
+              $flag = false;
+              if(!empty($usuariosold)){
+                foreach($usuariosold as $i => $uold){
+                    if($u['id'] == $uold['id_usuario']){
+                        $flag = true;
+                        $u['admin'] = ($u['admin'] == 'true' ? 1 : 0);
+                        if($u['admin'] != $uold['admin']){
+                            //update admin
+                            $ainfo['admin'] = $u['admin'];
+                            $this->db->where('id_usuario', $u['id']);
+                            $this->db->where('id_grupo', $idgrupo);
+                            $this->db->update('usuarios_grupo', $ainfo);
+                        }
+                        unset($usuariosold[$i]);
                     }
-                    unset($usuariosold[$i]);
                 }
-            }
-            if(!flag){
-                $info['admin'] = $u['admin']; 
-                $info['id_usuario'] = $u['id_usuario']);
-                $info['id_grupo'] = $idgrupo;
-                $this->db->insert('usuarios_grupo', $info);
-            }            
+              }
+              if(!$flag){
+                  $info['admin'] = ($u['admin'] == 'true' ? 1 : 0);
+                  $info['id_usuario'] = $u['id'];
+                  $info['id_grupo'] = $idgrupo;
+                  $this->db->insert('usuarios_grupo', $info);
+              }
+          }
         }
-        
-        foreach($usuariosold as $u){
-            $this->db->where('id_usuario' $u['id_usuario']);
-            $this->db->where('id_grupo' $idgrupo);
-            $this->db->delete('usuarios_grupo');
+
+        if(!empty($usuariosold)){
+          foreach($usuariosold as $u){
+              $this->db->where('id_usuario', $u['id_usuario']);
+              $this->db->where('id_grupo', $idgrupo);
+              $this->db->delete('usuarios_grupo');
+          }
         }
 
         return true;
