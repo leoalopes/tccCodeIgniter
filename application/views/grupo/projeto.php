@@ -29,7 +29,7 @@
   </div></li>
   <li class="divider"></li>
     <?php
-    if($permissoes && $permissoes['escrita']){
+    if($permissoes && $permissoes['escrita'] || $admin){
       echo '<li style="text-align: center !important"><span><b>Opções do projeto</b></span>
       <div>
         <ul style="text-align: left !important">

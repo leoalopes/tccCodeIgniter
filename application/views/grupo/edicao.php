@@ -40,7 +40,7 @@
         </ul>
       </div>
     </nav>
-  </div><br><br>
+  </div><br>
   <div class="container row">
     <div class="section">
         <h3 class="center blue-text text-darken-4"><b>Editar grupo</b></h3><br>
@@ -50,10 +50,12 @@
               <input name="nome" id="nome" type="text" value="<?php echo $grupo['nome']; ?>">
               <label for="nome">Nome do grupo</label>
             </div>
-        </div><br><br>
+        </div><br>
 
         <?php
-        echo '<table id="userTable" class="stripped">
+        $owner = $usuarios[0];
+        unset($usuarios[0]);
+        echo '<table id="userTable" class="striped">
         <thead>
           <tr>
               <th>Nome</th>
@@ -63,6 +65,14 @@
           </tr>
         </thead>
         <tbody>';
+        echo '<tr style="color: grey !important">
+          <td>'. $owner['nome'] .'</td>
+          <td class="email">'. $owner['email'] .'</td>
+          <td><input type="checkbox" disabled class="filled-in blue valign-wrapper checkboxAdmin" style="position: relative !important; top: 50% !important;" ';
+          echo 'checked="checked"';
+          echo ' /><label for="checkboxAdmin"></label></td>
+          <td></td>
+        </tr>';
         if($usuarios && !empty($usuarios)){
           foreach($usuarios as $usuario){
             echo '<tr>
@@ -76,16 +86,11 @@
               <td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td>
             </tr>';
           }
-          echo '</tbody>
-          </table><br>
-          <div id="usersAdded"><a class="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>
-          <div id="noUsersAdded" style="display: none; width: 100% !important" class="center row"><b>Você ainda não possui nenhum usuário adicionado ao grupo.</b> <a class="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>';
-        } else {
-          echo '</tbody>
-          </table><br>
-          <div id="usersAdded" style="display: none;"><a class="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>
-          <div id="noUsersAdded" style="width: 100% !important" class="center row"><b>Você ainda não possui nenhum usuário adicionado ao grupo.</b> <a class="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>';
-        } ?>
+        }
+        echo '</tbody>
+        </table><br>
+        <div id="usersAdded"><a class="addBtn" style="cursor: pointer;" class="blue-text text-darken-4">Adicionar usuários</a></div>';
+        ?>
         <br><br><div class="right row">
           <a class="btn blue darken-4 waves-effect waves-light" id="btn-update">Salvar</a>
         </div><br><br>
@@ -144,9 +149,9 @@
     }
     ?>
 
-    if(chips.length == 0){
-      $("#userTable").css('display', 'none');
-    }
+    // if(chips.length == 0){
+    //   $("#userTable").css('display', 'none');
+    // }
 
     $(".addBtn").click(function(){
       $("#adduser").modal('open', {
@@ -158,20 +163,20 @@
             console.log(chip);
           }
 
-          $("#userTable > tbody").html('');
+          $("#userTable > tbody").html('<tr><td><?php echo $owner['nome']; ?></td> <td class="email"><?php echo $owner['email']; ?></td><td><input type="checkbox" disabled class="filled-in blue valign-wrapper" id="checkboxAdmin" style="position: relative !important; top: 50% !important;" checked="checked"/><label for="checkboxAdmin"></label></td><td></td></tr>');
           chips.forEach(function(chip){
             addRow(chip);
           });
 
-          if(chips.length == 0){
-            $("#userTable").css('display', 'none');
-            $("#noUsersAdded").css('display', 'block');
-            $("#usersAdded").css('display', 'none');
-          } else {
-            $("#userTable").css('display', 'table');
-            $("#noUsersAdded").css('display', 'none');
-            $("#usersAdded").css('display', 'block');
-          }
+          // if(chips.length == 0){
+          //   $("#userTable").css('display', 'none');
+          //   $("#noUsersAdded").css('display', 'block');
+          //   $("#usersAdded").css('display', 'none');
+          // } else {
+          //   $("#userTable").css('display', 'table');
+          //   $("#noUsersAdded").css('display', 'none');
+          //   $("#usersAdded").css('display', 'block');
+          // }
         }
       });
     });
@@ -244,19 +249,13 @@
         }
       });
       $("#userTable > tbody").html('');
-      if(chips.length == 0){
-        $("#userTable").css('display', 'none');
-        $("#noUsersAdded").css('display', 'block');
-        $("#usersAdded").css('display', 'none');
-      } else {
-        var html = '';
-        chips.forEach(function(chip){
-          html += '<tr><td>' + chip.nome + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
-        })
-        $("#userTable > tbody").html(html);
-        $('.tableResults > td').filter(':contains("'+ chip.tag +'")').parent().children().children().children().text('add');
-        console.log($('.tableResults > td'));
-      }
+      var html = '<tr><td><?php echo $owner['nome']; ?></td> <td class="email"><?php echo $owner['email']; ?></td><td><input type="checkbox" disabled class="filled-in blue valign-wrapper" id="checkboxAdmin" style="position: relative !important; top: 50% !important;" checked="checked"/><label for="checkboxAdmin"></label></td><td></td></tr>';
+      chips.forEach(function(chip){
+        html += '<tr><td>' + chip.nome + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
+      })
+      $("#userTable > tbody").html(html);
+      $('.tableResults > td').filter(':contains("'+ chip.tag +'")').parent().children().children().children().text('add');
+      //console.log($('.tableResults > td'));
     });
 
     $('#btn-update').click(function(e){

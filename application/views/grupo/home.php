@@ -22,7 +22,7 @@
     <li><a href="<?php echo base_url('conta/logout'); ?>" class="white-text drop-item">Sair</a></li>
 </ul>
 
-<ul id="slide-out" class="side-nav white">
+<ul id="slide-out" class="side-nav white fixed">
   <li><div class="userView">
     <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
     <span class="name"><?php echo $session['nome'] ?></span>
@@ -88,7 +88,7 @@ echo '<script>
   </nav>
 </div>
 <br><br>
-<div class="container" style="display: table; height: 75%">
+<div class="container" style="display: table; height: 75%; margin-left: 25%">
 <div style="display: table-cell; vertical-align: middle;">
 <h3><b>Projetos</b></h3><li class="divider"></li><br>
 <?php
@@ -169,6 +169,7 @@ echo '<script>
 </div>
 
 <script>
+$("#slide-out").css('margin-top', $(".navbar-fixed").height()+2);
   $(document).ready(function(){
     $('.modal').modal();
   });

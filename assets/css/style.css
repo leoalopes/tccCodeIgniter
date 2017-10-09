@@ -138,6 +138,11 @@ h1{
   border-color: #0d47a1 !important;
 }
 
+.checkboxAdmin.filled-in:checked + label:after{
+  background-color: grey !important;
+  border-color: grey !important;
+}
+
 .cancel:hover{
   background-color: white !important;
 }

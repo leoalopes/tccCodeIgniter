@@ -127,6 +127,7 @@ class Grupo extends CI_Controller{
           $proj = $this->grupos_model->isProject($grupo[0]['id_grupo'], $projeto);
           if($proj){
             $data['id'] = $user;
+            $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
             $data['grupo'] = $grupo[0];
             $data['projeto'] = $proj[0];
             $data['documentacoes'] = $this->documentos_model->listarDeGrupo($data['projeto']['id_projeto']);
