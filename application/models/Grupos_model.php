@@ -105,9 +105,24 @@ Class Grupos_model extends CI_Model{
       $this->db->delete('grupo');
     }
 
+    public function listUsuariosProjeto($idgrupo, $idprojeto){
+      $query = $this->db->query("select u.id_usuario, u.nome, u.email from grupo g, usuario u where u.id_usuario = g.id_usuario and g.id_grupo = " . $idgrupo);
+      $usuarios[0] = $query->row_array();
+
+      $query = $this->db->query("select u.id_usuario, u.nome, u.email, ug.admin, pp.leitura, pp.escrita from grupo g, usuario u, usuarios_grupo ug, permissoes_projeto pp where u.id_usuario = ug.id_usuario and ug.id_grupo = g.id_grupo and pp.id_usuario = u.id_usuario and g.id_grupo = " . $idgrupo . " and pp.id_projeto = " . $idprojeto);
+      $i = 1;
+
+      foreach($query->result_array() as $row){
+        $usuarios[$i] = $row;
+        $i++;
+      }
+
+      return $usuarios;
+    }
+
     public function listUsuarios($idgrupo){
       $query = $this->db->query("select u.id_usuario, u.nome, u.email, ug.admin from grupo g, usuario u, usuarios_grupo ug where u.id_usuario = ug.id_usuario and ug.id_grupo = g.id_grupo and g.id_grupo = " . $idgrupo);
-      $i = 0;
+      $i = 1;
       $usuarios = FALSE;
 
       foreach($query->result_array() as $row){
@@ -152,6 +167,47 @@ Class Grupos_model extends CI_Model{
         $i++;
       }
       return $projetos;
+    }
+
+    public function permissaoEditProj($idusuario, $idgrupo, $idprojeto){
+        $this->db->select('*');
+        $this->db->from('grupo');
+        $this->db->where('id_grupo', $idgrupo);
+        $this->db->where('id_usuario', $idusuario);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() == 1) {
+          return true;
+        }
+
+        $this->db->select('admin');
+        $this->db->from('usuarios_grupo');
+        $this->db->where('id_grupo', $idgrupo);
+        $this->db->where('id_usuario', $idusuario);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() == 1) {
+          if($query->row_array()['admin'])
+            return true;
+        }
+
+        $this->db->select('escrita');
+        $this->db->from('permissoes_projeto');
+        $this->db->where('id_projeto', $idprojeto);
+        $this->db->where('id_usuario', $idusuario);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() == 1) {
+          if($query->row_array()['escrita'])
+            return true;
+        }
+        return false;
     }
 
     public function isMember($idgrupo, $idusuario){

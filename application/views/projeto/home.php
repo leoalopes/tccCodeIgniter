@@ -33,7 +33,7 @@
     <span><b>Opções do projeto</b></span>
     <div>
       <ul style="text-align: left !important">
-        <li><a href="#editarProjeto" class="blue-text text-darken-4">Editar projeto</a></li>
+        <li><a href="#editarProjeto" class="blue-text text-darken-4">Alterar nome</a></li>
         <li><a href="#excluirProjeto" class="blue-text text-darken-4">Excluir projeto</a></li>
       </ul>
     </div>

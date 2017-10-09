@@ -33,7 +33,7 @@
       echo '<li style="text-align: center !important"><span><b>Opções do projeto</b></span>
       <div>
         <ul style="text-align: left !important">
-          <li><a href="" class="blue-text text-darken-4">Editar projeto</a></li>
+          <li><a href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']).'/edit" class="blue-text text-darken-4">Editar projeto</a></li>
           <li><a href="#excluirProjeto" class="blue-text text-darken-4">Excluir projeto</a></li>
         </ul>
       </div></li>

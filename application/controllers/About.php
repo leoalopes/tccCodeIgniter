@@ -10,8 +10,7 @@ class About extends CI_Controller {
         if(isset($data) and $data['email']!='') {
             redirect('home', 'refresh');
         } else {
-            $this->load->helper('url');
-            $this->load->view('index');
+            redirect('conta', 'refresh');
         }
     }
 }

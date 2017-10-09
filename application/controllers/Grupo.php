@@ -51,6 +51,29 @@ class Grupo extends CI_Controller{
       }
   }
 
+  public function editProjeto($user, $idgrupo, $projeto){
+      if($this->user_model->user($user)){
+        $data['session'] = $this->session->userdata('logged_in');
+        $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
+        if($grupo){
+          $proj = $this->grupos_model->isProject($idgrupo, $projeto);
+          if($this->grupos_model->permissaoEditProj($data['session']['id_usuario'], $idgrupo, $proj[0]['id_projeto'])){
+            $data['id'] = $user;
+            $data['grupo'] = $grupo[0];
+            $data['usuarios'] = $this->grupos_model->listUsuariosProjeto($idgrupo, $proj[0]['id_projeto']);
+            $data['projeto'] = $proj[0];
+            $this->load->view('grupo/edicaoProjeto', $data);
+          } else {
+            redirect("$user/grupo/$idgrupo", 'refresh');
+          }
+        } else {
+          redirect($user, 'refresh');
+        }
+      } else {
+        redirect('home', 'refresh');
+      }
+  }
+
   public function update(){
     $idgrupo = $this->input->post('idgrupo');
     $nome = $this->input->post('nome');
