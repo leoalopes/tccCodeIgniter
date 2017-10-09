@@ -163,7 +163,7 @@
             console.log(chip);
           }
 
-          $("#userTable > tbody").html('<tr><td><?php echo $owner['nome']; ?></td> <td class="email"><?php echo $owner['email']; ?></td><td><input type="checkbox" disabled class="filled-in blue valign-wrapper" id="checkboxAdmin" style="position: relative !important; top: 50% !important;" checked="checked"/><label for="checkboxAdmin"></label></td><td></td></tr>');
+          $("#userTable > tbody").html('<tr style="color: grey !important"><td><?php echo $owner['nome']; ?></td> <td class="email"><?php echo $owner['email']; ?></td><td><input type="checkbox" disabled class="filled-in blue valign-wrapper checkboxAdmin" style="position: relative !important; top: 50% !important;" checked="checked"/><label for="checkboxAdmin"></label></td><td></td></tr>');
           chips.forEach(function(chip){
             addRow(chip);
           });
@@ -249,7 +249,7 @@
         }
       });
       $("#userTable > tbody").html('');
-      var html = '<tr><td><?php echo $owner['nome']; ?></td> <td class="email"><?php echo $owner['email']; ?></td><td><input type="checkbox" disabled class="filled-in blue valign-wrapper" id="checkboxAdmin" style="position: relative !important; top: 50% !important;" checked="checked"/><label for="checkboxAdmin"></label></td><td></td></tr>';
+      var html = '<tr style="color: grey !important"><td><?php echo $owner['nome']; ?></td> <td class="email"><?php echo $owner['email']; ?></td><td><input type="checkbox" disabled class="filled-in blue valign-wrapper checkboxAdmin" style="position: relative !important; top: 50% !important;" checked="checked"/><label for="checkboxAdmin"></label></td><td></td></tr>';
       chips.forEach(function(chip){
         html += '<tr><td>' + chip.nome + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
       })

@@ -22,7 +22,7 @@
     <li><a href="<?php echo base_url('conta/logout'); ?>" class="white-text drop-item">Sair</a></li>
 </ul>
 
-<ul id="slide-out" class="side-nav white fixed">
+<ul id="slide-out" class="side-nav fixed z-depth-1">
   <li><div class="userView">
     <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
     <span class="name"><?php echo $session['nome'] ?></span>
@@ -74,9 +74,10 @@ echo '<script>
 } ?>
 
 <div class="navbar-fixed">
-  <nav class="row">
+  <nav class="row z-depth-1">
     <div class="nav-wrapper blue darken-4 white-text">
-      <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+      <a href="<?php echo base_url("home"); ?>" class="button-collapse show-on-large hide-on-med-and-down"><i class="material-icons">home</i></a>
+      <a href="" data-activates="slide-out" class="button-collapse hide-on-large-only menu-icon"><i class="material-icons">menu</i></a>
       <div class="brand-logo">
         <a href="<?php echo base_url("home"); ?>" class="breadcrumb"><b>Home</b></a>
         <a href="" class="breadcrumb"><b>Grupo <?php echo ucfirst($grupo['nome']); ?></b></a>
@@ -169,7 +170,23 @@ echo '<script>
 </div>
 
 <script>
-$("#slide-out").css('margin-top', $(".navbar-fixed").height()+2);
+  if($(".menu-icon").css('display') == 'none'){
+    $("#slide-out").css('margin-top', $(".navbar-fixed").height());
+  } else {
+    $("#slide-out").css('margin-top', 0);
+  }
+  // $(".menu-icon").attrchange({
+  //   trackValues: true,
+  //   callback: function(e){
+  //     alert('sada');
+  //     if($(".menu-icon").css('display') == 'none'){
+  //       $("#slide-out").css('margin-top', $(".navbar-fixed").height());
+  //     } else {
+  //       $("#slide-out").css('margin-top', 0);
+  //     }
+  //   }
+  // });
+
   $(document).ready(function(){
     $('.modal').modal();
   });
