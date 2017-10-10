@@ -31,6 +31,18 @@ img{
   max-height: 100%;
 }
 
+.collapsible{
+  max-width: 100% !important;
+}
+
+.collapsible-header{
+  max-width: 95% !important;
+}
+
+.ql-syntax{
+  max-width: 95% !important;
+}
+
 #quill-container{
   height: 100%;
 }

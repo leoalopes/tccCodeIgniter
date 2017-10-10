@@ -21,7 +21,7 @@
     <li><a href="<?php echo base_url('conta/logout'); ?>" class="white-text drop-item">Sair</a></li>
 </ul>
 
-<ul id="slide-out" class="side-nav white">
+<ul id="slide-out" class="side-nav white fixed">
   <li><div class="userView">
     <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
     <span class="name"><?php echo $session['nome'] ?></span>
@@ -71,7 +71,8 @@ $("#delProj").click(function(e){
 <div class="navbar-fixed">
   <nav class="row">
     <div class="nav-wrapper blue darken-4 white-text">
-      <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+      <a href="<?php echo base_url("home"); ?>" class="button-collapse show-on-large hide-on-med-and-down home"><i class="material-icons">home</i></a>
+      <a href="" data-activates="slide-out" class="button-collapse hide-on-large-only menu-icon"><i class="material-icons">menu</i></a>
       <div class="brand-logo">
         <a href="<?php echo base_url("home"); ?>" class="breadcrumb"><b>Home</b></a>
         <a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>" class="breadcrumb"><b>Grupo <?php echo ucfirst($grupo['nome']); ?></b></a>
@@ -89,7 +90,7 @@ $("#delProj").click(function(e){
 <h3 class="blue-text text-darken-4"><b>Documentações</b></h3>
 <?php
   if(empty($documentacoes)){
-    echo '<div class="container" style="margin-top: 2vh; margin-bottom: 2vh; margin-left: 4vh !important">O projeto não possui nenhuma documentação cadastrada.</div>';
+    echo '<div style="margin-top: 2vh; margin-bottom: 2vh; margin-left: 2vh !important">O projeto não possui nenhuma documentação cadastrada.</div>';
   } else {
     echo '<ul class="collapsible z-depth-0" data-collapsible="accordion" style="border: 1px solid white">';
     foreach($documentacoes as $documento){
@@ -158,9 +159,15 @@ $("#delProj").click(function(e){
   }
 ?>
 <br><br></div></div>
+<script src="<?php echo base_url(); ?>assets/js/containerResize.js"></script>
 <script>
 $(document).ready(function(){
     $('.modal').modal();
+});
+
+$(".home").click(function(e){
+  e.stopPropagation();
+  window.location.href = "<?php echo base_url("home"); ?>";
 });
 
 $(".edit").click(function(e){
