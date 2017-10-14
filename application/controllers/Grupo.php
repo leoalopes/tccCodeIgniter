@@ -60,6 +60,7 @@ class Grupo extends CI_Controller{
           if($this->grupos_model->permissaoEditProj($data['session']['id_usuario'], $idgrupo, $proj[0]['id_projeto'])){
             $data['id'] = $user;
             $data['grupo'] = $grupo[0];
+            $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
             $data['usuarios'] = $this->grupos_model->listUsuariosProjeto($idgrupo, $proj[0]['id_projeto']);
             $data['projeto'] = $proj[0];
             $this->load->view('grupo/edicaoProjeto', $data);
@@ -84,6 +85,17 @@ class Grupo extends CI_Controller{
     if($grupo && $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo)){
       $this->grupos_model->update($nome, $usuarios, $usuariosold, $idgrupo);
     }
+  }
+
+  public function updateProjeto(){
+    $idgrupo = $this->input->post('idgrupo');
+    $idprojeto = $this->input->post('idprojeto');
+    $nome = $this->input->post('nome');
+    $usuarios = $this->input->post('usuarios');
+    print_r($idgrupo);
+    print_r($idprojeto);
+    print_r($nome);
+    print_r($usuarios);
   }
 
   public function delete(){

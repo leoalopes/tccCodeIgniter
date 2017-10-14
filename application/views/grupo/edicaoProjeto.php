@@ -34,7 +34,18 @@
             <li><a href="#excluirProjeto" class="blue-text text-darken-4">Excluir projeto</a></li>
           </ul>
         </div></li>';
-      ?>
+        if($admin){
+          echo '<li class="divider"></li><li style="text-align: center !important">
+            <span><b>Opções do grupo</b></span>
+            <div>
+              <ul style="text-align: left !important">
+                <li><a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/reuniao" class="blue-text text-darken-4">Nova reunião</a></li>
+                <li><a href="'.base_url("$id/grupo/".$grupo['id_grupo']).'/edit" class="blue-text text-darken-4">Editar grupo</a></li>
+                <li><a href="#excluirGrupo" class="blue-text text-darken-4">Excluir grupo</a></li>
+              </ul>
+            </div>
+          </li>';
+        } ?>
   </ul>
   <?php
   echo '<div id="excluirProjeto" class="modal">
@@ -68,7 +79,7 @@
         <div class="brand-logo">
           <a href="<?php echo base_url("home"); ?>" class="breadcrumb" style="margin-left: 2vh"><i class="material-icons hide-on-med-and-down">home</i><b>Home</b></a>
           <a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']); ?>" class="breadcrumb"><b>Grupo <?php echo ucfirst($grupo['nome']); ?></b></a>
-          <a href="" class="breadcrumb"><b><?php echo ucfirst($projeto['nome']); ?></b></a>
+          <a href="<?php echo base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']); ?>" class="breadcrumb"><b><?php echo ucfirst($projeto['nome']); ?></b></a>
           <a href="" class="breadcrumb"><b>Edição</b></a>
         </div>
         <ul class="right hide-on-med-and-down">
@@ -192,6 +203,21 @@
         }
       } ?>
       console.log(chips);
+
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url('grupo/updateProjeto') ?>',
+        data: {'idgrupo': <?php echo $grupo['id_grupo']; ?>, 'idprojeto': <?php echo $projeto['id_projeto']; ?>, 'nome': $("#nome").val(), 'usuarios': chips},
+        success: function(response){
+          console.log(response);
+          if(response == ""){
+            window.location.reload();
+          } else {
+            $("#texto-erro").html(response);
+            $("#error").modal('open');
+          }
+        }
+      });
     });
   </script>
 

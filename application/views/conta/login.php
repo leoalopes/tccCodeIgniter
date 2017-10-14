@@ -12,8 +12,8 @@
   <link href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <div class="container row">
-    <div class="section">
+  <div class="container" style="display: table; height: 100%">
+  <div style="display: table-cell; vertical-align: middle;">
         <h1 class="center blue-text text-darken-4"><b>Login</b></h1><br>
 
         <div class="row">
@@ -39,9 +39,7 @@
               </div>
             </form>
         </div>
-
-
-    </div>
+  </div>
   </div>
 
   <!--  Scripts-->
@@ -53,7 +51,7 @@
   <script>
     $(document).ready(function() {
       Materialize.updateTextFields();
-    }
+    });
   </script>
 
 </body>

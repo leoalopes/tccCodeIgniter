@@ -162,7 +162,6 @@
       </div>
   </div>
 
-
   <!--  Scripts-->
   <script src="<?php echo base_url(); ?>assets/js/containerResize.js"></script>
 
@@ -174,18 +173,29 @@
     var chips = [];
 
     <?php
+
     if($usuarios && !empty($usuarios)){
       foreach ($usuarios as $usuario) {
         echo 'var chip = {
           tag: "'. $usuario['email'] .'",
           id: '. $usuario['id_usuario'] .',
-          nome: "'. $usuario['nome'] .'"
+          nome: "'. $usuario['nome'] .'",
+          admin: '. $usuario['admin'] .'
         };
         chips.push(chip);
         console.log(chips);';
       }
     }
     ?>
+
+    $('tbody').on('click', 'td > label', function(){
+      setTimeout(function(){
+        chips.forEach(function(chip){
+          chip.admin = ($("#checkbox" + chip.id).is(':checked') ? 1 : 0);
+        });
+        console.log(chips);
+      }, 100);
+    });
 
     // if(chips.length == 0){
     //   $("#userTable").css('display', 'none');
@@ -196,7 +206,7 @@
         complete: function(){
           function addRow(chip){
             $("#userTable").append(
-              '<tr><td>'+ chip.nome +'</td><td class="email">'+ chip.tag +'</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' +chip.id+ '" style="position: relative !important; top: 50% !important;"><label for="checkbox'+ chip.id +'"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>'
+              '<tr><td>'+ chip.nome +'</td><td class="email">'+ chip.tag +'</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' +chip.id+ '" style="position: relative !important; top: 50% !important;" '+ (chip.admin ? 'checked="checked"' : "") +'><label for="checkbox'+ chip.id +'"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>'
             );
             console.log(chip);
           }
@@ -266,6 +276,7 @@
         tag: $(this).data("email"),
         id: $(this).data("id"),
         nome: $(this).data("nome"),
+        admin: 0
       };
       var alreadyadded = false;
       chips.forEach(function(c, index){
@@ -289,7 +300,7 @@
       $("#userTable > tbody").html('');
       var html = '<tr style="color: grey !important"><td><?php echo $owner['nome']; ?></td> <td class="email"><?php echo $owner['email']; ?></td><td><input type="checkbox" disabled class="filled-in blue valign-wrapper checkboxAdmin" style="position: relative !important; top: 50% !important;" checked="checked"/><label for="checkboxAdmin"></label></td><td></td></tr>';
       chips.forEach(function(chip){
-        html += '<tr><td>' + chip.nome + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;"><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
+        html += '<tr><td>' + chip.nome + '</td><td class="email">' + chip.tag + '</td><td><input type="checkbox" class="filled-in blue valign-wrapper" id="checkbox' + chip.id + '" style="position: relative !important; top: 50% !important;" '+ (chip.admin ? 'checked="checked"' : "") +'><label for="checkbox' + chip.id + '"></label></td><td><a class="remove" style="cursor: pointer"><i class="material-icons red-text"><b>clear</b></i></a></td></tr>';
       })
       $("#userTable > tbody").html(html);
       $('.tableResults > td').filter(':contains("'+ chip.tag +'")').parent().children().children().children().text('add');

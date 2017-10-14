@@ -12,7 +12,8 @@
   <link href="<?php echo base_url(); ?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <div class="container row">
+  <div class="container" style="display: table; height: 100%">
+  <div style="display: table-cell; vertical-align: middle;">
     <div class="section">
         <h1 class="center blue-text text-darken-4"><b>Cadastro</b></h1><br>
 
@@ -54,6 +55,7 @@
 
 
     </div>
+  </div>
   </div>
 
   <!--  Scripts-->

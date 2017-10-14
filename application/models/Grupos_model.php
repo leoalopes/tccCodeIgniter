@@ -16,7 +16,7 @@ Class Grupos_model extends CI_Model{
 
         if(empty($query->result_array()))
           return true;
-        return $query->result_array()[0]['admin'];
+        return $query->row_array()['admin'];
     }
 
     public function permissoesProjeto($idp, $idu){
