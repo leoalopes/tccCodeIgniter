@@ -22,9 +22,9 @@
     <li><a href="<?php echo base_url('conta/logout'); ?>" class="white-text drop-item">Sair</a></li>
 </ul>
 
-<ul id="slide-out" class="side-nav white fixed">
+<ul id="slide-out" class="side-nav white fixed z-depth-2">
   <li><div class="userView">
-    <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
+    <img class="circle" src="<?php echo base_url("assets/default-avatar.png"); ?>">
     <span class="name"><?php echo $session['nome'] ?></span>
     <span class="email"><?php echo $session['email'] ?></span>
   </div></li>
@@ -38,7 +38,6 @@
       </ul>
     </div>
   </li>
-  <li class="divider"></li>
 </ul>
 
 <div id="editarProjeto" class="modal">
@@ -64,12 +63,11 @@
 </div>
 
 <div class="navbar-fixed">
-  <nav class="row">
+  <nav class="row z-depth-2">
     <div class="nav-wrapper blue darken-4 white-text">
-      <a href="" class="button-collapse show-on-large hide-on-med-and-down home"><i class="material-icons">home</i></a>
       <a href="" data-activates="slide-out" class="button-collapse hide-on-large-only menu-icon"><i class="material-icons">menu</i></a>
       <div class="brand-logo">
-        <a href="<?php echo base_url("home"); ?>" class="breadcrumb"><b>Home</b></a>
+        <a href="<?php echo base_url("home"); ?>" class="breadcrumb" style="margin-left: 2vh"><i class="material-icons hide-on-med-and-down">home</i><b>Home</b></a>
         <a href="" class="breadcrumb"><b><?php echo ucfirst($projeto['nome']); ?></b></a>
       </div>
       <ul class="right hide-on-med-and-down">
@@ -165,11 +163,6 @@
 $(document).ready(function(){
     $('.modal').modal();
     history.pushState('', 'Home', '<?php echo base_url("$id/projeto/".$projeto['nome']); ?>');
-});
-
-$(".home").click(function(e){
-  e.stopPropagation();
-  window.location.href = "<?php echo base_url("home"); ?>";
 });
 
 $(".edit").click(function(e){

@@ -20,24 +20,12 @@
   </ul>
 
 
-  <ul id="slide-out" class="side-nav white">
-    <li><div class="userView">
-      <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
-      <span class="name"><?php echo $session['nome'] ?></span>
-      <span class="email"><?php echo $session['email'] ?></span>
-    </div></li>
-    <li class="divider"></li>
-  </ul>
-
-
     <div class="navbar-fixed">
       <nav class="row">
         <div class="nav-wrapper blue darken-4 white-text">
 
-          <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
 
-
-          <a href="" class="brand-logo" style="font-size: 1.3em !important"><b>Home</b></a>
+          <a href="<?php echo base_url("home"); ?>" class="brand-logo" style="font-size: 1.3em !important; margin-left: 2vh"><i class="material-icons hide-on-med-and-down">home</i><b>Home</b></a>
           <ul class="right hide-on-med-and-down">
             <li><a class="dropdown-button" href="" data-activates="user_dropdown" data-belowOrigin="true"><?php echo $session['nome'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
           </ul>

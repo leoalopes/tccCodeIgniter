@@ -5,6 +5,7 @@ if($(".menu-icon").css('display') == 'none'){
   $("#slide-out").css('margin-top', 0);
   $(".container").css('margin-left', '7%');
 }
+$("#slide-out").show();
 
 $(window).resize(function() {
   if($(".menu-icon").css('display') == 'none'){

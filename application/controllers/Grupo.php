@@ -89,9 +89,12 @@ class Grupo extends CI_Controller{
   public function delete(){
     $idgrupo = $this->input->post('idgrupo');
 
-    foreach($this->grupos_model->listProjects($idgrupo) as $projeto){
-      echo $projeto['id_projeto'];
-      $this->projetos_model->excluir($projeto['id_projeto']);
+    $projetos = $this->grupos_model->listProjects($idgrupo);
+    if($projetos && !empty($projetos)){
+      foreach($projetos as $projeto){
+        echo $projeto['id_projeto'];
+        $this->projetos_model->excluir($projeto['id_projeto']);
+      }
     }
 
     $this->grupos_model->excluir($idgrupo);

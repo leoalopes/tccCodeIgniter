@@ -102,6 +102,9 @@ Class Grupos_model extends CI_Model{
       $this->db->delete('usuarios_grupo');
 
       $this->db->where('id_grupo', $idgrupo);
+      $this->db->delete('reuniao');
+
+      $this->db->where('id_grupo', $idgrupo);
       $this->db->delete('grupo');
     }
 

@@ -28,21 +28,11 @@
     <li><a href="conta/logout" class="white-text drop-item">Sair</a></li>
 </ul>
 
-<ul id="slide-out" class="side-nav white">
-  <li><div class="userView">
-    <img class="circle" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
-    <span class="name"><?php echo $session['nome'] ?></span>
-    <span class="email"><?php echo $session['email'] ?></span>
-  </div></li>
-  <li class="divider"></li>
-</ul>
-
 <div class="navbar-fixed">
-  <nav class="row">
+  <nav class="row z-depth-2">
     <div class="nav-wrapper blue darken-4 white-text">
-      <a href="" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
       <div class="brand-logo">
-        <a href="<?php echo base_url('home'); ?>" class="breadcrumb"><b>Home</b></a>
+        <a href="<?php echo base_url("home"); ?>" class="breadcrumb" style="margin-left: 2vh"><i class="material-icons hide-on-med-and-down">home</i><b>Home</b></a>
         <a href="<?php echo base_url("$id/projeto/$projeto"); ?>" class="breadcrumb"><b><?php echo ucfirst($projeto); ?></b></a>
         <a href="" class="breadcrumb"><b>Nova documentação</b></a>
       </div>
