@@ -8,7 +8,7 @@ class Criar extends CI_Controller {
   }
 
   function projeto(){
-    $this->form_validation->set_rules('nome', 'nome', 'trim|required|alpha|min_length[3]|max_length[20]|xss_clean|callback_check_database');
+    $this->form_validation->set_rules('nome', 'nome', 'trim|required|min_length[3]|max_length[20]|xss_clean|callback_check_database');
 
     if($this->form_validation->run() == FALSE){
       $data['session'] = $this->session->userdata('logged_in');

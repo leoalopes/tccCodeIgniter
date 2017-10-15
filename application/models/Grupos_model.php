@@ -78,23 +78,68 @@ Class Grupos_model extends CI_Model{
                 }
               }
               if(!$flag){
-                  $info['admin'] = ($u['admin'] == 'true' ? 1 : 0);
-                  $info['id_usuario'] = $u['id'];
-                  $info['id_grupo'] = $idgrupo;
-                  $this->db->insert('usuarios_grupo', $info);
+                $info['admin'] = ($u['admin'] == 'true' ? 1 : 0);
+                $info['id_usuario'] = $u['id'];
+                $info['id_grupo'] = $idgrupo;
+                $this->db->insert('usuarios_grupo', $info);
+
+                $this->db->select('id_projeto');
+                $this->db->from('projeto_grupo');
+                $this->db->where('id_grupo', $idgrupo);
+                $query = $this->db->get();
+
+                foreach($query->result_array() as $p){
+                  $pp['id_projeto'] = $p['id_projeto'];
+                  $pp['id_usuario'] = $u['id'];
+                  $pp['leitura'] = true;
+                  $pp['escrita'] = false;
+                  $this->db->insert('permissoes_projeto', $pp);
+                }
               }
           }
         }
 
         if(!empty($usuariosold)){
           foreach($usuariosold as $u){
+            $this->db->select('id_projeto');
+            $this->db->from('projeto_grupo');
+            $this->db->where('id_grupo', $idgrupo);
+            $query = $this->db->get();
+
+            foreach($query->result_array() as $p){
+              $this->db->where('id_projeto', $p['id_projeto']);
               $this->db->where('id_usuario', $u['id_usuario']);
-              $this->db->where('id_grupo', $idgrupo);
-              $this->db->delete('usuarios_grupo');
+              $this->db->delete('permissoes_projeto');
+            }
+
+            $this->db->where('id_usuario', $u['id_usuario']);
+            $this->db->where('id_grupo', $idgrupo);
+            $this->db->delete('usuarios_grupo');
           }
         }
 
         return true;
+    }
+
+    public function updatePermissoesProjeto($idgrupo, $idprojeto, $nome, $usuarios){
+      $query = $this->db->query("select p.nome from projeto p, grupo g, projeto_grupo pg where g.id_grupo = " . $idgrupo . " and p.nome = '" . $nome . "' and  p.id_projeto = pg.id_projeto and pg.id_grupo = g.id_grupo");
+
+      if($query->num_rows() == 0) {
+        $info['nome'] = $nome;
+        $this->db->where('id_projeto', $idprojeto);
+        $this->db->update('projeto', $info);
+      } else {
+        echo "O grupo já possui um projeto com esse nome.";
+      }
+      if($usuarios && !empty($usuarios)){
+        foreach ($usuarios as $u) {
+          $infop['leitura'] = ($u['leitura'] == 'true' ? 1 : 0);
+          $infop['escrita'] = ($u['escrita'] == 'true' ? 1 : 0);
+          $this->db->where('id_projeto', $idprojeto);
+          $this->db->where('id_usuario', $u['id']);
+          $this->db->update('permissoes_projeto', $infop);
+        }
+      }
     }
 
     public function excluir($idgrupo){
@@ -262,11 +307,26 @@ Class Grupos_model extends CI_Model{
         $pg['id_grupo'] = $idgrupo;
         $this->db->insert('projeto_grupo', $pg);
 
-        $pp['id_projeto'] = $id;
-        $pp['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
-        $pp['leitura'] = true;
-        $pp['escrita'] = true;
-        $this->db->insert('permissoes_projeto', $pp);
+        $this->db->select('id_usuario');
+        $this->db->from('usuarios_grupo');
+        $this->db->where('id_grupo', $idgrupo);
+        $query = $this->db->get();
+
+        foreach($query->result_array() as $u){
+          if($u['id_usuario'] != $this->session->userdata('logged_in')['id_usuario']){
+            $pp['id_projeto'] = $id;
+            $pp['id_usuario'] = $u['id_usuario'];
+            $pp['leitura'] = true;
+            $pp['escrita'] = false;
+            $this->db->insert('permissoes_projeto', $pp);
+          } else {
+            $pp['id_projeto'] = $id;
+            $pp['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
+            $pp['leitura'] = true;
+            $pp['escrita'] = true;
+            $this->db->insert('permissoes_projeto', $pp);
+          }
+        }
 
         return true;
     }

@@ -6,7 +6,7 @@ Class Projetos_model extends CI_Model{
     }
 
     public function naocadastrado(){
-      $nome = $this->input->post('nome');
+      $nome = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),ucfirst($this->input->post('nome')));
       $id = $this->session->userdata('logged_in')['id_usuario'];
       $this->db->select('id_projeto');
       $this->db->from('projeto');
@@ -23,7 +23,7 @@ Class Projetos_model extends CI_Model{
 
     public function cadastro(){
        $info['id_usuario'] = $this->session->userdata('logged_in')['id_usuario'];
-       $info['nome'] = ucfirst($this->input->post('nome'));
+       $info['nome'] = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),ucfirst($this->input->post('nome')));
 
        $query = $this->db->insert('projeto', $info);
 

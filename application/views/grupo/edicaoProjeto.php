@@ -136,12 +136,12 @@
               <td>'. $usuario['nome'] .'</td>
               <td class="email">'. $usuario['email'] .'</td>
               <td><input type="checkbox" class="filled-in blue valign-wrapper" id="leitura'. $usuario['id_usuario'] .'" style="position: relative !important; top: 50% !important;" ';
-              if($usuario['leitura'] || $usuario['escrita'] || $usuario['admin']){
+              if($usuario['leitura'] || $usuario['escrita']){
                 echo 'checked="checked"';
               }
               echo ' /><label for="leitura'. $usuario['id_usuario'] .'"></label></td>
               <td><input type="checkbox" class="filled-in blue valign-wrapper" id="escrita'. $usuario['id_usuario'] .'" style="position: relative !important; top: 50% !important;" ';
-              if($usuario['escrita'] || $usuario['admin']){
+              if($usuario['escrita']){
                 echo 'checked="checked"';
               }
               echo ' /><label for="escrita'. $usuario['id_usuario'] .'"></label></td>
@@ -211,7 +211,7 @@
         success: function(response){
           console.log(response);
           if(response == ""){
-            window.location.reload();
+            window.location.href = '<?php echo base_url("$id/grupo/". $grupo['id_grupo'] ."/projeto"); ?>/' + $("#nome").val() + '/edit';
           } else {
             $("#texto-erro").html(response);
             $("#error").modal('open');

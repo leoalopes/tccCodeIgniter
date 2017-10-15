@@ -57,7 +57,7 @@ class Grupo extends CI_Controller{
         $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
         if($grupo){
           $proj = $this->grupos_model->isProject($idgrupo, $projeto);
-          if($this->grupos_model->permissaoEditProj($data['session']['id_usuario'], $idgrupo, $proj[0]['id_projeto'])){
+          if($proj && $this->grupos_model->permissaoEditProj($data['session']['id_usuario'], $idgrupo, $proj[0]['id_projeto'])){
             $data['id'] = $user;
             $data['grupo'] = $grupo[0];
             $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
@@ -90,12 +90,9 @@ class Grupo extends CI_Controller{
   public function updateProjeto(){
     $idgrupo = $this->input->post('idgrupo');
     $idprojeto = $this->input->post('idprojeto');
-    $nome = $this->input->post('nome');
+    $nome = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$this->input->post('nome'));;
     $usuarios = $this->input->post('usuarios');
-    print_r($idgrupo);
-    print_r($idprojeto);
-    print_r($nome);
-    print_r($usuarios);
+    $this->grupos_model->updatePermissoesProjeto($idgrupo, $idprojeto, $nome, $usuarios);
   }
 
   public function delete(){
@@ -160,7 +157,7 @@ class Grupo extends CI_Controller{
   }
 
   public function criarProjeto(){
-      $projeto = ucfirst($this->input->post('nome'));
+      $projeto = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),ucfirst($this->input->post('nome')));;
       $grupo = $this->input->post('id_grupo');
       if(strlen($projeto) > 3 && strlen($projeto) <= 60){
         if($this->grupos_model->naoCadastrado($projeto, $grupo)){

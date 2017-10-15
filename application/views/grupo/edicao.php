@@ -328,6 +328,10 @@
             $("#texto-erro").html(response);
             $("#error").modal('open');
           }
+        },
+        error: function(response){
+          console.log(response);
+          window.location.reload();
         }
       });
     });
