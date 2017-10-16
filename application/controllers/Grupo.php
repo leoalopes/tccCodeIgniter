@@ -137,13 +137,13 @@ class Grupo extends CI_Controller{
         $grupo = $this->grupos_model->isMember($idgrupo, $data['session']['id_usuario']);
         if($grupo){
           $proj = $this->grupos_model->isProject($grupo[0]['id_grupo'], $projeto);
-          if($proj){
+          $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
+          $data['projeto'] = $proj[0];
+          $data['permissoes'] = $this->grupos_model->permissoesProjeto($data['projeto']['id_projeto'], $data['session']['id_usuario']);
+          if($proj && ($data['admin'] || $data['permissoes']['leitura'])){
             $data['id'] = $user;
-            $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
             $data['grupo'] = $grupo[0];
-            $data['projeto'] = $proj[0];
             $data['documentacoes'] = $this->documentos_model->listarDeGrupo($data['projeto']['id_projeto']);
-            $data['permissoes'] = $this->grupos_model->permissoesProjeto($data['projeto']['id_projeto'], $data['session']['id_usuario']);
             $this->load->view('grupo/projeto.php', $data);
           } else {
             redirect("$user/grupo/$idgrupo", 'refresh');

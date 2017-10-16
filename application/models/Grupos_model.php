@@ -122,15 +122,24 @@ Class Grupos_model extends CI_Model{
     }
 
     public function updatePermissoesProjeto($idgrupo, $idprojeto, $nome, $usuarios){
-      $query = $this->db->query("select p.nome from projeto p, grupo g, projeto_grupo pg where g.id_grupo = " . $idgrupo . " and p.nome = '" . $nome . "' and  p.id_projeto = pg.id_projeto and pg.id_grupo = g.id_grupo");
+      $this->db->select('nome');
+      $this->db->from('projeto');
+      $this->db->where('id_projeto', $idprojeto);
 
-      if($query->num_rows() == 0) {
-        $info['nome'] = $nome;
-        $this->db->where('id_projeto', $idprojeto);
-        $this->db->update('projeto', $info);
-      } else {
-        echo "O grupo já possui um projeto com esse nome.";
+      $query = $this->db->get();
+
+      if($query->row_array()['nome'] != $nome){
+        $query = $this->db->query("select p.nome from projeto p, grupo g, projeto_grupo pg where g.id_grupo = " . $idgrupo . " and p.nome = '" . $nome . "' and  p.id_projeto = pg.id_projeto and pg.id_grupo = g.id_grupo");
+
+        if($query->num_rows() == 0) {
+          $info['nome'] = $nome;
+          $this->db->where('id_projeto', $idprojeto);
+          $this->db->update('projeto', $info);
+        } else {
+          echo "O grupo já possui um projeto com esse nome.";
+        }
       }
+
       if($usuarios && !empty($usuarios)){
         foreach ($usuarios as $u) {
           $infop['leitura'] = ($u['leitura'] == 'true' ? 1 : 0);
