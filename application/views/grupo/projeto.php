@@ -104,7 +104,7 @@ $("#delProj").click(function(e){
     echo '<ul class="collapsible z-depth-0" data-collapsible="accordion" style="border: 1px solid white">';
     foreach($documentacoes as $documento){
       echo '<li>
-      <div class="collapsible-header z-depth-0 doc-titulo" style="border: 1px solid white; border-bottom: 1px solid #E0E0E0"><b>'.ucfirst($documento['titulo']).'</b><a class="grey-text text-darken-2 delete" style="float: right !important" data-modal="d'.$documento['id_documentacao'].'"><i class="material-icons">delete</i></a><a href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao"."/").$documento['id_documentacao'].'/edit" class="blue-text text-darken-4 edit" style="float: right !important"><i class="material-icons">mode_edit</i></a></div>
+      <div class="collapsible-header z-depth-0 doc-titulo" style="border: 1px solid white; border-bottom: 1px solid #E0E0E0"><b>'.ucfirst($documento['titulo']).'</b>'. (($permissoes && $permissoes['escrita']) || $admin ? '<a class="grey-text text-darken-2 delete" style="float: right !important" data-modal="d'.$documento['id_documentacao'].'"><i class="material-icons">delete</i></a><a href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao"."/").$documento['id_documentacao'].'/edit" class="blue-text text-darken-4 edit" style="float: right !important"><i class="material-icons">mode_edit</i></a>' : '<a class="disabled" style="float: right !important"><i class="material-icons">delete</i></a><a class="disabled" style="float: right !important"><i class="material-icons">mode_edit</i></a>') .'</div>
       <div class="collapsible-body z-depth-0 left-margin" style="border: 1px solid white">
       <ul class="collapsible z-depth-0" data-collapsible="expandable" style="margin-top: -3vh; margin-left: -3vh; border: none">';
       $array = explode('<b>', $documento['conteudo']);
@@ -152,24 +152,30 @@ $("#delProj").click(function(e){
       echo '</div></li>';
     }
     echo '</ul>';
-    foreach ($documentacoes as $documento) {
-      echo '<div id="d'.$documento['id_documentacao'].'" class="modal">
-          <div class="modal-content">
-              <h4 class="blue-text text-darken-4">Tem certeza?</h4><br>Desejar excluir essa documentação PERMANENTEMENTE?
-          </div>
-          <div class="modal-footer">
-            <a class="modal-action modal-close blue-text text-darken-4 btn-flat" href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao"."/").$documento['id_documentacao'].'/delete">SIM</a>
-          </div>
-      </div>';
+    if(($permissoes && $permissoes['escrita']) || $admin){
+      foreach ($documentacoes as $documento) {
+        echo '<div id="d'.$documento['id_documentacao'].'" class="modal">
+            <div class="modal-content">
+                <h4 class="blue-text text-darken-4">Tem certeza?</h4><br>Desejar excluir essa documentação PERMANENTEMENTE?
+            </div>
+            <div class="modal-footer">
+              <a class="modal-action modal-close blue-text text-darken-4 btn-flat" href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao"."/").$documento['id_documentacao'].'/delete">SIM</a>
+            </div>
+        </div>';
+      }
     }
   }
-  if($permissoes && $permissoes['escrita']){
+  if(($permissoes && $permissoes['escrita']) || $admin){
     echo '<a href="'.base_url("$id/grupo/".$grupo['id_grupo']."/projeto"."/".$projeto['nome']."/documentacao").'">Adicionar uma documentação</a>';
   }
 ?>
 <br><br></div></div>
 <script src="<?php echo base_url(); ?>assets/js/containerResize.js"></script>
 <script>
+$('.disabled').click(function(e){
+  e.stopPropagation();
+});
+
 $(document).ready(function(){
     $('.modal').modal();
 });

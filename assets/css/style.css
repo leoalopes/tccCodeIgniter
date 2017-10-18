@@ -5,6 +5,10 @@ html, body{
   height: 100%;
 }
 
+.disabled {
+    color: grey !important;
+}
+
 .gradient{
   height: 85% !important;
   background: #ffffff !important; /* Old browsers */

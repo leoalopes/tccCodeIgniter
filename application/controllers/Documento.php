@@ -32,9 +32,13 @@ class Documento extends CI_Controller{
           $proj = $this->grupos_model->isProject($grupo[0]['id_grupo'], $projeto);
           $data['grupo'] = $grupo[0];
           if($proj){
-            $data['projeto'] = $proj[0];
-            $data['id'] = $user;
-            $this->load->view('documentacao/cadastroGrupos', $data);
+            if($this->grupos_model->permissaoEditProj($data['session']['id_usuario'], $idgrupo, $proj[0]['id_projeto'])){
+              $data['projeto'] = $proj[0];
+              $data['id'] = $user;
+              $this->load->view('documentacao/cadastroGrupos', $data);
+            } else {
+              redirect("$user/grupo/".$grupo[0]['id_grupo']."/projeto"."/".$proj[0]['nome'], 'refresh');
+            }
           } else {
             redirect("$user/grupo/".$grupo[0]['id_grupo'], 'refresh');
           }
@@ -144,14 +148,18 @@ class Documento extends CI_Controller{
         $p = $this->grupos_model->isProject($idgrupo, $projeto);
         if($p){
           $p = $p[0];
-          $idproj = $p['id_projeto'];
-          $documento = $this->documentos_model->findById($iddoc, $idproj);
-          if($documento){
-            $data['grupo'] = $grupo[0];
-            $data['projeto'] = $p;
-            $data['documento'] = $documento[0];
-            $data['id'] = $user;
-            $this->load->view('documentacao/edicaoGrupos', $data);
+          if($this->grupos_model->permissaoEditProj($data['session']['id_usuario'], $idgrupo, $p['id_projeto'])){
+            $idproj = $p['id_projeto'];
+            $documento = $this->documentos_model->findById($iddoc, $idproj);
+            if($documento){
+              $data['grupo'] = $grupo[0];
+              $data['projeto'] = $p;
+              $data['documento'] = $documento[0];
+              $data['id'] = $user;
+              $this->load->view('documentacao/edicaoGrupos', $data);
+            } else {
+              redirect("$user/grupo/$idgrupo/projeto/$projeto", 'refresh');
+            }
           } else {
             redirect("$user/grupo/$idgrupo/projeto/$projeto", 'refresh');
           }
