@@ -69,7 +69,7 @@ class Reuniao extends CI_Controller{
             $data['id'] = $user;
             $data['grupo'] = $grupo[0];
             $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
-            $data['projetos'] = $this->grupos_model->listProjects($idgrupo);
+            $data['projetos'] = $this->grupos_model->listProjects($idgrupo, $data['session']['id_usuario']);
             $data['reuniao'] = $reuniao;
             $this->load->view('grupo/editarReuniao', $data);
           } else {

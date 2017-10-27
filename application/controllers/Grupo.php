@@ -18,7 +18,7 @@ class Grupo extends CI_Controller{
           $data['id'] = $user;
           $data['grupo'] = $grupo[0];
           $data['admin'] = $this->grupos_model->isAdmin($data['session']['id_usuario'], $idgrupo);
-          $data['projetos'] = $this->grupos_model->listProjects($idgrupo);
+          $data['projetos'] = $this->grupos_model->listProjects($idgrupo, $data['session']['id_usuario']);
           $data['reunioes'] = $this->reuniao_model->listar($idgrupo);
           $this->load->view('grupo/home', $data);
         } else {
@@ -98,7 +98,7 @@ class Grupo extends CI_Controller{
   public function delete(){
     $idgrupo = $this->input->post('idgrupo');
 
-    $projetos = $this->grupos_model->listProjects($idgrupo);
+    $projetos = $this->grupos_model->listProjects($idgrupo, false);
     if($projetos && !empty($projetos)){
       foreach($projetos as $projeto){
         echo $projeto['id_projeto'];
@@ -118,7 +118,7 @@ class Grupo extends CI_Controller{
             $data['id'] = $user;
             $data['grupo'] = $grupo[0];
             $data['admin'] = 1;
-            $data['projetos'] = $this->grupos_model->listProjects($idgrupo);
+            $data['projetos'] = $this->grupos_model->listProjects($idgrupo, $data['session']['id_usuario']);
             $this->load->view('grupo/reuniao', $data);
           } else {
             redirect("$user/grupo/$idgrupo", 'refresh');

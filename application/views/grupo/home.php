@@ -91,6 +91,10 @@ echo '<script>
 <h3><b>Projetos</b></h3><li class="divider"></li><br>
 <?php
   if($projetos){
+    foreach($projetos as $i => $p){
+      if(!$p['leitura'])
+        unset($projetos[$i]);
+    }
     foreach($projetos as $proj){
       $idg = $grupo['id_grupo'];
       $projnome = $proj['nome'];
