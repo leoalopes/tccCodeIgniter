@@ -209,7 +209,7 @@ Class Grupos_model extends CI_Model{
       return $grupos;
     }
 
-    public function listProjects($idgrupo){
+    public function listProjects($idgrupo, $idu){
       $this->db->select('*');
       $this->db->from('projeto_grupo');
       $this->db->where('id_grupo', $idgrupo);
@@ -222,7 +222,22 @@ Class Grupos_model extends CI_Model{
         $this->db->from('projeto');
         $this->db->where('id_projeto', $row['id_projeto']);
         $query = $this->db->get();
-        $projetos[$i] = $query->result_array()[0];
+        $projetos[$i] = $query->row_array();
+        $this->db->select('escrita, leitura');
+        $this->db->from('permissoes_projeto');
+        $this->db->where('id_projeto', $projetos[$i]['id_projeto']);
+        $this->db->where('id_usuario', $idu);
+        $query = $this->db->get();
+        $permissoes = $query->row_array();
+        if($idu){
+          if(empty($query->row_array())){
+            $projetos[$i]['leitura'] = true;
+            $projetos[$i]['escrita'] = true;
+          } else {
+            $projetos[$i]['leitura'] = $permissoes['leitura'];
+            $projetos[$i]['escrita'] = $permissoes['escrita'];
+          }
+        }
         $i++;
       }
       return $projetos;
